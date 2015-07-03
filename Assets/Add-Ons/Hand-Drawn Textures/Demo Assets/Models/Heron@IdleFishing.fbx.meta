@@ -1,0 +1,172 @@
+fileFormatVersion: 2
+guid: 413d4aa2c4cf75c4dafb51b6f7d4cd9f
+timeCreated: 1425806616
+licenseType: Store
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: ankle2
+    100002: ankle3
+    100004: Beak
+    100006: foot2
+    100008: foot3
+    100010: Head
+    100012: //RootNode
+    100014: HeronMesh
+    100016: knee2
+    100018: knee3
+    100020: Lhip
+    100022: MasterMover
+    100024: Neck1
+    100026: Neck2
+    100028: Neck3
+    100030: Neck4
+    100032: Rhip
+    100034: Root
+    100036: RootDummy
+    400000: ankle2
+    400002: ankle3
+    400004: Beak
+    400006: foot2
+    400008: foot3
+    400010: Head
+    400012: //RootNode
+    400014: HeronMesh
+    400016: knee2
+    400018: knee3
+    400020: Lhip
+    400022: MasterMover
+    400024: Neck1
+    400026: Neck2
+    400028: Neck3
+    400030: Neck4
+    400032: Rhip
+    400034: Root
+    400036: RootDummy
+    4300000: HeronMesh
+    7400000: IdleFishing
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: HeronMesh
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: IdleFishing
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 270
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: HeronMesh
+        weight: 1
+      - path: MasterMover
+        weight: 1
+      - path: MasterMover/RootDummy
+        weight: 1
+      - path: MasterMover/RootDummy/Root
+        weight: 1
+      - path: MasterMover/RootDummy/Root/Lhip
+        weight: 1
+      - path: MasterMover/RootDummy/Root/Lhip/knee2
+        weight: 1
+      - path: MasterMover/RootDummy/Root/Lhip/knee2/ankle2
+        weight: 1
+      - path: MasterMover/RootDummy/Root/Lhip/knee2/ankle2/foot2
+        weight: 1
+      - path: MasterMover/RootDummy/Root/Neck1
+        weight: 1
+      - path: MasterMover/RootDummy/Root/Neck1/Neck2
+        weight: 1
+      - path: MasterMover/RootDummy/Root/Neck1/Neck2/Neck3
+        weight: 1
+      - path: MasterMover/RootDummy/Root/Neck1/Neck2/Neck3/Neck4
+        weight: 1
+      - path: MasterMover/RootDummy/Root/Neck1/Neck2/Neck3/Neck4/Head
+        weight: 1
+      - path: MasterMover/RootDummy/Root/Neck1/Neck2/Neck3/Neck4/Head/Beak
+        weight: 1
+      - path: MasterMover/RootDummy/Root/Rhip
+        weight: 1
+      - path: MasterMover/RootDummy/Root/Rhip/knee3
+        weight: 1
+      - path: MasterMover/RootDummy/Root/Rhip/knee3/ankle3
+        weight: 1
+      - path: MasterMover/RootDummy/Root/Rhip/knee3/ankle3/foot3
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 100
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
