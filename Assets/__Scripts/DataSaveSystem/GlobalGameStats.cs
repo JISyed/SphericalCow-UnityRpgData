@@ -12,7 +12,7 @@ namespace SphericalCow
 		// Data
 		//
 
-		private static GlobalGameStats instance;	// Singleton
+		[System.NonSerialized] private static GlobalGameStats instance;	// Singleton
 
 		private int strength;
 		private int agility;
