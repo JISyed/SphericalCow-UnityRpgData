@@ -20,8 +20,8 @@ namespace UnityStandardAssets.Utility
 		[SerializeField]
 		private float heightDamping;
 
-		bool OnePlayer;
-		bool TwoPlayer;
+		bool OnePlayer = false;
+		bool TwoPlayer = false;
 		bool ThreePlayer;
 		bool FourPlayer;
 

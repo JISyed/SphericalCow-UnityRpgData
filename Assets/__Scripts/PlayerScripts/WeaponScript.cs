@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class WeaponScript : MonoBehaviour {
-
+public class WeaponScript : MonoBehaviour 
+{
 	public weaponType weaponBeingUsed;
 
 	Renderer rend;
@@ -40,6 +40,7 @@ public class WeaponScript : MonoBehaviour {
 	{
 
 	}
+
 	void Update()
 	{
 		if(Input.GetKey(KeyCode.Alpha1))
@@ -97,9 +98,27 @@ public class WeaponScript : MonoBehaviour {
 			break;
 
 		}
-
 	}
-}
+
+	// These properties were written to remove
+	// some warnings about unused variables
+	public int DamageMax
+	{
+		get
+		{
+			return this.DmgMax;
+		}
+	}
+
+	public float Range
+	{
+		get
+		{
+			return this.range;
+		}
+	}
+
+} // End WeaponScript
 
 public enum weaponType
 {
