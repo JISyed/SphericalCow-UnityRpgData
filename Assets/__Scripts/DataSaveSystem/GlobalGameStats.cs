@@ -32,7 +32,13 @@ namespace SphericalCow
 		/// </summary>
 		private GlobalGameStats()
 		{
-			// Intentionally blank, for now
+			// TEMPORARY
+			this.strength = 9;
+			this.agility = 3;
+			this.willpower = 6;
+			this.perception = 5;
+			this.luck = 1;
+			this.RecalculateHealth();
 		}
 
 		/// <summary>
