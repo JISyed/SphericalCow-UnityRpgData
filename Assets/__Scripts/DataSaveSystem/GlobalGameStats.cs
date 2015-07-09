@@ -6,17 +6,19 @@ namespace SphericalCow
 	/// 	This is a saveable data container holding the base stats of the RPG system
 	/// </summary>
 	[System.Serializable]
-	public class GlobalGameStats
+	public sealed class GlobalGameStats
 	{
 		//
 		// Data
 		//
 
-		[SerializeField] private int strength;
-		[SerializeField] private int agility;
-		[SerializeField] private int willpower;
-		[SerializeField] private int perception;
-		[SerializeField] private int luck;
+		private static GlobalGameStats instance;	// Singleton
+
+		private int strength;
+		private int agility;
+		private int willpower;
+		private int perception;
+		private int luck;
 		private int health;
 
 
@@ -26,8 +28,9 @@ namespace SphericalCow
 
 		/// <summary>
 		/// 	Initializes a new instance of the <see cref="GlobalGameStats"/> class.
+		/// 	It's private because its a singleton
 		/// </summary>
-		public GlobalGameStats()
+		private GlobalGameStats()
 		{
 			// Intentionally blank, for now
 		}
@@ -122,6 +125,22 @@ namespace SphericalCow
 		//
 		// Properties
 		//
+
+		/// <summary>
+		/// 	Get the singleton instance
+		/// </summary>
+		public GlobalGameStats Instance
+		{
+			get
+			{
+				if(GlobalGameStats.instance == null)
+				{
+					GlobalGameStats.instance = new GlobalGameStats();
+				}
+
+				return GlobalGameStats.instance;
+			}
+		}
 
 		/// <summary>
 		/// 	Dictates the amount the player can lift, 
