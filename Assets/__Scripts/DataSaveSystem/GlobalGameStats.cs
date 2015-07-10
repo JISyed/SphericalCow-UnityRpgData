@@ -32,14 +32,26 @@ namespace SphericalCow
 		/// </summary>
 		private GlobalGameStats()
 		{
-			// TEMPORARY
-			this.strength = 9;
-			this.agility = 3;
-			this.willpower = 6;
-			this.perception = 5;
-			this.luck = 1;
-			this.RecalculateHealth();
+			// Intentionally empty
 		}
+
+
+		/// <summary>
+		/// 	Saves the current stats to file
+		/// </summary>
+		public void Save()
+		{
+			BinarySerializer.Save<GlobalGameStats>(this);
+		}
+
+		/// <summary>
+		/// 	Loads stats from a file called GlobalGameStats.scdata
+		/// </summary>
+		public void Load()
+		{
+			GlobalGameStats.instance = BinarySerializer.Load<GlobalGameStats>();
+		}
+
 
 		/// <summary>
 		/// 	This methods gets called when <c>strength</c>, 
@@ -50,6 +62,33 @@ namespace SphericalCow
 		{
 			this.health = (this.strength + this.agility + this.willpower) / 3;
 		}
+
+
+		/*/// <summary>
+		/// 	For testing purposes only!!
+		/// </summary>
+		public void TEST_Clear_Values()
+		{
+			this.strength = 0;
+			this.agility = 0;
+			this.willpower = 0;
+			this.perception = 0;
+			this.luck = 0;
+			this.RecalculateHealth();
+		}
+
+		/// <summary>
+		/// 	For testing purposes only!!
+		/// </summary>
+		public void TEST_Random_Values()
+		{
+			this.strength = Random.Range(0, 11);
+			this.agility = Random.Range(0, 11);
+			this.willpower = Random.Range(0, 11);
+			this.perception = Random.Range(0, 11);
+			this.luck = Random.Range(0, 11);
+			this.RecalculateHealth();
+		}*/
 
 
 		//
@@ -135,7 +174,7 @@ namespace SphericalCow
 		/// <summary>
 		/// 	Get the singleton instance
 		/// </summary>
-		public GlobalGameStats Instance
+		public static GlobalGameStats Instance
 		{
 			get
 			{

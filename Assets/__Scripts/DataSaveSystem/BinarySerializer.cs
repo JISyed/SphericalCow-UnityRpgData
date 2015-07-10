@@ -26,6 +26,11 @@ namespace SphericalCow
 		// Methods
 		//
 
+		/// <summary>
+		/// 	Save the given object to a file named after itself in Unty's persistent data path
+		/// </summary>
+		/// <param name="objToBeSaved">Object to be saved.</param>
+		/// <typeparam name="T">Must be serializable</typeparam>
 		public static void Save<T>(T objToBeSaved)
 		{
 			BinaryFormatter bf = new BinaryFormatter();
@@ -35,6 +40,10 @@ namespace SphericalCow
 			file.Close();
 		}
 
+		/// <summary>
+		/// 	Load an object back into memory from Unity's persistent data path
+		/// </summary>
+		/// <typeparam name="T">Must be serializable</typeparam>
 		public static T Load<T>()
 		{
 			if(File.Exists( GetFullDataPath<T>() ))
@@ -51,7 +60,7 @@ namespace SphericalCow
 			return default(T);
 		}
 
-		private static string GetFullDataPath<T>()
+		public static string GetFullDataPath<T>()
 		{
 			return Application.persistentDataPath + "/" + typeof(T).GetType().ToString() + "." + EXTENSION;
 		}
