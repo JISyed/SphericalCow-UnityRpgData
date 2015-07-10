@@ -64,33 +64,6 @@ namespace SphericalCow
 		}
 
 
-		/*/// <summary>
-		/// 	For testing purposes only!!
-		/// </summary>
-		public void TEST_Clear_Values()
-		{
-			this.strength = 0;
-			this.agility = 0;
-			this.willpower = 0;
-			this.perception = 0;
-			this.luck = 0;
-			this.RecalculateHealth();
-		}
-
-		/// <summary>
-		/// 	For testing purposes only!!
-		/// </summary>
-		public void TEST_Random_Values()
-		{
-			this.strength = Random.Range(0, 11);
-			this.agility = Random.Range(0, 11);
-			this.willpower = Random.Range(0, 11);
-			this.perception = Random.Range(0, 11);
-			this.luck = Random.Range(0, 11);
-			this.RecalculateHealth();
-		}*/
-
-
 		//
 		// Setters
 		//

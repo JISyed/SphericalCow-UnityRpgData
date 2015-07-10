@@ -56,13 +56,15 @@ namespace SphericalCow
 				return loadedData;
 			}
 
-			Debug.LogWarning("BinarySerializer: Trying to load a file that doesn't exist. Returning null.");
+			Debug.LogWarning("BinarySerializer: Trying to load a file that doesn't exist: \"" 
+			                 + GetFullDataPath<T>() 
+			                 + "\" Returning null.");
 			return default(T);
 		}
 
 		public static string GetFullDataPath<T>()
 		{
-			return Application.persistentDataPath + "/" + typeof(T).GetType().ToString() + "." + EXTENSION;
+			return Application.persistentDataPath + "/" + typeof(T).Name + "." + EXTENSION;
 		}
 
 	}	// end BinarySerializer

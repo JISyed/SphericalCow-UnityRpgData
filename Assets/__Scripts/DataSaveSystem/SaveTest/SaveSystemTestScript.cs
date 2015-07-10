@@ -52,7 +52,6 @@ namespace SphericalCow
 				GlobalGameStats.Instance.SetPerception(0);
 				GlobalGameStats.Instance.SetLuck(0);
 				this.UpdateUiDataDisplay();
-				Debug.Log("CLEAR");
 			}
 
 			/// <summary>
@@ -66,7 +65,6 @@ namespace SphericalCow
 				GlobalGameStats.Instance.SetPerception(Random.Range(0, 11));
 				GlobalGameStats.Instance.SetLuck(Random.Range(0, 11));
 				this.UpdateUiDataDisplay();
-				Debug.Log("RANDOM");
 			}
 
 			/// <summary>
@@ -76,7 +74,6 @@ namespace SphericalCow
 			{
 				GlobalGameStats.Instance.Save();
 				this.UpdateUiDataDisplay();
-				Debug.Log("SAVE");
 			}
 
 			/// <summary>
@@ -86,7 +83,6 @@ namespace SphericalCow
 			{
 				GlobalGameStats.Instance.Load();
 				this.UpdateUiDataDisplay();
-				Debug.Log("LOAD");
 			}
 		}
 	}
