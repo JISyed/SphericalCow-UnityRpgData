@@ -33,9 +33,11 @@ namespace SphericalCow
 		/// <typeparam name="T">Must be serializable</typeparam>
 		public static void Save<T>(T objToBeSaved)
 		{
-			BinaryFormatter bf = new BinaryFormatter();
+			// Creating a file will make a new one if one doesn't exist,
+			// or it will overwrite if the file already exists
 			FileStream file = File.Create(GetFullDataPath<T>());
 
+			BinaryFormatter bf = new BinaryFormatter();
 			bf.Serialize(file, objToBeSaved);
 			file.Close();
 		}
@@ -59,6 +61,8 @@ namespace SphericalCow
 			Debug.LogWarning("BinarySerializer: Trying to load a file that doesn't exist: \"" 
 			                 + GetFullDataPath<T>() 
 			                 + "\" Returning null.");
+
+			// Default returns 0 for value-types and null for reference-types
 			return default(T);
 		}
 
