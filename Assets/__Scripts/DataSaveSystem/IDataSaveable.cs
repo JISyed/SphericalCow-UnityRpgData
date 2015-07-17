@@ -1,12 +1,29 @@
-﻿
+﻿using UnityEngine;
+using System;
+
 namespace SphericalCow
 {
 	/// <summary>
 	/// 	Defines any class that can be saved to file.
 	/// 	Works with BinarySerializer
 	/// </summary>
+	[Serializable]
 	public abstract class IDataSaveable
 	{
+		/// <summary>
+		/// 	Constructor
+		/// </summary>
+		public IDataSaveable()
+		{
+			// Make sure that any child class of IDataSaveable has the [Serializable] attribute!
+			Type t = GetType();
+			if(t.IsDefined(typeof(SerializableAttribute), false) == false)
+			{
+				Debug.LogError("An instance of IDataSavable doesn't have the [Serializable] attribute!");
+				Debug.LogException(new InvalidOperationException());
+			}
+		}
+
 		/// <summary>
 		/// 	Gets called before the object is saved into a file
 		/// </summary>
@@ -23,6 +40,10 @@ namespace SphericalCow
 		/// </summary>
 		public void Save()
 		{
+			// Call the pre-save procedure
+			this.OnBeforeSave();
+
+			// Save this object to file
 
 		}
 
@@ -31,7 +52,11 @@ namespace SphericalCow
 		/// </summary>
 		public void Load()
 		{
+			// Load this object from file
 
+
+			// Call the post-load procedure
+			//this.OnAfterLoad(...);
 		}
 
 
