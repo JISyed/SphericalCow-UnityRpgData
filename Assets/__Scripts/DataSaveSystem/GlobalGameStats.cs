@@ -49,6 +49,7 @@ namespace SphericalCow
 		/// </summary>
 		public void Load()
 		{
+			GlobalGameStats.instance = null;
 			GlobalGameStats.instance = BinarySerializer.Load<GlobalGameStats>();
 		}
 
