@@ -5,7 +5,8 @@ namespace SphericalCow
 {
 	/// <summary>
 	/// 	Defines any class that can be saved to file.
-	/// 	Works with BinarySerializer
+	/// 	Anyone who inherits this must declare the class like: 
+	///		public class ExampleDataClass : IDataSaveable<ExampleDataClass>
 	/// </summary>
 	[Serializable]
 	public abstract class IDataSaveable<T> where T : IDataSaveable<T>
@@ -19,11 +20,10 @@ namespace SphericalCow
 			Type t = GetType();
 			if(t.IsDefined(typeof(SerializableAttribute), false) == false)
 			{
-				Debug.LogError("An instance of IDataSavable doesn't have the [Serializable] attribute!");
-				Debug.LogException(new InvalidOperationException());
+				Debug.LogException(new Exception("An instance of IDataSavable doesn't have the [Serializable] attribute!"));
 			}
 		}
-
+		
 		/// <summary>
 		/// 	Gets called before the object is saved into a file
 		/// </summary>
@@ -33,8 +33,8 @@ namespace SphericalCow
 		/// 	Gets called right after an object is loaded from file
 		/// </summary>
 		/// <param name="loadedData">The ojbect that was just loaded from file</param>
-		protected abstract void OnAfterLoad(IDataSaveable<T> loadedData);
-
+		protected abstract void OnAfterLoad(T loadedData);
+		
 		/// <summary>
 		/// 	Saves the current object's state into a file named after itself
 		/// </summary>
@@ -46,7 +46,7 @@ namespace SphericalCow
 			// Save this object to file
 			BinarySerializer.Save<T>((T) this);
 		}
-
+		
 		/// <summary>
 		/// 	Loads this object from a file named after itself
 		/// </summary>
@@ -58,7 +58,7 @@ namespace SphericalCow
 			// Call the post-load procedure
 			this.OnAfterLoad(loadedDataObject);
 		}
-
-
+		
+		
 	} // end IDataSaveable
 } // end namespace SphericalCow

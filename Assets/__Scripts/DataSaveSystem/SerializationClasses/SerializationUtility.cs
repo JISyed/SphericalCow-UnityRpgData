@@ -3,6 +3,9 @@ using System.Collections;
 
 namespace SphericalCow
 {
+	/// <summary>
+	/// 	A utility class used to help serialize data used in a game
+	/// </summary>
 	public static class SerializationUtility
 	{
 		//

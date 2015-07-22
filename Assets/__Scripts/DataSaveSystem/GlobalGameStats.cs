@@ -6,7 +6,7 @@ namespace SphericalCow
 	/// 	This is a saveable data container holding the base stats of the RPG system
 	/// </summary>
 	[System.Serializable]
-	public sealed class GlobalGameStats
+	public sealed class GlobalGameStats : IDataSaveable<GlobalGameStats>
 	{
 		//
 		// Data
@@ -34,26 +34,38 @@ namespace SphericalCow
 		{
 			// Intentionally empty
 		}
-
-
+		
+		
 		/// <summary>
-		/// 	Saves the current stats to file
+		/// 	Gets called before the object is saved into a file
 		/// </summary>
-		public void Save()
+		protected override void OnBeforeSave()
 		{
-			BinarySerializer.Save<GlobalGameStats>(this);
+			// Intentionally empty
 		}
-
+		
+		
 		/// <summary>
-		/// 	Loads stats from a file called GlobalGameStats.scdata
+		/// 	Gets called right after an object is loaded from file
 		/// </summary>
-		public void Load()
+		/// <param name="loadedData">The ojbect that was just loaded from file</param>
+		protected override void OnAfterLoad(GlobalGameStats loadedData)
 		{
+			// Re-establish the singleton specific to GlobalGameStats (IDataSaveable isn't a singleton!)
 			GlobalGameStats.instance = null;
-			GlobalGameStats.instance = BinarySerializer.Load<GlobalGameStats>();
+
+			// Check if the data object actually loaded
+			if(loadedData != null)
+			{
+				GlobalGameStats.instance = loadedData;
+			}
+			else
+			{
+				GlobalGameStats.instance = new GlobalGameStats();
+			}
 		}
-
-
+		
+		
 		/// <summary>
 		/// 	This methods gets called when <c>strength</c>, 
 		/// 	<c>agility</c>, or <c>willpower</c> change. 
@@ -63,40 +75,41 @@ namespace SphericalCow
 		{
 			this.health = (this.strength + this.agility + this.willpower) / 3;
 		}
-
-
+		
+		
+		
 		//
 		// Setters
 		//
-
+		
 		public void SetStrength(int newStrengthValue)
 		{
 			this.strength = newStrengthValue;
 			this.RecalculateHealth();
 		}
-
+		
 		public void SetAgility(int newAgilityValue)
 		{
 			this.agility = newAgilityValue;
 			this.RecalculateHealth();
 		}
-
+		
 		public void SetWillpower(int newWillpowerValue)
 		{
 			this.willpower = newWillpowerValue;
 			this.RecalculateHealth();
 		}
-
+		
 		public void SetPerception(int newPerceptionValue)
 		{
 			this.perception = newPerceptionValue;
 		}
-
+		
 		public void SetLuck(int newLuckValue)
 		{
 			this.luck = newLuckValue;
 		}
-
+		
 		/// <summary>
 		/// 	If incrementAmount is negative, it will decrement from the stat.
 		/// </summary>
@@ -105,7 +118,7 @@ namespace SphericalCow
 			this.strength += incrementAmount;
 			this.RecalculateHealth();
 		}
-
+		
 		/// <summary>
 		/// 	If incrementAmount is negative, it will decrement from the stat.
 		/// </summary>
@@ -114,7 +127,7 @@ namespace SphericalCow
 			this.agility += incrementAmount;
 			this.RecalculateHealth();
 		}
-
+		
 		/// <summary>
 		/// 	If incrementAmount is negative, it will decrement from the stat.
 		/// </summary>
@@ -123,7 +136,7 @@ namespace SphericalCow
 			this.willpower += incrementAmount;
 			this.RecalculateHealth();
 		}
-
+		
 		/// <summary>
 		/// 	If incrementAmount is negative, it will decrement from the stat.
 		/// </summary>
@@ -131,7 +144,7 @@ namespace SphericalCow
 		{
 			this.perception += incrementAmount;
 		}
-
+		
 		/// <summary>
 		/// 	If incrementAmount is negative, it will decrement from the stat.
 		/// </summary>
@@ -139,12 +152,12 @@ namespace SphericalCow
 		{
 			this.luck += incrementAmonut;
 		}
-
-
+		
+		
 		//
 		// Properties
 		//
-
+		
 		/// <summary>
 		/// 	Get the singleton instance
 		/// </summary>
@@ -160,7 +173,7 @@ namespace SphericalCow
 				return GlobalGameStats.instance;
 			}
 		}
-
+		
 		/// <summary>
 		/// 	Dictates the amount the player can lift, 
 		/// 	the damage they can do, and general virality.
@@ -172,7 +185,7 @@ namespace SphericalCow
 				return this.strength;
 			}
 		}
-
+		
 		/// <summary>
 		/// 	How quickly the player can move, stealth, 
 		/// 	and chance of hit with melee weapons, and general vitality.
@@ -184,7 +197,7 @@ namespace SphericalCow
 				return this.agility;
 			}
 		}
-
+		
 		/// <summary>
 		/// 	Determines how well they deflect manipulation, 
 		/// 	how well they manipulate, as well as how powerful their spells are.
@@ -196,7 +209,7 @@ namespace SphericalCow
 				return this.willpower;
 			}
 		}
-
+		
 		/// <summary>
 		/// 	How aware they are of the world around them, 
 		/// 	as well as accuracy with ranged weapons.
@@ -208,7 +221,7 @@ namespace SphericalCow
 				return this.perception;
 			}
 		}
-
+		
 		/// <summary>
 		/// 	The higher, the better
 		/// </summary>
@@ -219,7 +232,7 @@ namespace SphericalCow
 				return this.luck;
 			}
 		}
-
+		
 		/// <summary>
 		/// 	This is based upon strength, agility, and willpower. Not set-able.
 		/// </summary>]
