@@ -8,7 +8,7 @@ namespace SphericalCow
 	/// 	Works with BinarySerializer
 	/// </summary>
 	[Serializable]
-	public abstract class IDataSaveable
+	public abstract class IDataSaveable<T> where T : IDataSaveable<T>
 	{
 		/// <summary>
 		/// 	Constructor
@@ -33,7 +33,7 @@ namespace SphericalCow
 		/// 	Gets called right after an object is loaded from file
 		/// </summary>
 		/// <param name="loadedData">The ojbect that was just loaded from file</param>
-		protected abstract void OnAfterLoad(IDataSaveable loadedData);
+		protected abstract void OnAfterLoad(IDataSaveable<T> loadedData);
 
 		/// <summary>
 		/// 	Saves the current object's state into a file named after itself
@@ -44,7 +44,7 @@ namespace SphericalCow
 			this.OnBeforeSave();
 
 			// Save this object to file
-
+			BinarySerializer.Save<T>((T) this);
 		}
 
 		/// <summary>

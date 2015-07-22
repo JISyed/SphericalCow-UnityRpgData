@@ -12,17 +12,6 @@ namespace SphericalCow
 	public static class BinarySerializer
 	{
 		//
-		// Static Data
-		//
-
-		/// <summary>
-		/// 	The file extension for anything saved with this serializer.
-		/// 	Does NOT include the dot in the beginning.
-		/// </summary>
-		private const string EXTENSION = "scdata";
-
-
-		//
 		// Methods
 		//
 
@@ -68,7 +57,7 @@ namespace SphericalCow
 
 		public static string GetFullDataPath<T>()
 		{
-			return Application.persistentDataPath + "/" + typeof(T).Name + "." + EXTENSION;
+			return Application.persistentDataPath + "/" + typeof(T).Name + "." + SerializationUtility.EXTENSION;
 		}
 
 	}	// end BinarySerializer
