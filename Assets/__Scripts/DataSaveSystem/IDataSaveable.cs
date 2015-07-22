@@ -53,13 +53,12 @@ namespace SphericalCow
 		public void Load()
 		{
 			// Load this object from file
-
+			T loadedDataObject = BinarySerializer.Load<T>();
 
 			// Call the post-load procedure
-			//this.OnAfterLoad(...);
+			this.OnAfterLoad(loadedDataObject);
 		}
 
 
-
-	}
-}
+	} // end IDataSaveable
+} // end namespace SphericalCow
