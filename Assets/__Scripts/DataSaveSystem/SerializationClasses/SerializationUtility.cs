@@ -13,7 +13,7 @@ namespace SphericalCow
 		//
 		
 		/// <summary>
-		/// 	The file extension for anything saved with this serializer.
+		/// 	The file extension for anything saved with binary serialization for this project.
 		/// 	Does NOT include the dot in the beginning.
 		/// </summary>
 		public const string EXTENSION = "scdata";

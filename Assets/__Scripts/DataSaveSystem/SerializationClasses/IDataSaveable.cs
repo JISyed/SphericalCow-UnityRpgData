@@ -32,7 +32,7 @@ namespace SphericalCow
 		/// <summary>
 		/// 	Gets called right after an object is loaded from file
 		/// </summary>
-		/// <param name="loadedData">The ojbect that was just loaded from file</param>
+		/// <param name="loadedData">The object that was just loaded from file</param>
 		protected abstract void OnAfterLoad(T loadedData);
 		
 		/// <summary>
