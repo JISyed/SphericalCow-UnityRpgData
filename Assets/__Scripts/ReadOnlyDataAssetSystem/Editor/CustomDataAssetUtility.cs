@@ -11,6 +11,10 @@ using Path = System.IO.Path;
 
 namespace SphericalCow
 {
+	/// <summary>
+	/// 	Editor-only class used to create read-only data assets in the Unity project.
+	/// 	Cannot be invoked in final game code!
+	/// </summary>
 	public static class CustomDataAssetUtility 
 	{
 		// Creates a Unity .asset file in your project
