@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SphericalCow
+namespace SphericalCow.Old
 {
 	/// <summary>
 	/// 	Metadata of a skill that can only be set by the developer and not by the game itself

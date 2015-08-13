@@ -15,7 +15,7 @@ namespace SphericalCow
 		[MenuItem("Assets/Create/SphericalCow/SkillMetadata")]
 		public static void CreateDataAsset()
 		{
-			CustomDataAssetUtility.CreateDataAsset<SkillMetadata>();
+			CustomDataAssetUtility.CreateDataAsset<Old.SkillMetadata>();
 		}
 	}
 }

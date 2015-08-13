@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SphericalCow
+namespace SphericalCow.Old
 {
 	/// <summary>
 	/// 	Represents an individual skill the the player might have

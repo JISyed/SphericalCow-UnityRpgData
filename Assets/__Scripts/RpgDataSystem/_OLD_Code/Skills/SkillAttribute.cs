@@ -1,4 +1,4 @@
-﻿namespace SphericalCow
+﻿namespace SphericalCow.Old
 {
 	/// <summary>
 	/// 	The controlling attribute of a skill, based off basic stats
