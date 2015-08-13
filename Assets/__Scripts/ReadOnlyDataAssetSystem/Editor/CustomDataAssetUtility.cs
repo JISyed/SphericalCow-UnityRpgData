@@ -1,13 +1,10 @@
-﻿// Written by Jacob Pennock
-// www.jacobpennock.com/Blog/?page_id=715
+﻿// Based off code from Unity3D Wiki
+// http://wiki.unity3d.com/index.php/CreateScriptableObjectAsset2
 
 // Modified and annotated by Jibran Syed
 
+using ProjectWindowUtil = UnityEditor.ProjectWindowUtil;
 using ScriptableObject = UnityEngine.ScriptableObject;
-using EditorUtility = UnityEditor.EditorUtility;
-using AssetDatabase = UnityEditor.AssetDatabase;
-using Selection = UnityEditor.Selection;
-using Path = System.IO.Path;
 
 namespace SphericalCow
 {
@@ -24,29 +21,9 @@ namespace SphericalCow
 			// Create a new data asset instance that is child of ScriptableObject
 			T newAsset = ScriptableObject.CreateInstance<T>();
 			
-			// Retrieve the path of the current selection in the Unity Project view
-			string assetPath = AssetDatabase.GetAssetPath(Selection.activeObject);
-			if(assetPath.Equals("") == true)
-			{
-				assetPath = "Assets";
-			}
-			else if(Path.GetExtension(assetPath).Equals("") == false)
-			{
-				string filename = Path.GetFileName(assetPath);
-				assetPath = assetPath.Replace(filename , "");
-			}
-			
-			// Determine the actual path to put the new asset
-			string assetFilename = "/New " + typeof(T).ToString() + ".asset";
-			string newAssetFullPath = AssetDatabase.GenerateUniqueAssetPath(assetPath + assetFilename);
-			
-			// Create a new data asset into a file on the chosen path
-			AssetDatabase.CreateAsset(newAsset, newAssetFullPath);
-			
-			// Save and Focus
-			AssetDatabase.SaveAssets();
-			EditorUtility.FocusProjectWindow();
-			Selection.activeObject = newAsset;
+			// Create a new file in the Project View on where ever the last selection was
+			// and automagically offer the ability to rename the file!
+			ProjectWindowUtil.CreateAsset(newAsset, typeof(T).Name + ".asset");
 		}
 		
 	}
