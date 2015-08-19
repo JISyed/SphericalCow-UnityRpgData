@@ -29,5 +29,15 @@ namespace SphericalCow
 			CustomDataAssetUtility.CreateDataAsset<SecondaryStat>();
 		}
 		
+		/// <summary>
+		/// 	Creates a new asset file containing a new instance of SkillStat.
+		/// 	Makes this method accessible from the Unity menu.
+		/// </summary>
+		[MenuItem("Assets/Create/SphericalCow/RPG Data System/Skill Stat")]
+		public static void CreateSkillStatDataAsset()
+		{
+			CustomDataAssetUtility.CreateDataAsset<SkillStat>();
+		}
+		
 	}
 }
