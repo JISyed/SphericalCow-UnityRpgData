@@ -10,7 +10,7 @@ namespace SphericalCow
 	public static class StatAssetUtility
 	{
 		/// <summary>
-		/// 	Creates a new asset file containing a new instance of SkillMetadata.
+		/// 	Creates a new asset file containing a new instance of BasicStat.
 		/// 	Makes this method accessible from the Unity menu.
 		/// </summary>
 		[MenuItem("Assets/Create/SphericalCow/RPG Data System/Basic Stat")]
@@ -18,5 +18,16 @@ namespace SphericalCow
 		{
 			CustomDataAssetUtility.CreateDataAsset<BasicStat>();
 		}
+		
+		/// <summary>
+		/// 	Creates a new asset file containing a new instance of SecondaryStat.
+		/// 	Makes this method accessible from the Unity menu.
+		/// </summary>
+		[MenuItem("Assets/Create/SphericalCow/RPG Data System/Secondary Stat")]
+		public static void CreateSecondaryStatDataAsset()
+		{
+			CustomDataAssetUtility.CreateDataAsset<SecondaryStat>();
+		}
+		
 	}
 }
