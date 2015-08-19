@@ -9,7 +9,7 @@ namespace SphericalCow
 		//
 		
 		[SerializeField] private string statName;
-		[SerializeField] private string description;
+		[TextArea(3,12)] [SerializeField] private string description;
 		[SerializeField] private Texture icon;
 		//[SerializeField] private ProgressionType progressionVariable;	// CONSIDER INSTANCING
 		[SerializeField] private AssignmentType xpAssignmentType;
