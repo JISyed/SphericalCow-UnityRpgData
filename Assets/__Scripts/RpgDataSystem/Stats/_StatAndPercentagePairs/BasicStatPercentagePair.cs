@@ -2,9 +2,27 @@
 
 namespace SphericalCow
 {
+	[System.Serializable]
 	public class BasicStatPercentagePair 
 	{
-		[SerializeField] public BasicStat stat;
-		[SerializeField] public int percentage;
+		[SerializeField] private BasicStat stat;
+		[SerializeField] private int percentage;
+		
+		public BasicStat Stat
+		{
+			get
+			{
+				return this.stat;
+			}
+		}
+		
+		public int Percentage
+		{
+			get
+			{
+				return this.percentage;
+			}
+		}
+		
 	}
 }
