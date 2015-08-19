@@ -6,7 +6,7 @@ namespace SphericalCow
 	public class AbstractStatPercentagePair
 	{
 		[SerializeField] private AbstractStat stat;
-		[SerializeField] private int percentage;
+		[Range(0,100)] [SerializeField] private int percentage;
 		
 		public AbstractStat Stat
 		{
