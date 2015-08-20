@@ -5,6 +5,9 @@ namespace SphericalCow
 {
 	namespace Testing
 	{
+		/// <summary>
+		/// 	Only to test serialization of binary data
+		/// </summary>
 		public class SaveSystemTestScript : MonoBehaviour 
 		{
 			[SerializeField] private UI.Text strengthNumText;
