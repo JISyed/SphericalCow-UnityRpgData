@@ -11,7 +11,7 @@ namespace SphericalCow
 		
 		private string statName;
 		private ProgressionType progressionVariable;
-		private int localXpPool;		// Total accululated XP for Use-Assigned progression
+		private int localXpPool;		// Total accumulated XP for Use-Assigned progression
 		private int nextLevelXp;		// The total amount of local XP needed to level up
 		
 		

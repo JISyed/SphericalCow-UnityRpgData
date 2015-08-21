@@ -26,5 +26,20 @@ namespace SphericalCow
 			ProjectWindowUtil.CreateAsset(newAsset, typeof(T).Name + ".asset");
 		}
 		
+		// Creates a Unity .asset file in your project
+		// storing data from the child class of ScriptableObject,
+		// and return it
+		public static T CreateAndReturnDataAsset<T>() where T : ScriptableObject
+		{
+			// Create a new data asset instance that is child of ScriptableObject
+			T newAsset = ScriptableObject.CreateInstance<T>();
+			
+			// Create a new file in the Project View on where ever the last selection was
+			// and automagically offer the ability to rename the file!
+			ProjectWindowUtil.CreateAsset(newAsset, typeof(T).Name + ".asset");
+			
+			// Return it to the caller
+			return newAsset;
+		}
 	}
 }
