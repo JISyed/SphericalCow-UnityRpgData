@@ -39,5 +39,24 @@ namespace SphericalCow
 			CustomDataAssetUtility.CreateDataAsset<SkillStat>();
 		}
 		
+		
+		/// <summary>
+		///  	Searches the Unity project for the prefab that holds the only instance of StatsAndAttributesRegistry.
+		///  	Can only be used in the Unity Editor, not game!
+		/// </summary>
+		private static StatsAndAttributesRegistry FindStatRegistry()
+		{
+			string[] folders = {"Assets/__Scripts"};
+			string[] searchResults = AssetDatabase.FindAssets("StatsAndAttributesRegistryObject", folders);
+			if(searchResults == null)
+			{
+				Debug.LogError("Could not find the prefab StatsAndAttributesRegistryObject in the project! Did someone delete it?");
+			}
+			else
+			{
+				Debug.Log("Found!");
+			}
+			return null;
+		}
 	}
 }
