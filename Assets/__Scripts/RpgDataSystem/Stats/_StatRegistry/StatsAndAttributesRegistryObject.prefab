@@ -40,9 +40,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 139962}
-  everyBasicStat: []
-  everySecondaryStat: []
-  everySkillStat: []
+  everyBasicStat:
+  - {fileID: 11400000, guid: 7cc0b2800e56a4309b817716a6735d15, type: 2}
+  - {fileID: 11400000, guid: a6fbbb6e1904c4a5e8ca0f648a840556, type: 2}
+  everySecondaryStat:
+  - {fileID: 11400000, guid: 7c552a586c3e241339a608e6d1922abc, type: 2}
+  everySkillStat:
+  - {fileID: 11400000, guid: 6cb1ea9037b3f44dba8b0b94fb68fc1e, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -51,9 +55,33 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 0}
+      propertyPath: everyBasicStat.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
       propertyPath: prefab
       value: 
       objectReference: {fileID: 139962}
+    - target: {fileID: 0}
+      propertyPath: everyBasicStat.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7cc0b2800e56a4309b817716a6735d15,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: everyBasicStat.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: a6fbbb6e1904c4a5e8ca0f648a840556,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: everyBasicStat.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 2afb91e088895498ca637d8a4a546e57,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: everyBasicStat.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: e1e678fe75b1849ed8635c17d5464a7d,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 139962}

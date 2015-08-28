@@ -18,10 +18,46 @@ namespace SphericalCow
 		
 		private static StatsAndAttributesRegistry registryInstance;
 		
-		// Use this for initialization
-		void Start () 
+		// Use this for early initialization
+		void Awake () 
 		{
-			
+			if(registryInstance != null)
+			{
+				Debug.LogError("There are multiple instances of StatsAndAttirbutesRegistry(s)!");
+			}
+			else
+			{
+				registryInstance = this;
+			}
+		}
+		
+		void OnDestroy()
+		{
+			registryInstance = null;
+		}
+		
+		/// <summary>
+		/// 	Only to be called by StatAssetUtility!
+		/// </summary>
+		public void AddBasicStat(BasicStat newStat)
+		{
+			this.everyBasicStat.Add(newStat);
+		}
+		
+		/// <summary>
+		/// 	Only to be called by StatAssetUtility!
+		/// </summary>
+		public void AddSecondaryStat(SecondaryStat newStat)
+		{
+			this.everySecondaryStat.Add(newStat);
+		}
+		
+		/// <summary>
+		/// 	Only to be called by StatAssetUtility!
+		/// </summary>
+		public void AddSkillStat(SkillStat newStat)
+		{
+			this.everySkillStat.Add(newStat);
 		}
 	}
 }

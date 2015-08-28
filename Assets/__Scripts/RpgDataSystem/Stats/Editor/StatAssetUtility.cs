@@ -16,7 +16,9 @@ namespace SphericalCow
 		[MenuItem("Assets/Create/SphericalCow/RPG Data System/Basic Stat")]
 		public static void CreateBasicStatDataAsset()
 		{
-			CustomDataAssetUtility.CreateDataAsset<BasicStat>();
+			BasicStat newStat = CustomDataAssetUtility.CreateAndReturnDataAsset<BasicStat>();
+			StatsAndAttributesRegistry registry = StatAssetUtility.FindStatRegistry();
+			registry.AddBasicStat(newStat);
 		}
 		
 		/// <summary>
@@ -26,7 +28,9 @@ namespace SphericalCow
 		[MenuItem("Assets/Create/SphericalCow/RPG Data System/Secondary Stat")]
 		public static void CreateSecondaryStatDataAsset()
 		{
-			CustomDataAssetUtility.CreateDataAsset<SecondaryStat>();
+			SecondaryStat newStat = CustomDataAssetUtility.CreateAndReturnDataAsset<SecondaryStat>();
+			StatsAndAttributesRegistry registry = StatAssetUtility.FindStatRegistry();
+			registry.AddSecondaryStat(newStat);
 		}
 		
 		/// <summary>
@@ -36,7 +40,9 @@ namespace SphericalCow
 		[MenuItem("Assets/Create/SphericalCow/RPG Data System/Skill Stat")]
 		public static void CreateSkillStatDataAsset()
 		{
-			CustomDataAssetUtility.CreateDataAsset<SkillStat>();
+			SkillStat newStat = CustomDataAssetUtility.CreateAndReturnDataAsset<SkillStat>();
+			StatsAndAttributesRegistry registry = StatAssetUtility.FindStatRegistry();
+			registry.AddSkillStat(newStat);
 		}
 		
 		
@@ -46,7 +52,7 @@ namespace SphericalCow
 		/// </summary>
 		private static StatsAndAttributesRegistry FindStatRegistry()
 		{
-			string[] folders = {"Assets/__Scripts"};
+			string[] folders = {"Assets/__Scripts/RpgDataSystem"};
 			string[] searchResults = AssetDatabase.FindAssets("StatsAndAttributesRegistryObject", folders);
 			if(searchResults == null)
 			{
@@ -54,7 +60,21 @@ namespace SphericalCow
 			}
 			else
 			{
-				Debug.Log("Found!");
+				//Debug.Log("Found!");
+				
+				// Get the path of the given GUIDs
+				string path = AssetDatabase.GUIDToAssetPath(searchResults[0]);
+				//Debug.Log(path);
+				
+				// Get the GameObject from the path
+				GameObject baseObject = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+				//Debug.Log(baseObject.name);
+				
+				// Get the registry from the game object
+				StatsAndAttributesRegistry theRegistry = baseObject.GetComponent<StatsAndAttributesRegistry>();
+				//Debug.Log(theRegistry.gameObject.name);
+				
+				return theRegistry;
 			}
 			return null;
 		}
