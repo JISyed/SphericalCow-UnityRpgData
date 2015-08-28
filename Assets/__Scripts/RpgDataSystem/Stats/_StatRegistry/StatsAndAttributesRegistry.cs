@@ -59,6 +59,35 @@ namespace SphericalCow
 		{
 			this.everySkillStat.Add(newStat);
 		}
+		
+		
+		//
+		// Properties
+		//
+		
+		public List<BasicStat> EveryBasicStat
+		{
+			get
+			{
+				return this.everyBasicStat;
+			}
+		}
+		
+		public List<SecondaryStat> EverySecondaryStat
+		{
+			get
+			{
+				return this.everySecondaryStat;
+			}
+		}
+		
+		public List<SkillStat> EverySkillStat
+		{
+			get
+			{
+				return this.everySkillStat;
+			}
+		}
 	}
 }
 	
