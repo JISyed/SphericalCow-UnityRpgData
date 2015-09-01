@@ -31,6 +31,7 @@ namespace SphericalCow
 			this.registry.EveryBasicStat.RemoveAll(stat => stat == null);
 			this.registry.EverySecondaryStat.RemoveAll(stat => stat == null);
 			this.registry.EverySkillStat.RemoveAll(stat => stat == null);
+			this.registry.EveryAbility.RemoveAll(abilty => abilty == null);
 		}
 		
 	}

@@ -60,19 +60,14 @@ namespace SphericalCow
 			}
 			else
 			{
-				//Debug.Log("Found!");
-				
 				// Get the path of the given GUIDs
 				string path = AssetDatabase.GUIDToAssetPath(searchResults[0]);
-				//Debug.Log(path);
 				
 				// Get the GameObject from the path
 				GameObject baseObject = AssetDatabase.LoadAssetAtPath<GameObject>(path);
-				//Debug.Log(baseObject.name);
 				
 				// Get the registry from the game object
 				StatsAndAttributesRegistry theRegistry = baseObject.GetComponent<StatsAndAttributesRegistry>();
-				//Debug.Log(theRegistry.gameObject.name);
 				
 				return theRegistry;
 			}

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9cc23745cde34006b99b4aa0b00fdd5, type: 3}
+  m_Name: Ab_KatanaOnly
+  m_EditorClassIdentifier: 
+  abilityName: Only Katanas
+  description: You pledge to only use katanas as a weapon.
+  icon: {fileID: 0}
+  abilityModifiers:
+  - statToModify: {fileID: 11400000, guid: 6cb1ea9037b3f44dba8b0b94fb68fc1e, type: 2}
+    type: 0
+    targetValue: 5
+  - statToModify: {fileID: 11400000, guid: a6fbbb6e1904c4a5e8ca0f648a840556, type: 2}
+    type: 0
+    targetValue: 3

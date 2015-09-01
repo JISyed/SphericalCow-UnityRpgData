@@ -15,6 +15,7 @@ namespace SphericalCow
 		[SerializeField] private List<BasicStat> everyBasicStat;
 		[SerializeField] private List<SecondaryStat> everySecondaryStat;
 		[SerializeField] private List<SkillStat> everySkillStat;
+		[SerializeField] private List<Ability> everyAbility;
 		
 		private static StatsAndAttributesRegistry registryInstance;
 		
@@ -60,6 +61,13 @@ namespace SphericalCow
 			this.everySkillStat.Add(newStat);
 		}
 		
+		/// <summary>
+		/// 	Only to be called by StatAssetUtility!
+		/// </summary>
+		public void AddAbility(Ability newAbility)
+		{
+			this.everyAbility.Add(newAbility);
+		}
 		
 		//
 		// Properties
@@ -86,6 +94,14 @@ namespace SphericalCow
 			get
 			{
 				return this.everySkillStat;
+			}
+		}
+		
+		public List<Ability> EveryAbility
+		{
+			get
+			{
+				return this.everyAbility;
 			}
 		}
 	}
