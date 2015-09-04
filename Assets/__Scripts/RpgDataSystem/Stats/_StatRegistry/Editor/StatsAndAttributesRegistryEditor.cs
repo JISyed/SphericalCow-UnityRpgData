@@ -18,7 +18,7 @@ namespace SphericalCow
 		
 		public override void OnInspectorGUI()
 		{
-			if(GUILayout.Button("Remove Missing Stats"))
+			if(GUILayout.Button("Remove Missing Stats & Abilities"))
 			{
 				this.RemoveMissingStats();
 			}
