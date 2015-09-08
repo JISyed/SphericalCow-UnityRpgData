@@ -11,9 +11,7 @@ namespace SphericalCow
 		[SerializeField] private string statName;
 		[TextArea(3,12)] [SerializeField] private string description;
 		[SerializeField] private Texture icon;
-		//[SerializeField] private ProgressionType progressionVariable;	// CONSIDER INSTANCING
 		[SerializeField] private AssignmentType xpAssignmentType;
-		//[SerializeField] private int localXpPool;	// XP rewarded based on use-assignement scheme	// CONSIDER INSTANCING
 		[SerializeField] private int absoluteMaxXpLevel;	// Cannot change
 		
 		//

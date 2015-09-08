@@ -16,7 +16,9 @@ namespace SphericalCow
 		[MenuItem("Assets/Create/SphericalCow/RPG Data System/Basic Stat")]
 		public static void CreateBasicStatDataAsset()
 		{
-			CustomDataAssetUtility.CreateDataAsset<BasicStat>();
+			BasicStat newStat = CustomDataAssetUtility.CreateAndReturnDataAsset<BasicStat>();
+			StatsAndAttributesRegistry registry = StatAssetUtility.FindStatRegistry();
+			registry.AddBasicStat(newStat);
 		}
 		
 		/// <summary>
@@ -26,7 +28,9 @@ namespace SphericalCow
 		[MenuItem("Assets/Create/SphericalCow/RPG Data System/Secondary Stat")]
 		public static void CreateSecondaryStatDataAsset()
 		{
-			CustomDataAssetUtility.CreateDataAsset<SecondaryStat>();
+			SecondaryStat newStat = CustomDataAssetUtility.CreateAndReturnDataAsset<SecondaryStat>();
+			StatsAndAttributesRegistry registry = StatAssetUtility.FindStatRegistry();
+			registry.AddSecondaryStat(newStat);
 		}
 		
 		/// <summary>
@@ -36,8 +40,38 @@ namespace SphericalCow
 		[MenuItem("Assets/Create/SphericalCow/RPG Data System/Skill Stat")]
 		public static void CreateSkillStatDataAsset()
 		{
-			CustomDataAssetUtility.CreateDataAsset<SkillStat>();
+			SkillStat newStat = CustomDataAssetUtility.CreateAndReturnDataAsset<SkillStat>();
+			StatsAndAttributesRegistry registry = StatAssetUtility.FindStatRegistry();
+			registry.AddSkillStat(newStat);
 		}
 		
+		
+		/// <summary>
+		///  	Searches the Unity project for the prefab that holds the only instance of StatsAndAttributesRegistry.
+		///  	Can only be used in the Unity Editor, not game!
+		/// </summary>
+		private static StatsAndAttributesRegistry FindStatRegistry()
+		{
+			string[] folders = {"Assets/__Scripts/RpgDataSystem"};
+			string[] searchResults = AssetDatabase.FindAssets("StatsAndAttributesRegistryObject", folders);
+			if(searchResults == null)
+			{
+				Debug.LogError("Could not find the prefab StatsAndAttributesRegistryObject in the project! Did someone delete it?");
+			}
+			else
+			{
+				// Get the path of the given GUIDs
+				string path = AssetDatabase.GUIDToAssetPath(searchResults[0]);
+				
+				// Get the GameObject from the path
+				GameObject baseObject = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+				
+				// Get the registry from the game object
+				StatsAndAttributesRegistry theRegistry = baseObject.GetComponent<StatsAndAttributesRegistry>();
+				
+				return theRegistry;
+			}
+			return null;
+		}
 	}
 }
