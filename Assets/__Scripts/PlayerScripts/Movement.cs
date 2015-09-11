@@ -96,7 +96,9 @@ public class Movement : MonoBehaviour
 
 	// Sets Movement Speed
 		if(Input.GetKey(KeyCode.LeftControl))
+		{
 			curMoveSpeed = sneakSpeed;
+		}
 		else if(Input.GetKey(KeyCode.LeftShift))
 		{
 		   curMoveSpeed = runSpeed;
