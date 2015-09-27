@@ -16,8 +16,8 @@ namespace SphericalCow
 		[MenuItem("Assets/Create/SphericalCow/RPG Data System/Basic Stat")]
 		public static void CreateBasicStatDataAsset()
 		{
-			BasicStat newStat = CustomDataAssetUtility.CreateAndReturnDataAsset<BasicStat>();
 			StatsAndAttributesRegistry registry = StatAssetUtility.FindStatRegistry();
+			BasicStat newStat = CustomDataAssetUtility.CreateAndReturnDataAsset<BasicStat>();
 			registry.AddBasicStat(newStat);
 		}
 		
@@ -28,8 +28,8 @@ namespace SphericalCow
 		[MenuItem("Assets/Create/SphericalCow/RPG Data System/Secondary Stat")]
 		public static void CreateSecondaryStatDataAsset()
 		{
-			SecondaryStat newStat = CustomDataAssetUtility.CreateAndReturnDataAsset<SecondaryStat>();
 			StatsAndAttributesRegistry registry = StatAssetUtility.FindStatRegistry();
+			SecondaryStat newStat = CustomDataAssetUtility.CreateAndReturnDataAsset<SecondaryStat>();
 			registry.AddSecondaryStat(newStat);
 		}
 		
@@ -40,8 +40,8 @@ namespace SphericalCow
 		[MenuItem("Assets/Create/SphericalCow/RPG Data System/Skill Stat")]
 		public static void CreateSkillStatDataAsset()
 		{
-			SkillStat newStat = CustomDataAssetUtility.CreateAndReturnDataAsset<SkillStat>();
 			StatsAndAttributesRegistry registry = StatAssetUtility.FindStatRegistry();
+			SkillStat newStat = CustomDataAssetUtility.CreateAndReturnDataAsset<SkillStat>();
 			registry.AddSkillStat(newStat);
 		}
 		
@@ -65,10 +65,17 @@ namespace SphericalCow
 				
 				// Get the GameObject from the path
 				GameObject baseObject = AssetDatabase.LoadAssetAtPath<GameObject>(path);
-				
+				Object oldSelection = Selection.activeObject;
+				Selection.activeObject = baseObject;
+
 				// Get the registry from the game object
 				StatsAndAttributesRegistry theRegistry = baseObject.GetComponent<StatsAndAttributesRegistry>();
-				
+				if(theRegistry == null)
+				{
+					Debug.LogError("StatsAndAttributesRegistry is missing from the associated prefab!");
+				}
+
+				Selection.activeObject = oldSelection;
 				return theRegistry;
 			}
 			return null;
