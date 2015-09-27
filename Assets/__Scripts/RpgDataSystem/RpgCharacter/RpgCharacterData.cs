@@ -18,8 +18,8 @@ namespace SphericalCow
 		private List<BasicStatInstance> basicStats;
 		private List<SecondaryStatInstance> secondaryStats;
 		private List<SkillStatInstance> skillStats;
-		// TODO: List of ability instances would go here
-		
+		private List<AbilityInstance> abilities;
+
 		
 		//
 		// Methods
