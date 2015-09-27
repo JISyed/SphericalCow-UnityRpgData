@@ -24,6 +24,30 @@ namespace SphericalCow
 		//
 		// Methods
 		//
+
+
+		//
+		// Setters
+		//
+
+		public void SetCharacterName(string newCharacterName)
+		{
+			this.characterName = newCharacterName;
+		}
+
+
+		//
+		// Getters
+		//
+
+		public string CharacterName
+		{
+			get
+			{
+				return this.characterName;
+			}
+		}
+
 	}
 }
 	
