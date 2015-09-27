@@ -9,17 +9,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eba03bbecf90448bfb867c53d7becbf6, type: 3}
-  m_Name: ScSt_Health
+  m_Name: ScSt_Accuracy
   m_EditorClassIdentifier: 
-  statName: Health
-  description: This is based upon strength, agility, and willpower.
+  statName: Accuracy
+  description: Combination of Agility and Perception
   icon: {fileID: 0}
   xpAssignmentType: 0
   absoluteMaxXpLevel: 999
   baseStatDerivations:
   - stat: {fileID: 11400000, guid: a6fbbb6e1904c4a5e8ca0f648a840556, type: 2}
-    percentage: 58
-  - stat: {fileID: 11400000, guid: 7cc0b2800e56a4309b817716a6735d15, type: 2}
-    percentage: 26
-  - stat: {fileID: 11400000, guid: a53eb9ab968ba4e44bb9ef7224bd5ec1, type: 2}
-    percentage: 16
+    percentage: 50
+  - stat: {fileID: 11400000, guid: b05277da534bc481ab08eaba5de06024, type: 2}
+    percentage: 50
