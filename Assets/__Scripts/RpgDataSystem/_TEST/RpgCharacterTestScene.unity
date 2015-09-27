@@ -146,7 +146,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 4
 --- !u!1 &221405346
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,7 +175,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: Angelica
+  progressionVariable: 1
+  dataForBasicStats:
+  - {fileID: 11400000, guid: a6fbbb6e1904c4a5e8ca0f648a840556, type: 2}
+  - {fileID: 11400000, guid: b05277da534bc481ab08eaba5de06024, type: 2}
+  dataForSecondaryStats:
+  - {fileID: 11400000, guid: 7c552a586c3e241339a608e6d1922abc, type: 2}
+  - {fileID: 11400000, guid: ca596314d0a4747fab69e0544792fc50, type: 2}
+  dataForSkillStats:
+  - {fileID: 11400000, guid: 6cb1ea9037b3f44dba8b0b94fb68fc1e, type: 2}
+  - {fileID: 11400000, guid: fa934a5faa8924e54b9fe9e71f62136f, type: 2}
+  dataForAbilities:
+  - {fileID: 11400000, guid: 4dd6812405bfa401b98655aa8ab5dac9, type: 2}
+  createCharacterNow: 1
   playerNameLabel: {fileID: 2135877774}
+  progressionVariableLabel: {fileID: 577931376}
 --- !u!4 &221405348
 Transform:
   m_ObjectHideFlags: 0
@@ -187,7 +201,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
 --- !u!1 &532168324
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,7 +275,73 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 2
+--- !u!1 &577931374
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 577931375}
+  - 222: {fileID: 577931377}
+  - 114: {fileID: 577931376}
+  m_Layer: 5
+  m_Name: ProgressionVariableLabel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &577931375
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 577931374}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1280589310}
+  m_RootOrder: 2
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -114, y: -21.5}
+  m_SizeDelta: {x: 228, y: 44}
+  m_Pivot: {x: .5, y: .5}
+--- !u!114 &577931376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 577931374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: .196078435, g: .196078435, b: .196078435, a: 1}
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 22
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 2
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Progression Variable
+--- !u!222 &577931377
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 577931374}
 --- !u!1 &1280589306
 GameObject:
   m_ObjectHideFlags: 0
@@ -346,8 +426,9 @@ RectTransform:
   m_Children:
   - {fileID: 1919843173}
   - {fileID: 2135877773}
+  - {fileID: 577931375}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -437,7 +518,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
 --- !u!1 &1919843172
 GameObject:
   m_ObjectHideFlags: 0
