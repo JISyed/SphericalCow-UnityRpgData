@@ -43,10 +43,20 @@ MonoBehaviour:
   everyBasicStat:
   - {fileID: 11400000, guid: 7cc0b2800e56a4309b817716a6735d15, type: 2}
   - {fileID: 11400000, guid: a6fbbb6e1904c4a5e8ca0f648a840556, type: 2}
+  - {fileID: 11400000, guid: 37844da153f3e4f47a65a06b704010bb, type: 2}
+  - {fileID: 11400000, guid: b05277da534bc481ab08eaba5de06024, type: 2}
+  - {fileID: 11400000, guid: a53eb9ab968ba4e44bb9ef7224bd5ec1, type: 2}
   everySecondaryStat:
   - {fileID: 11400000, guid: 7c552a586c3e241339a608e6d1922abc, type: 2}
+  - {fileID: 11400000, guid: ca596314d0a4747fab69e0544792fc50, type: 2}
+  - {fileID: 11400000, guid: c9f2dfa12bef04b13a255b6dc43be50e, type: 2}
+  - {fileID: 11400000, guid: 8f5fc74098b0c4696bd8a2628f19c3e6, type: 2}
   everySkillStat:
   - {fileID: 11400000, guid: 6cb1ea9037b3f44dba8b0b94fb68fc1e, type: 2}
+  - {fileID: 11400000, guid: 1bf8fc9f583964582abe6bf5a53a0148, type: 2}
+  - {fileID: 11400000, guid: fa934a5faa8924e54b9fe9e71f62136f, type: 2}
+  everyAbility:
+  - {fileID: 11400000, guid: 4dd6812405bfa401b98655aa8ab5dac9, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -55,8 +65,20 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 0}
+      propertyPath: everyAbility.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
       propertyPath: everyBasicStat.Array.size
-      value: 2
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: everySkillStat.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: everySecondaryStat.Array.size
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: prefab
@@ -75,12 +97,47 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: everyBasicStat.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: 2afb91e088895498ca637d8a4a546e57,
+      objectReference: {fileID: 11400000, guid: 37844da153f3e4f47a65a06b704010bb,
         type: 2}
     - target: {fileID: 0}
       propertyPath: everyBasicStat.Array.data[3]
       value: 
-      objectReference: {fileID: 11400000, guid: e1e678fe75b1849ed8635c17d5464a7d,
+      objectReference: {fileID: 11400000, guid: b05277da534bc481ab08eaba5de06024,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: everyAbility.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 4dd6812405bfa401b98655aa8ab5dac9,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: everyBasicStat.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: a53eb9ab968ba4e44bb9ef7224bd5ec1,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: everySecondaryStat.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: ca596314d0a4747fab69e0544792fc50,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: everySecondaryStat.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: c9f2dfa12bef04b13a255b6dc43be50e,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: everySecondaryStat.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f5fc74098b0c4696bd8a2628f19c3e6,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: everySkillStat.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 1bf8fc9f583964582abe6bf5a53a0148,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: everySkillStat.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: fa934a5faa8924e54b9fe9e71f62136f,
         type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

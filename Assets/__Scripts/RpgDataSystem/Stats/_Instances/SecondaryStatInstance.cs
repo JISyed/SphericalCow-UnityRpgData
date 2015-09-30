@@ -25,7 +25,7 @@ namespace SphericalCow
 		
 		protected override void SetupStatReference ()
 		{
-			// TODO
+			// TODO: SetupStatReference for SecondaryStatInstance is not implemented!
 			throw new System.NotImplementedException ();
 		}
 		

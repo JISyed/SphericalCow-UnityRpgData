@@ -23,7 +23,7 @@ namespace SphericalCow
 		
 		protected override void SetupStatReference ()
 		{
-			// TODO
+			// TODO: Setup BasicStatInstance is not implemented!
 			throw new System.NotImplementedException ();
 		}
 		

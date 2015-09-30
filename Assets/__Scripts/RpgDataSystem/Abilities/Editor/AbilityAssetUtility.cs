@@ -13,8 +13,8 @@ namespace SphericalCow
 		[MenuItem("Assets/Create/SphericalCow/RPG Data System/Ability")]
 		public static void CreateAbilityDataAsset()
 		{
-			Ability newAbility = CustomDataAssetUtility.CreateAndReturnDataAsset<Ability>();
 			StatsAndAttributesRegistry registry = AbilityAssetUtility.FindStatRegistry();
+			Ability newAbility = CustomDataAssetUtility.CreateAndReturnDataAsset<Ability>();
 			registry.AddAbility(newAbility);
 		}
 		
@@ -38,10 +38,17 @@ namespace SphericalCow
 				
 				// Get the GameObject from the path
 				GameObject baseObject = AssetDatabase.LoadAssetAtPath<GameObject>(path);
-				
+				Object oldSelection = Selection.activeObject;
+				Selection.activeObject = baseObject;
+
 				// Get the registry from the game object
 				StatsAndAttributesRegistry theRegistry = baseObject.GetComponent<StatsAndAttributesRegistry>();
-				
+				if(theRegistry == null)
+				{
+					Debug.LogError("StatsAndAttributesRegistry is missing from the associated prefab!");
+				}
+
+				Selection.activeObject = oldSelection;
 				return theRegistry;
 			}
 			return null;
