@@ -11,7 +11,20 @@ namespace SphericalCow
 		
 		[System.NonSerialized] private BasicStat statReference;
 		
-		
+
+		//
+		// Constructor (Does not run on Deserialization)
+		//
+
+		public BasicStatInstance(BasicStat basicStatData)
+		{
+			this.statReference = basicStatData;
+			this.SetStatName(this.statReference.StatName);
+			this.SetLocalXpPool(0);		// Should the default XP be 0?
+			this.SetNextLevelXp(100);	// TODO: Find a way to intelligently calculate this!
+		}
+
+
 		//
 		// Methods
 		//
