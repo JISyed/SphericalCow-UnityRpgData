@@ -1,4 +1,7 @@
-﻿namespace SphericalCow.Generics
+﻿// Attributed to:
+// http://stackoverflow.com/a/166094
+
+namespace SphericalCow.Generics
 {
 	public class Pair<T1, T2> 
 	{
