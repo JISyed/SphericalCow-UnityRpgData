@@ -13,7 +13,8 @@ namespace SphericalCow
 		//private ProgressionType progressionVariable;
 		private int localXpPool;		// Total accumulated XP for Use-Assigned progression
 		private int nextLevelXp;		// The total amount of local XP needed to level up
-		
+		[System.NonSerialized] protected RpgCharacterData character;
+
 		
 		//
 		// Methods
@@ -78,6 +79,14 @@ namespace SphericalCow
 			get
 			{
 				return this.nextLevelXp;
+			}
+		}
+
+		public RpgCharacterData Character
+		{
+			get
+			{
+				return this.character;
 			}
 		}
 		

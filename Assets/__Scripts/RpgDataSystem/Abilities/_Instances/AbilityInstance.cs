@@ -9,5 +9,18 @@ namespace SphericalCow
 		private List<AbilityModifierInstance> abilityModifierInstances;
 		private string abilityName;
 		[System.NonSerialized] private Ability abilityRef;
+
+
+		//
+		// Getters
+		//
+
+		public string AbilityName
+		{
+			get
+			{
+				return this.abilityName;
+			}
+		}
 	}
 }

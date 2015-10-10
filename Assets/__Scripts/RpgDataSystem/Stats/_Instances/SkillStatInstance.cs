@@ -12,8 +12,23 @@ namespace SphericalCow
 		
 		[System.NonSerialized] private SkillStat statReference;
 		[System.NonSerialized] private List<AbstractStatInstance> derivativeStats;
-		
-		
+
+
+
+		//
+		// Constructor (Does not run on Deserialization)
+		//
+
+		public SkillStatInstance(SkillStat statData, RpgCharacterData characterData)
+		{
+			this.statReference = statData;
+			this.character = characterData;
+			this.SetStatName(this.statReference.StatName);
+			this.SetLocalXpPool(0);		// Should the default XP be 0?
+			this.SetNextLevelXp(60);	// TODO: Find a way to intelligently calculate this!
+		}
+
+
 		//
 		// Methods
 		//

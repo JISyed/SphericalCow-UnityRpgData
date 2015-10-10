@@ -40,6 +40,75 @@ namespace SphericalCow
 		}
 
 
+		//
+		// Methods
+		//
+
+		public BasicStatInstance FindBasicStatInstance(string nameOfStat)
+		{
+			BasicStatInstance inquired = null;
+			foreach(var stat in this.basicStats)
+			{
+				if(stat.StatName.Equals(nameOfStat))
+				{
+					// Found
+					inquired = stat;
+					break;
+				}
+			}
+
+			return inquired;
+		}
+
+		public SecondaryStatInstance FindSecondaryStatInstance(string nameOfStat)
+		{
+			SecondaryStatInstance inquired = null;
+			foreach(var stat in this.secondaryStats)
+			{
+				if(stat.StatName.Equals(nameOfStat))
+				{
+					// Found
+					inquired = stat;
+					break;
+				}
+			}
+			
+			return inquired;
+		}
+
+		public SkillStatInstance FindSkillStatInstance(string nameOfStat)
+		{
+			SkillStatInstance inquired = null;
+			foreach(var stat in this.skillStats)
+			{
+				if(stat.StatName.Equals(nameOfStat))
+				{
+					// Found
+					inquired = stat;
+					break;
+				}
+			}
+			
+			return inquired;
+		}
+
+		public AbilityInstance FindAbilityInstance(string nameOfAbility)
+		{
+			AbilityInstance inquired = null;
+			foreach(var ability in this.abilities)
+			{
+				if(ability.AbilityName.Equals(nameOfAbility))
+				{
+					// Found
+					inquired = ability;
+					break;
+				}
+			}
+			
+			return inquired;
+		}
+
+
 
 		//
 		// Setters

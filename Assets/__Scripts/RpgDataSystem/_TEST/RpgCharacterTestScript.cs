@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UI = UnityEngine.UI;
 using System.Text;	// For StringBuilder
+using SphericalCow.Generics;
 
 namespace SphericalCow.Testing
 {
@@ -39,7 +40,12 @@ namespace SphericalCow.Testing
 
 				foreach(var basicStat in this.dataForBasicStats)
 				{
-					this.player.ListOfBasicStats.Add(new BasicStatInstance(basicStat));
+					this.player.ListOfBasicStats.Add(new BasicStatInstance(basicStat, this.player));
+				}
+
+				foreach(var secondaryStat in this.dataForSecondaryStats)
+				{
+					this.player.ListOfSecondaryStats.Add(new SecondaryStatInstance(secondaryStat, this.player));
 				}
 			}
 			// Only run if you are LOADING a character from file
@@ -87,6 +93,23 @@ namespace SphericalCow.Testing
 			// Clear String Builder
 			this.strBuild.Length = 0;
 
+			// "Print" Secondary stats
+			this.strBuild.Append("Secondary Stats:\n\n");
+			foreach(var secStatInst in this.player.ListOfSecondaryStats)
+			{
+				this.strBuild.Append("Name: ").Append(secStatInst.StatName).Append("\n");
+				this.strBuild.Append("Current Level: ").Append(secStatInst.LocalXpPool).Append("\n");
+				this.strBuild.Append("Next Level At: ").Append(secStatInst.NextLevelXp).Append("\n");
+
+				this.strBuild.Append("Derived From:\n");
+				foreach(var statPercentPair in secStatInst.DerivativeBasicStats)
+				{
+					this.strBuild.Append("      ").Append(statPercentPair.First.StatName).Append("  ");
+					this.strBuild.Append(statPercentPair.Second).Append("%\n");
+				}
+				this.strBuild.Append("\n");
+			}
+			this.secondaryStatsLabel.text = this.strBuild.ToString();
 		}
 	}
 }
