@@ -7,7 +7,7 @@ namespace SphericalCow
 	public class AbilityInstance 
 	{
 		private List<AbilityModifierInstance> abilityModifierInstances;
-		private string abilityName;
+		private string abilityName = "";
 		[System.NonSerialized] private Ability abilityRef;
 
 

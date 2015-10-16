@@ -47,6 +47,11 @@ namespace SphericalCow.Testing
 				{
 					this.player.ListOfSecondaryStats.Add(new SecondaryStatInstance(secondaryStat, this.player));
 				}
+
+				foreach(var skillStat in this.dataForSkillStats)
+				{
+					this.player.ListOfSkillStats.Add(new SkillStatInstance(skillStat, this.player));
+				}
 			}
 			// Only run if you are LOADING a character from file
 			else
@@ -74,11 +79,19 @@ namespace SphericalCow.Testing
 		/// </summary>
 		private void RefreshUI()
 		{
+			//////////
+			///  Top Header
+			//////////
+
 			this.playerNameLabel.text = this.player.CharacterName;
 			this.progressionVariableLabel.text = "Lvl: " + this.player.ProgressionVariable.ToString();
 
 			// Clear String Builder
 			this.strBuild.Length = 0;
+
+			//////////
+			///  Basic Stats
+			//////////
 
 			// "Print" Basic stats
 			this.strBuild.Append("Basic Stats:\n\n");
@@ -92,6 +105,10 @@ namespace SphericalCow.Testing
 
 			// Clear String Builder
 			this.strBuild.Length = 0;
+
+			//////////
+			///  Secondary Stats
+			//////////
 
 			// "Print" Secondary stats
 			this.strBuild.Append("Secondary Stats:\n\n");
@@ -110,6 +127,35 @@ namespace SphericalCow.Testing
 				this.strBuild.Append("\n");
 			}
 			this.secondaryStatsLabel.text = this.strBuild.ToString();
+
+			// Clear String Builder
+			this.strBuild.Length = 0;
+
+			//////////
+			///  Skill Stats
+			//////////
+			 
+			// "Print" Skill stats
+			this.strBuild.Append("Skill Stats:\n\n");
+			foreach(var skillStatInst in this.player.ListOfSkillStats)
+			{
+				this.strBuild.Append("Name: ").Append(skillStatInst.StatName).Append("\n");
+				this.strBuild.Append("Current Level: ").Append(skillStatInst.LocalXpPool).Append("\n");
+				this.strBuild.Append("Next Level At: ").Append(skillStatInst.NextLevelXp).Append("\n");
+
+				this.strBuild.Append("Derived From:\n");
+				foreach(var statPercentPair in skillStatInst.DerivativeStats)
+				{
+					this.strBuild.Append("      ").Append(statPercentPair.First.GetStatType().ToString()).Append(": ");
+					this.strBuild.Append(statPercentPair.First.StatName).Append("  ");
+					this.strBuild.Append(statPercentPair.Second).Append("%\n");
+				}
+				this.strBuild.Append("\n");
+			}
+			this.skillStatsLabel.text = this.strBuild.ToString();
+
+			// Clear Stirng Builder
+			this.strBuild.Length = 0;
 		}
 	}
 }

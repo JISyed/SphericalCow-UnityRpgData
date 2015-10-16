@@ -2,7 +2,7 @@
 
 namespace SphericalCow
 {
-	public class AbstractStat : ScriptableObject 
+	abstract public class AbstractStat : ScriptableObject 
 	{	
 		//
 		// Data
@@ -17,7 +17,9 @@ namespace SphericalCow
 		//
 		// Methods
 		//
-		
+
+		abstract public StatType GetStatType();
+
 		
 		//
 		// Properties

@@ -4,6 +4,13 @@ namespace SphericalCow
 {
 	public class BasicStat : AbstractStat 
 	{
-		// Blank at the moment
+		//
+		// Methods
+		//
+
+		public override StatType GetStatType ()
+		{
+			return StatType.Basic;
+		}
 	}
 }
