@@ -23,6 +23,7 @@ namespace SphericalCow
 		{
 			this.statReference = statData;
 			this.character = characterData;
+			this.StatId = "";	// TODO: Set as GUID
 			this.SetStatName(this.statReference.StatName);
 			this.SetLocalXpPool(0);		// Should the default XP be 0?
 			this.SetNextLevelXp(80);	// TODO: Find a way to intelligently calculate this!
