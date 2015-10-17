@@ -52,6 +52,11 @@ namespace SphericalCow.Testing
 				{
 					this.player.ListOfSkillStats.Add(new SkillStatInstance(skillStat, this.player));
 				}
+
+				foreach(var ability in this.dataForAbilities)
+				{
+					this.player.ListOfAbilties.Add(new AbilityInstance(ability, this.player));
+				}
 			}
 			// Only run if you are LOADING a character from file
 			else
