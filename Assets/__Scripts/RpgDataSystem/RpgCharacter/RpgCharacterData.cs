@@ -108,7 +108,25 @@ namespace SphericalCow
 			return inquired;
 		}
 
+		public AbstractStatInstance FindAnyStatInstance(string nameOfStat)
+		{
+			AbstractStatInstance foundStat = null;
 
+			// Search Base stats
+			foundStat = this.FindBasicStatInstance(nameOfStat);
+			if(foundStat == null)
+			{
+				// Search Secondary stats
+				foundStat = this.FindSecondaryStatInstance(nameOfStat);
+				if(foundStat == null)
+				{
+					// Search Skill stats
+					foundStat = this.FindSkillStatInstance(nameOfStat);
+				}
+			}
+
+			return foundStat;
+		}
 
 		//
 		// Setters
