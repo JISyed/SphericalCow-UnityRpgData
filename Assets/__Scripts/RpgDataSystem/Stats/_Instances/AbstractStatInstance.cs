@@ -10,10 +10,11 @@ namespace SphericalCow
 		//
 		
 		private string statName;
-		private ProgressionType progressionVariable;
+		private string statId;
 		private int localXpPool;		// Total accumulated XP for Use-Assigned progression
 		private int nextLevelXp;		// The total amount of local XP needed to level up
-		
+		[System.NonSerialized] protected RpgCharacterData character;
+
 		
 		//
 		// Methods
@@ -22,7 +23,8 @@ namespace SphericalCow
 		public abstract StatType GetStatType();
 		
 		protected abstract void SetupStatReference();
-		
+
+
 		
 		//
 		// Properties
@@ -31,11 +33,6 @@ namespace SphericalCow
 		public void SetStatName(string newName)
 		{
 			this.statName = newName;
-		}
-		
-		public void SetProgressionVariable(ProgressionType newValue)
-		{
-			this.progressionVariable = newValue;
 		}
 		
 		public void SetLocalXpPool(int newXpAmount)
@@ -55,12 +52,17 @@ namespace SphericalCow
 				return this.statName;
 			}
 		}
-		
-		public ProgressionType ProgressionVariable
+
+		public string StatId
 		{
 			get
 			{
-				return this.progressionVariable;
+				return this.statId;
+			}
+
+			protected set
+			{
+				this.statId = value;
 			}
 		}
 		
@@ -77,6 +79,14 @@ namespace SphericalCow
 			get
 			{
 				return this.nextLevelXp;
+			}
+		}
+
+		public RpgCharacterData Character
+		{
+			get
+			{
+				return this.character;
 			}
 		}
 		

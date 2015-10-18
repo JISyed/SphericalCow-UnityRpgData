@@ -18,7 +18,44 @@ namespace SphericalCow
 		//
 		// Methods
 		//
-		
+
+
+
+		//
+		// Getters
+		//
+
+		public string AbilityName
+		{
+			get
+			{
+				return this.abilityName;
+			}
+		}
+
+		public string Description
+		{
+			get
+			{
+				return this.description;
+			}
+		}
+
+		public Texture Icon
+		{
+			get
+			{
+				return this.icon;
+			}
+		}
+
+		public List<AbilityModifier> AbilityModifiers
+		{
+			get
+			{
+				return this.abilityModifiers;
+			}
+		}
 		
 	}
 }
