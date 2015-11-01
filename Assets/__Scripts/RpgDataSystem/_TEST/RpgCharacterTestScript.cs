@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UI = UnityEngine.UI;
 using System.Text;	// For StringBuilder
+using Guid = System.Guid;
 using SphericalCow.Generics;
 
 namespace SphericalCow.Testing
@@ -16,6 +17,7 @@ namespace SphericalCow.Testing
 		public List<Ability> dataForAbilities;
 
 		public bool createCharacterNow = true;	// If true, the player will be made at runtime and not loaded from file
+		public bool showGuids = false;
 
 		public UI.Text playerNameLabel;
 		public UI.Text progressionVariableLabel;
@@ -103,6 +105,10 @@ namespace SphericalCow.Testing
 			foreach(var basicStatInst in this.player.ListOfBasicStats)
 			{
 				this.strBuild.Append("Name: ").Append(basicStatInst.StatName).Append("\n");
+				if(this.showGuids)
+				{
+					this.strBuild.Append("GUID: ").Append(basicStatInst.StatGuid.ToString()).Append("\n");
+				}
 				this.strBuild.Append("Current Level: ").Append(basicStatInst.LocalXpPool).Append("\n");
 				this.strBuild.Append("Next Level At: ").Append(basicStatInst.NextLevelXp).Append("\n\n");
 			}
@@ -120,6 +126,10 @@ namespace SphericalCow.Testing
 			foreach(var secStatInst in this.player.ListOfSecondaryStats)
 			{
 				this.strBuild.Append("Name: ").Append(secStatInst.StatName).Append("\n");
+				if(this.showGuids)
+				{
+					this.strBuild.Append("GUID: ").Append(secStatInst.StatGuid.ToString()).Append("\n");
+				}
 				this.strBuild.Append("Current Level: ").Append(secStatInst.LocalXpPool).Append("\n");
 				this.strBuild.Append("Next Level At: ").Append(secStatInst.NextLevelXp).Append("\n");
 
@@ -145,6 +155,10 @@ namespace SphericalCow.Testing
 			foreach(var skillStatInst in this.player.ListOfSkillStats)
 			{
 				this.strBuild.Append("Name: ").Append(skillStatInst.StatName).Append("\n");
+				if(this.showGuids)
+				{
+					this.strBuild.Append("GUID: ").Append(skillStatInst.StatGuid.ToString()).Append("\n");
+				}
 				this.strBuild.Append("Current Level: ").Append(skillStatInst.LocalXpPool).Append("\n");
 				this.strBuild.Append("Next Level At: ").Append(skillStatInst.NextLevelXp).Append("\n");
 
@@ -180,8 +194,11 @@ namespace SphericalCow.Testing
 					this.strBuild.Append("      ");
 					this.strBuild.Append("Stat To Mod : ").Append(abilityModifier.StatName).Append("\n");
 
-					this.strBuild.Append("      ").Append("      ");
-					this.strBuild.Append("Stat Inst ID: ").Append(abilityModifier.StatInstanceId).Append("\n");
+					if(this.showGuids)
+					{
+						this.strBuild.Append("      ").Append("      ");
+						this.strBuild.Append("Stat Inst GUID: ").Append(abilityModifier.StatInstanceGuid.ToString()).Append("\n");
+					}
 
 					this.strBuild.Append("      ").Append("      ");
 					this.strBuild.Append(abilityModifier.Type.ToString()).Append("\n");

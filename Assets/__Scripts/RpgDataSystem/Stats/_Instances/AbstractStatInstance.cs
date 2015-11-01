@@ -1,4 +1,5 @@
 ﻿//using UnityEngine;
+using Guid = System.Guid;
 
 namespace SphericalCow
 {
@@ -10,7 +11,7 @@ namespace SphericalCow
 		//
 		
 		private string statName;
-		private string statId;
+		private Guid statGuid;
 		private int localXpPool;		// Total accumulated XP for Use-Assigned progression
 		private int nextLevelXp;		// The total amount of local XP needed to level up
 		[System.NonSerialized] protected RpgCharacterData character;
@@ -24,6 +25,10 @@ namespace SphericalCow
 		
 		protected abstract void SetupStatReference();
 
+		protected Guid GenerateGuid()
+		{
+			return Guid.NewGuid();
+		}
 
 		
 		//
@@ -53,16 +58,16 @@ namespace SphericalCow
 			}
 		}
 
-		public string StatId
+		public Guid StatGuid
 		{
 			get
 			{
-				return this.statId;
+				return this.statGuid;
 			}
 
 			protected set
 			{
-				this.statId = value;
+				this.statGuid = value;
 			}
 		}
 		

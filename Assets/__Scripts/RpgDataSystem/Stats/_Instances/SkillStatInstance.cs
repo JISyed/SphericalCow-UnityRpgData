@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using Guid = System.Guid;
 using SphericalCow.Generics;
 
 namespace SphericalCow
@@ -24,7 +25,7 @@ namespace SphericalCow
 		{
 			this.statReference = statData;
 			this.character = characterData;
-			this.StatId = ""; 	// TODO: Set as GUID
+			this.StatGuid = this.GenerateGuid();
 			this.SetStatName(this.statReference.StatName);
 			this.SetLocalXpPool(0);		// Should the default XP be 0?
 			this.SetNextLevelXp(60);	// TODO: Find a way to intelligently calculate this!

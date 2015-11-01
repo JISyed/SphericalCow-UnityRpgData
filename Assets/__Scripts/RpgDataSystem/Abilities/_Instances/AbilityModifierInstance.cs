@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Guid = System.Guid;
 
 namespace SphericalCow
 {
@@ -8,7 +9,7 @@ namespace SphericalCow
 		private string abilityName;
 		private AbilityModifierType type;
 		private string statName;
-		private string statInstanceId;	// Using GUID for serialize a reference to another serialized object
+		private Guid statInstanceGuid;	// Using GUID for serialize a reference to another serialized object
 		[System.NonSerialized] private AbstractStatInstance statRef;
 		[System.NonSerialized] private RpgCharacterData character;
 		private int targetValue;
@@ -24,7 +25,7 @@ namespace SphericalCow
 			this.type = abilityModifierRef.Type;
 			this.statName = abilityModifierRef.StatToModify.StatName;
 			this.statRef = characterData.FindAnyStatInstance(this.statName);
-			this.statInstanceId = this.statRef.StatId;
+			this.statInstanceGuid = this.statRef.StatGuid;
 			this.character = characterData;
 			this.targetValue = abilityModifierRef.TargetValue;
 			this.originalValue = this.statRef.LocalXpPool;
@@ -65,11 +66,11 @@ namespace SphericalCow
 			}
 		}
 
-		public string StatInstanceId
+		public Guid StatInstanceGuid
 		{
 			get
 			{
-				return this.statInstanceId;
+				return this.statInstanceGuid;
 			}
 		}
 

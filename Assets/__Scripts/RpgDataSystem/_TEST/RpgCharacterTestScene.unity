@@ -258,6 +258,7 @@ MonoBehaviour:
   dataForAbilities:
   - {fileID: 11400000, guid: 4dd6812405bfa401b98655aa8ab5dac9, type: 2}
   createCharacterNow: 1
+  showGuids: 0
   playerNameLabel: {fileID: 2135877774}
   progressionVariableLabel: {fileID: 577931376}
   basicStatsLabel: {fileID: 1915548337}
