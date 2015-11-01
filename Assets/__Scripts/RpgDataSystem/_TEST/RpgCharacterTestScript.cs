@@ -161,6 +161,41 @@ namespace SphericalCow.Testing
 
 			// Clear Stirng Builder
 			this.strBuild.Length = 0;
+
+
+
+			////////////
+			/// Abilities
+			////////////
+
+			// Print Abilities
+			this.strBuild.Append("Abilities:\n\n");
+			foreach(var ability in this.player.ListOfAbilties)
+			{
+				this.strBuild.Append("Name: ").Append(ability.AbilityName).Append("\n");
+				this.strBuild.Append("Modifiers: ").Append("\n");
+
+				foreach(var abilityModifier in ability.AbilityModifierInstances)
+				{
+					this.strBuild.Append("      ");
+					this.strBuild.Append("Stat To Mod : ").Append(abilityModifier.StatName).Append("\n");
+
+					this.strBuild.Append("      ").Append("      ");
+					this.strBuild.Append("Stat Inst ID: ").Append(abilityModifier.StatInstanceId).Append("\n");
+
+					this.strBuild.Append("      ").Append("      ");
+					this.strBuild.Append(abilityModifier.Type.ToString()).Append("\n");
+
+					this.strBuild.Append("      ").Append("      ");
+					this.strBuild.Append("Target: ").Append(abilityModifier.TargetValue).Append("\n");
+
+					this.strBuild.Append("      ").Append("      ");
+					this.strBuild.Append("Original: ").Append(abilityModifier.OriginalValue).Append("\n");
+				}
+				this.strBuild.Append("\n");
+			}
+			this.abilitiesLabel.text = this.strBuild.ToString();
+			this.strBuild.Length = 0; // Clear
 		}
 	}
 }
