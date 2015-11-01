@@ -14,7 +14,7 @@ namespace SphericalCow
 		//
 		
 		private ProgressionType progressionVariable;
-		private string characterName ;//= "Player";
+		private string characterName;
 		private List<BasicStatInstance> basicStats;
 		private List<SecondaryStatInstance> secondaryStats;
 		private List<SkillStatInstance> skillStats;
@@ -32,7 +32,7 @@ namespace SphericalCow
 		public RpgCharacterData()
 		{
 			this.progressionVariable = ProgressionType.Easy;
-			this.characterName = "Default Player Name";
+			this.characterName = "Player";
 			this.basicStats = new List<BasicStatInstance>();
 			this.secondaryStats = new List<SecondaryStatInstance>();
 			this.skillStats = new List<SkillStatInstance>();

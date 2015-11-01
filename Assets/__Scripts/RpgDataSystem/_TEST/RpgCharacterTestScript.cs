@@ -214,5 +214,29 @@ namespace SphericalCow.Testing
 			this.abilitiesLabel.text = this.strBuild.ToString();
 			this.strBuild.Length = 0; // Clear
 		}
+
+		/// <summary>
+		/// Called when the Save button is pressed
+		/// </summary>
+		public void ButtonSave()
+		{
+			Debug.Log("Save not ready!");
+		}
+
+		/// <summary>
+		/// Called when the Load button is pressed
+		/// </summary>
+		public void ButtonLoad()
+		{
+			Debug.Log("Load not ready!");
+		}
+
+		/// <summary>
+		/// Called when the Random Values button is pressed
+		/// </summary>
+		public void ButtonRandomValues()
+		{
+			Debug.Log("Random not ready!");
+		}
 	}
 }
