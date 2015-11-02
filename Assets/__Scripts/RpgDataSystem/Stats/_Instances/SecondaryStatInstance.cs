@@ -31,6 +31,7 @@ namespace SphericalCow
 			this.LocalXpPool = 0;		// Should the default XP be 0?
 			this.NextLevelXp = 80;	// TODO: Find a way to intelligently calculate this!
 
+			this.derivativeBasicStats = new List<Pair<BasicStatInstance, int>>();
 			this.SetupBasicStatInstanceAssociations();
 		}
 
@@ -50,10 +51,12 @@ namespace SphericalCow
 			throw new System.NotImplementedException ();
 		}
 
-		private void SetupBasicStatInstanceAssociations()
+		/// <summary>
+		///  Do NOT call this all the time! Should only be called when a new stat is added to the RPG Character!
+		/// </summary>
+		public void SetupBasicStatInstanceAssociations()
 		{
-			this.derivativeBasicStats = new List<Pair<BasicStatInstance, int>>();
-			
+			this.derivativeBasicStats.Clear();
 			{
 				// Setup derivate list
 				BasicStatInstance currentBasicStat;

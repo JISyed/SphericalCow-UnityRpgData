@@ -132,23 +132,44 @@ namespace SphericalCow
 		public void AddBasicStat(BasicStat statReference)
 		{
 			this.basicStats.Add(new BasicStatInstance(statReference, this));
+			this.RefreshDerivativeStatAssociations();
 		}
 
 		public void AddSecondaryStat(SecondaryStat statReference)
 		{
 			this.secondaryStats.Add(new SecondaryStatInstance(statReference, this));
+			this.RefreshDerivativeStatAssociations();
 		}
 
 		public void AddSkillStat(SkillStat statReference)
 		{
 			this.skillStats.Add(new SkillStatInstance(statReference, this));
+			this.RefreshDerivativeStatAssociations();
 		}
 
 		public void AddAbility(Ability abilityReference)
 		{
-			this.abilities.Add(new AbilityInstance(abilityReference, this));
+			// TODO: Auto apply this ability onto the local stat instances
+			AbilityInstance newAbilityInst = new AbilityInstance(abilityReference, this);
+			this.abilities.Add(newAbilityInst);
 		}
 
+
+
+		private void RefreshDerivativeStatAssociations()
+		{
+			// For all secondary stats
+			foreach(var secondaryStat in this.secondaryStats)
+			{
+				secondaryStat.SetupBasicStatInstanceAssociations();
+			}
+
+			// For all skill stats
+			foreach(var skillStat in this.skillStats)
+			{
+				skillStat.SetupStatInstanceAssociations();
+			}
+		}
 
 
 

@@ -12,6 +12,7 @@ namespace SphericalCow
 		private string abilityName = "";
 		[System.NonSerialized] private Ability abilityRef;
 		[System.NonSerialized] private RpgCharacterData character;
+		[System.NonSerialized] private bool isApplied;
 
 		//
 		// Constructor (Never runs in deserialization)
@@ -22,6 +23,7 @@ namespace SphericalCow
 			this.abilityRef = abilityReference;
 			this.character = characterData;
 			this.abilityName = abilityRef.AbilityName;
+			this.isApplied = false;
 
 			this.abilityModifierInstances = new List<AbilityModifierInstance>();
 
@@ -31,6 +33,33 @@ namespace SphericalCow
 				this.abilityModifierInstances.Add(new AbilityModifierInstance(abilityModifier, this.character, this));
 			}
 		}
+
+
+
+		//
+		// Methods
+		//
+
+		public void ApplyAbility()
+		{
+			if(!this.isApplied)
+			{
+				this.isApplied = true;
+
+
+			}
+		}
+
+		public void UnApplyAbility()
+		{
+			if(this.isApplied)
+			{
+				this.isApplied = false;
+
+
+			}
+		}
+
 
 
 		//

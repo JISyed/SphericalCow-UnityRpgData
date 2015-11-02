@@ -36,6 +36,18 @@ namespace SphericalCow
 		// Methods
 		//
 
+		/// <summary>
+		/// 	Will only procede if the statRef is null
+		/// </summary>
+		public void RefreshStatReference()
+		{
+			if(this.statRef == null)
+			{
+				this.statRef = this.character.FindAnyStatInstance(this.statName);
+			}
+		}
+
+
 
 
 		//

@@ -35,12 +35,12 @@ namespace SphericalCow
 		// Properties
 		//
 		
-		public void SetLocalXpPool(int newXpAmount)
+		public void SetLocalXpPoolManually(int newXpAmount)
 		{
 			this.LocalXpPool = newXpAmount;
 		}
 
-		public void SetNextLevelXp(int newValue)
+		public void SetNextLevelXpManually(int newValue)
 		{
 			this.NextLevelXp = newValue;
 		}

@@ -11,7 +11,7 @@ namespace SphericalCow
 		[SerializeField] private string statName;
 		[TextArea(3,12)] [SerializeField] private string description;
 		[SerializeField] private Texture icon;
-		[SerializeField] private AssignmentType xpAssignmentType;
+		[SerializeField] private AssignmentType xpAssignmentType = AssignmentType.DefaultAssigned;
 		[SerializeField] private int absoluteMaxXpLevel;	// Cannot change
 		
 		//
