@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections.ObjectModel; // for ReadOnlyCollection<>
 using UI = UnityEngine.UI;
 using System.Text;	// For StringBuilder
 using Guid = System.Guid;
@@ -42,22 +43,22 @@ namespace SphericalCow.Testing
 
 				foreach(var basicStat in this.dataForBasicStats)
 				{
-					this.player.ListOfBasicStats.Add(new BasicStatInstance(basicStat, this.player));
+					this.player.AddBasicStat(basicStat);
 				}
 
 				foreach(var secondaryStat in this.dataForSecondaryStats)
 				{
-					this.player.ListOfSecondaryStats.Add(new SecondaryStatInstance(secondaryStat, this.player));
+					this.player.AddSecondaryStat(secondaryStat);
 				}
 
 				foreach(var skillStat in this.dataForSkillStats)
 				{
-					this.player.ListOfSkillStats.Add(new SkillStatInstance(skillStat, this.player));
+					this.player.AddSkillStat(skillStat);
 				}
 
 				foreach(var ability in this.dataForAbilities)
 				{
-					this.player.ListOfAbilties.Add(new AbilityInstance(ability, this.player));
+					this.player.AddAbility(ability);
 				}
 			}
 			// Only run if you are LOADING a character from file

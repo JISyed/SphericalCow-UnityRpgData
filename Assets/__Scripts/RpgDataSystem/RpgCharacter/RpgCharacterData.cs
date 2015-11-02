@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;	// for ReadOnlyCollection<>
 
 namespace SphericalCow
 {
@@ -128,6 +129,29 @@ namespace SphericalCow
 			return foundStat;
 		}
 
+		public void AddBasicStat(BasicStat statReference)
+		{
+			this.basicStats.Add(new BasicStatInstance(statReference, this));
+		}
+
+		public void AddSecondaryStat(SecondaryStat statReference)
+		{
+			this.secondaryStats.Add(new SecondaryStatInstance(statReference, this));
+		}
+
+		public void AddSkillStat(SkillStat statReference)
+		{
+			this.skillStats.Add(new SkillStatInstance(statReference, this));
+		}
+
+		public void AddAbility(Ability abilityReference)
+		{
+			this.abilities.Add(new AbilityInstance(abilityReference, this));
+		}
+
+
+
+
 		//
 		// Setters
 		//
@@ -141,6 +165,8 @@ namespace SphericalCow
 		{
 			this.progressionVariable = newProgressionVariable;
 		}
+
+
 
 
 		//
@@ -163,35 +189,47 @@ namespace SphericalCow
 			}
 		}
 
-		public List<BasicStatInstance> ListOfBasicStats
+		/// <summary>
+		/// 	Returns a read-only list of basic stats for this character
+		/// </summary>
+		public ReadOnlyCollection<BasicStatInstance> ListOfBasicStats
 		{
 			get
 			{
-				return this.basicStats;
+				return this.basicStats.AsReadOnly();
 			}
 		}
 
-		public List<SecondaryStatInstance> ListOfSecondaryStats
+		/// <summary>
+		/// 	Returns a read-only list of secondary stats for this character
+		/// </summary>
+		public ReadOnlyCollection<SecondaryStatInstance> ListOfSecondaryStats
 		{
 			get
 			{
-				return this.secondaryStats;
+				return this.secondaryStats.AsReadOnly();
 			}
 		}
 
-		public List<SkillStatInstance> ListOfSkillStats
+		/// <summary>
+		/// 	Returns a read-only list of skill stats for this character
+		/// </summary>
+		public ReadOnlyCollection<SkillStatInstance> ListOfSkillStats
 		{
 			get
 			{
-				return this.skillStats;
+				return this.skillStats.AsReadOnly();
 			}
 		}
 
-		public List<AbilityInstance> ListOfAbilties
+		/// <summary>
+		/// 	Returns a read-only list of abilities for this character
+		/// </summary>
+		public ReadOnlyCollection<AbilityInstance> ListOfAbilties
 		{
 			get
 			{
-				return this.abilities;
+				return this.abilities.AsReadOnly();
 			}
 		}
 

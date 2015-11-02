@@ -10,7 +10,7 @@ namespace SphericalCow
 		// Data
 		//
 		
-		[System.NonSerialized] private BasicStat statReference;
+		[System.NonSerialized] private BasicStat statReference = null;
 		
 
 		//

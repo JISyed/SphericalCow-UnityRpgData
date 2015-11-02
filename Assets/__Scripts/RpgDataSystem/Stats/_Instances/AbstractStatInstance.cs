@@ -35,7 +35,7 @@ namespace SphericalCow
 		// Properties
 		//
 		
-		public void SetStatName(string newName)
+		protected void SetStatName(string newName)
 		{
 			this.statName = newName;
 		}

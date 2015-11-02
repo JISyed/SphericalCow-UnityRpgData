@@ -13,8 +13,8 @@ namespace SphericalCow
 		// Data
 		//
 		
-		[System.NonSerialized] private SecondaryStat statReference;
-		[System.NonSerialized] private List<Pair<BasicStatInstance, int>> derivativeBasicStats;
+		[System.NonSerialized] private SecondaryStat statReference = null;
+		[System.NonSerialized] private List<Pair<BasicStatInstance, int>> derivativeBasicStats = null;
 
 
 		//
@@ -29,27 +29,8 @@ namespace SphericalCow
 			this.SetStatName(this.statReference.StatName);
 			this.SetLocalXpPool(0);		// Should the default XP be 0?
 			this.SetNextLevelXp(80);	// TODO: Find a way to intelligently calculate this!
-			this.derivativeBasicStats = new List<Pair<BasicStatInstance, int>>();
 
-			{
-				// Setup derivate list
-				BasicStatInstance currentBasicStat;
-				foreach(var statPercentPair in this.statReference.BaseStatDerivations)
-				{
-					// Find the stat from the character
-					currentBasicStat = this.character.FindBasicStatInstance(statPercentPair.Stat.StatName);
-
-					// Skip if not found
-					if(currentBasicStat == null)
-					{
-						continue;
-					}
-
-					// Add to the derivation list
-					var newPair = new Pair<BasicStatInstance, int>(currentBasicStat, statPercentPair.Percentage);
-					this.derivativeBasicStats.Add(newPair);
-				}
-			}
+			this.SetupBasicStatInstanceAssociations();
 		}
 
 		
@@ -67,6 +48,32 @@ namespace SphericalCow
 			// TODO: SetupStatReference for SecondaryStatInstance is not implemented!
 			throw new System.NotImplementedException ();
 		}
+
+		private void SetupBasicStatInstanceAssociations()
+		{
+			this.derivativeBasicStats = new List<Pair<BasicStatInstance, int>>();
+			
+			{
+				// Setup derivate list
+				BasicStatInstance currentBasicStat;
+				foreach(var statPercentPair in this.statReference.BaseStatDerivations)
+				{
+					// Find the stat from the character
+					currentBasicStat = this.character.FindBasicStatInstance(statPercentPair.Stat.StatName);
+					
+					// Skip if not found
+					if(currentBasicStat == null)
+					{
+						continue;
+					}
+					
+					// Add to the derivation list
+					var newPair = new Pair<BasicStatInstance, int>(currentBasicStat, statPercentPair.Percentage);
+					this.derivativeBasicStats.Add(newPair);
+				}
+			}
+		}
+
 
 
 		//

@@ -12,8 +12,8 @@ namespace SphericalCow
 		// Data
 		//
 		
-		[System.NonSerialized] private SkillStat statReference;
-		[System.NonSerialized] private List<Pair<AbstractStatInstance, int>> derivativeStats;
+		[System.NonSerialized] private SkillStat statReference = null;
+		[System.NonSerialized] private List<Pair<AbstractStatInstance, int>> derivativeStats = null;
 
 
 
@@ -29,8 +29,30 @@ namespace SphericalCow
 			this.SetStatName(this.statReference.StatName);
 			this.SetLocalXpPool(0);		// Should the default XP be 0?
 			this.SetNextLevelXp(60);	// TODO: Find a way to intelligently calculate this!
-			this.derivativeStats = new List<Pair<AbstractStatInstance, int>>();
 
+			this.SetupStatInstanceAssociations();
+		}
+
+
+		//
+		// Methods
+		//
+		
+		public override StatType GetStatType ()
+		{
+			return StatType.Skill;
+		}
+		
+		protected override void SetupStatReference ()
+		{
+			// TODO: Setup of stat reference in SkillStatInstance is not implemented!
+			throw new System.NotImplementedException ();
+		}
+
+		private void SetupStatInstanceAssociations()
+		{
+			this.derivativeStats = new List<Pair<AbstractStatInstance, int>>();
+			
 			{
 				// Setup derivate list
 				AbstractStatInstance currentStat = null;
@@ -49,10 +71,10 @@ namespace SphericalCow
 						currentStat = this.character.FindSkillStatInstance(statPercentPair.Stat.StatName);
 						break;
 					default:
-						Debug.LogError("SkillStateInstance " + statData.StatName + "entered unexpected switch case!");
+						Debug.LogError("SphericalCow.StatType enum has a member not handled in SkillStatInstance!");
 						break;
 					}
-
+					
 					
 					// Skip if not found
 					if(currentStat == null)
@@ -65,22 +87,6 @@ namespace SphericalCow
 					this.derivativeStats.Add(newPair);
 				}
 			}
-		}
-
-
-		//
-		// Methods
-		//
-		
-		public override StatType GetStatType ()
-		{
-			return StatType.Skill;
-		}
-		
-		protected override void SetupStatReference ()
-		{
-			// TODO: Setup of stat reference in SkillStatInstance is not implemented!
-			throw new System.NotImplementedException ();
 		}
 
 
