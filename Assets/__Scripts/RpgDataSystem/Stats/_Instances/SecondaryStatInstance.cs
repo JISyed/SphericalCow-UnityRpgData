@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;	// for ReadOnlyCollection<>
 using Guid = System.Guid;
 using SphericalCow.Generics;
 
@@ -26,9 +27,9 @@ namespace SphericalCow
 			this.statReference = statData;
 			this.character = characterData;
 			this.StatGuid = this.GenerateGuid();
-			this.SetStatName(this.statReference.StatName);
-			this.SetLocalXpPool(0);		// Should the default XP be 0?
-			this.SetNextLevelXp(80);	// TODO: Find a way to intelligently calculate this!
+			this.StatName = this.statReference.StatName;
+			this.LocalXpPool = 0;		// Should the default XP be 0?
+			this.NextLevelXp = 80;	// TODO: Find a way to intelligently calculate this!
 
 			this.SetupBasicStatInstanceAssociations();
 		}
@@ -80,11 +81,15 @@ namespace SphericalCow
 		// Getters
 		//
 
-		public List<Pair<BasicStatInstance, int>> DerivativeBasicStats
+		/// <summary>
+		///		Returns a read-only list of derivative BasicStatInstances paired with their percentage,
+		/// 	indicting how much they affect the final value of this SecondaryStatInstance
+		/// </summary>
+		public ReadOnlyCollection<Pair<BasicStatInstance, int>> DerivativeBasicStats
 		{
 			get
 			{
-				return this.derivativeBasicStats;
+				return this.derivativeBasicStats.AsReadOnly();
 			}
 		}
 		

@@ -10,10 +10,10 @@ namespace SphericalCow
 		private AbilityModifierType type;
 		private string statName;
 		private Guid statInstanceGuid;	// Using GUID for serialize a reference to another serialized object
-		[System.NonSerialized] private AbstractStatInstance statRef;
-		[System.NonSerialized] private RpgCharacterData character;
 		private int targetValue;
 		private int originalValue;
+		[System.NonSerialized] private AbstractStatInstance statRef;
+		[System.NonSerialized] private RpgCharacterData character;
 
 		//
 		// Constructor (not called during deserialization)

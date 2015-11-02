@@ -35,19 +35,14 @@ namespace SphericalCow
 		// Properties
 		//
 		
-		protected void SetStatName(string newName)
-		{
-			this.statName = newName;
-		}
-		
 		public void SetLocalXpPool(int newXpAmount)
 		{
-			this.localXpPool = newXpAmount;
+			this.LocalXpPool = newXpAmount;
 		}
-		
+
 		public void SetNextLevelXp(int newValue)
 		{
-			this.nextLevelXp = newValue;
+			this.NextLevelXp = newValue;
 		}
 		
 		public string StatName
@@ -55,6 +50,11 @@ namespace SphericalCow
 			get
 			{
 				return this.statName;
+			}
+
+			protected set
+			{
+				this.statName = value;
 			}
 		}
 
@@ -77,6 +77,11 @@ namespace SphericalCow
 			{
 				return this.localXpPool;
 			}
+
+			protected set
+			{
+				this.localXpPool = value;
+			}
 		}
 		
 		public int NextLevelXp
@@ -84,6 +89,11 @@ namespace SphericalCow
 			get
 			{
 				return this.nextLevelXp;
+			}
+
+			protected set
+			{
+				this.nextLevelXp = value;
 			}
 		}
 

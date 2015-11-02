@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;	// for ReadOnlyCollection<>
+
 
 namespace SphericalCow
 {
@@ -35,6 +37,9 @@ namespace SphericalCow
 		// Getters
 		//
 
+		/// <summary>
+		/// 	The name of this AbilityInstance, based off its corresonding Ability
+		/// </summary>
 		public string AbilityName
 		{
 			get
@@ -43,14 +48,21 @@ namespace SphericalCow
 			}
 		}
 
-		public List<AbilityModifierInstance> AbilityModifierInstances
+		/// <summary>
+		/// 	Return a read-only list of the local instances of AbilityModifiers for this AbilityInstance
+		/// </summary>
+		public ReadOnlyCollection<AbilityModifierInstance> AbilityModifierInstances
 		{
 			get
 			{
-				return this.abilityModifierInstances;
+				return this.abilityModifierInstances.AsReadOnly();
 			}
 		}
 
+		/// <summary>
+		/// 	Get the RPG Character that exibits this Ability
+		/// </summary>
+		/// <value>The character.</value>
 		public RpgCharacterData Character
 		{
 			get
