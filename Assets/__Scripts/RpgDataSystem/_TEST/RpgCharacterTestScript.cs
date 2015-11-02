@@ -236,7 +236,32 @@ namespace SphericalCow.Testing
 		/// </summary>
 		public void ButtonRandomValues()
 		{
-			Debug.Log("Random not ready!");
+			// Random values for basic stat instances
+			foreach(var basicStat in this.player.ListOfBasicStats)
+			{
+				basicStat.SetLocalXpPool(Random.Range(0, 300));
+				basicStat.SetNextLevelXp(Random.Range(300, 400));
+			}
+
+
+			// Random values for secondary stat instances
+			foreach(var secondaryStat in this.player.ListOfSecondaryStats)
+			{
+				secondaryStat.SetLocalXpPool(Random.Range(50, 500));
+				secondaryStat.SetNextLevelXp(Random.Range(500, 600));
+			}
+
+
+			// Random values for basic stat instances
+			foreach(var skillStat in this.player.ListOfSkillStats)
+			{
+				skillStat.SetLocalXpPool(Random.Range(100, 600));
+				skillStat.SetNextLevelXp(Random.Range(600, 700));
+			}
+
+
+			// Update UI
+			this.RefreshUI();
 		}
 	}
 }
