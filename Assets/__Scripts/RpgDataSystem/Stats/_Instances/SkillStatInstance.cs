@@ -22,15 +22,10 @@ namespace SphericalCow
 		// Constructor (Does not run on Deserialization)
 		//
 
-		public SkillStatInstance(SkillStat statData, RpgCharacterData characterData)
+		public SkillStatInstance(SkillStat statData, RpgCharacterData characterData) :
+			base(statData.StatName, characterData)
 		{
 			this.statReference = statData;
-			this.character = characterData;
-			this.StatGuid = this.GenerateGuid();
-			this.StatName = this.statReference.StatName;
-			this.LocalXpPool = 0;		// Should the default XP be 0?
-			this.NextLevelXp = 60;	// TODO: Find a way to intelligently calculate this!
-
 			this.derivativeStats = new List<Pair<AbstractStatInstance, int>>();
 			this.SetupStatInstanceAssociations();
 		}
@@ -66,13 +61,13 @@ namespace SphericalCow
 					switch (statPercentPair.Stat.GetStatType()) 
 					{
 					case StatType.Basic:
-						currentStat = this.character.FindBasicStatInstance(statPercentPair.Stat.StatName);
+						currentStat = this.Character.FindBasicStatInstance(statPercentPair.Stat.StatName);
 						break;
 					case StatType.Secondary:
-						currentStat = this.character.FindSecondaryStatInstance(statPercentPair.Stat.StatName);
+						currentStat = this.Character.FindSecondaryStatInstance(statPercentPair.Stat.StatName);
 						break;
 					case StatType.Skill:
-						currentStat = this.character.FindSkillStatInstance(statPercentPair.Stat.StatName);
+						currentStat = this.Character.FindSkillStatInstance(statPercentPair.Stat.StatName);
 						break;
 					default:
 						Debug.LogError("SphericalCow.StatType enum has a member not handled in SkillStatInstance!");
@@ -107,6 +102,14 @@ namespace SphericalCow
 			get
 			{
 				return this.derivativeStats.AsReadOnly();
+			}
+		}
+		
+		public SkillStat SkillStatRef
+		{
+			get
+			{
+				return this.statReference;
 			}
 		}
 	}

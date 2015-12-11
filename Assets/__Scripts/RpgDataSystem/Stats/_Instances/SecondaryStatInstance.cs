@@ -22,15 +22,10 @@ namespace SphericalCow
 		// Constructor (Does not run on Deserialization)
 		//
 
-		public SecondaryStatInstance(SecondaryStat statData, RpgCharacterData characterData)
+		public SecondaryStatInstance(SecondaryStat statData, RpgCharacterData characterData) : 
+			base(statData.StatName, characterData)
 		{
 			this.statReference = statData;
-			this.character = characterData;
-			this.StatGuid = this.GenerateGuid();
-			this.StatName = this.statReference.StatName;
-			this.LocalXpPool = 0;		// Should the default XP be 0?
-			this.NextLevelXp = 80;	// TODO: Find a way to intelligently calculate this!
-
 			this.derivativeBasicStats = new List<Pair<BasicStatInstance, int>>();
 			this.SetupBasicStatInstanceAssociations();
 		}
@@ -63,7 +58,7 @@ namespace SphericalCow
 				foreach(var statPercentPair in this.statReference.BaseStatDerivations)
 				{
 					// Find the stat from the character
-					currentBasicStat = this.character.FindBasicStatInstance(statPercentPair.Stat.StatName);
+					currentBasicStat = this.Character.FindBasicStatInstance(statPercentPair.Stat.StatName);
 					
 					// Skip if not found
 					if(currentBasicStat == null)
@@ -96,5 +91,12 @@ namespace SphericalCow
 			}
 		}
 		
+		public SecondaryStat SecondaryStatRef
+		{
+			get
+			{
+				return this.statReference;
+			}
+		}
 	}
 }

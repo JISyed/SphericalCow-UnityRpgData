@@ -17,14 +17,10 @@ namespace SphericalCow
 		// Constructor (Does not run on Deserialization)
 		//
 
-		public BasicStatInstance(BasicStat statData, RpgCharacterData characterData)
+		public BasicStatInstance(BasicStat statData, RpgCharacterData characterData) :
+			base(statData.StatName, characterData)
 		{
 			this.statReference = statData;
-			this.character = characterData;
-			this.StatGuid = this.GenerateGuid();
-			this.StatName = this.statReference.StatName;
-			this.LocalXpPool = 0;		// Should the default XP be 0?
-			this.NextLevelXp = 100;	// TODO: Find a way to intelligently calculate this!
 		}
 
 
@@ -43,6 +39,19 @@ namespace SphericalCow
 			throw new System.NotImplementedException ();
 		}
 		
+		
+		
+		//
+		// Properties
+		//
+		
+		public BasicStat BasicStatRef
+		{
+			get
+			{
+				return this.statReference;
+			}
+		}
 	}
 	
 }

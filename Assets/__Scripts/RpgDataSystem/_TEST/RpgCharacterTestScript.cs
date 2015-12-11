@@ -110,7 +110,7 @@ namespace SphericalCow.Testing
 				{
 					this.strBuild.Append("GUID: ").Append(basicStatInst.StatGuid.ToString()).Append("\n");
 				}
-				this.strBuild.Append("Current Level: ").Append(basicStatInst.LocalXpPool).Append("\n");
+				this.strBuild.Append("Current Level: ").Append(basicStatInst.NetLocalXp).Append("\n");
 				this.strBuild.Append("Next Level At: ").Append(basicStatInst.NextLevelXp).Append("\n\n");
 			}
 			this.basicStatsLabel.text = this.strBuild.ToString();
@@ -131,7 +131,7 @@ namespace SphericalCow.Testing
 				{
 					this.strBuild.Append("GUID: ").Append(secStatInst.StatGuid.ToString()).Append("\n");
 				}
-				this.strBuild.Append("Current Level: ").Append(secStatInst.LocalXpPool).Append("\n");
+				this.strBuild.Append("Current Level: ").Append(secStatInst.NetLocalXp).Append("\n");
 				this.strBuild.Append("Next Level At: ").Append(secStatInst.NextLevelXp).Append("\n");
 
 				this.strBuild.Append("Derived From:\n");
@@ -160,7 +160,7 @@ namespace SphericalCow.Testing
 				{
 					this.strBuild.Append("GUID: ").Append(skillStatInst.StatGuid.ToString()).Append("\n");
 				}
-				this.strBuild.Append("Current Level: ").Append(skillStatInst.LocalXpPool).Append("\n");
+				this.strBuild.Append("Current Level: ").Append(skillStatInst.NetLocalXp).Append("\n");
 				this.strBuild.Append("Next Level At: ").Append(skillStatInst.NextLevelXp).Append("\n");
 
 				this.strBuild.Append("Derived From:\n");
