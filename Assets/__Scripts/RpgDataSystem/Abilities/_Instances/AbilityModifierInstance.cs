@@ -11,9 +11,9 @@ namespace SphericalCow
 		private string statName;
 		private Guid statInstanceGuid;	// Using GUID for serialize a reference to another serialized object
 		private int targetValue;
-		private int originalValue;
+		//private int originalValue;
 		private bool modifierApplied;
-		[System.NonSerialized] private AbstractStatInstance statRef;
+		[System.NonSerialized] private AbstractStatInstance statInst;
 		[System.NonSerialized] private RpgCharacterData character;
 		
 		
@@ -27,11 +27,11 @@ namespace SphericalCow
 			this.abilityName = abilityInstance.AbilityName;
 			this.type = abilityModifierRef.Type;
 			this.statName = abilityModifierRef.StatToModify.StatName;
-			this.statRef = characterData.FindAnyStatInstance(this.statName);
-			this.statInstanceGuid = this.statRef.StatGuid;
+			this.statInst = characterData.FindAnyStatInstance(this.statName);
+			this.statInstanceGuid = this.statInst.StatGuid;
 			this.character = characterData;
 			this.targetValue = abilityModifierRef.TargetValue;
-			this.originalValue = this.statRef.LocalXpPoolWithoutAbilities;
+			//this.originalValue = this.statInst.LocalXpPoolWithoutAbilities;
 			this.modifierApplied = false;
 		}
 		
@@ -41,13 +41,13 @@ namespace SphericalCow
 		//
 		
 		/// <summary>
-		/// 	Will only procede if the statRef is null
+		/// 	Will only procede if the statInst is null
 		/// </summary>
 		public void RefreshStatReference()
 		{
-			if(this.statRef == null)
+			if(this.statInst == null)
 			{
-				this.statRef = this.character.FindAnyStatInstance(this.statName);
+				this.statInst = this.character.FindAnyStatInstance(this.statName);
 			}
 		}
 		
@@ -60,10 +60,29 @@ namespace SphericalCow
 			{
 				Debug.Assert(statToUnapply != null, "AbilityModifierInstance: UnapplySpecificStat(): Stat is null!");
 			}
-			if(ReferenceEquals(this.statRef, statToUnapply))
+			if(ReferenceEquals(this.statInst, statToUnapply))
 			{
 				this.Unapply();
-				this.statRef = null;
+				this.statInst = null;
+			}
+		}
+		
+		/// <summary>
+		/// 	Will revert application of an ability upon the given stat, if applicable, and only for the given modifier type
+		/// </summary>
+		public void UnlinkSpecificStat(AbstractStatInstance statToUnapply, AbilityModifierType modifierType)
+		{
+			if(Debug.isDebugBuild)
+			{
+				Debug.Assert(statToUnapply != null, "AbilityModifierInstance: UnapplySpecificStat(): Stat is null!");
+			}
+			if(ReferenceEquals(this.statInst, statToUnapply))
+			{
+				if(this.type == modifierType)
+				{
+					this.Unapply();
+					this.statInst = null;
+				}
 			}
 		}
 		
@@ -72,14 +91,14 @@ namespace SphericalCow
 		/// </summary>
 		public void Apply()
 		{
-			// TODO: Apply abilityModifier
 			if(!this.modifierApplied)
 			{
 				// Make sure that the stat to modify exists
-				if(this.statRef == null)
+				if(this.statInst == null)
 				{
+					// Search for the appropriate stat and try again
 					this.RefreshStatReference();
-					if(this.statRef == null)
+					if(this.statInst == null)
 					{
 						// Skip; stat to apply is not available
 						return;
@@ -87,10 +106,7 @@ namespace SphericalCow
 				}
 				
 				// Actually apply this modifier unto the stat
-				this.ModifyStat();
-				
-				// Mark this modifier as applied
-				this.modifierApplied = true;
+				this.modifierApplied = this.statInst.ApplyModifier(this);
 			}
 		}
 		
@@ -99,67 +115,22 @@ namespace SphericalCow
 		/// </summary>
 		public void Unapply()
 		{
-			// TODO: Unapply ability modifier
-			if(this.statRef != null)
+			if(this.modifierApplied)
 			{
-				
+				// If the stat to unapply from exists
+				if(this.statInst != null)
+				{
+					// Unapply
+					this.modifierApplied = this.statInst.UnapplyModifier(this);
+				}
+				else
+				{
+					// Stat no longer exists. Mark as unapplied
+					this.modifierApplied = false;
+				}
 			}
 		}
-		
-		
-		/// <summary>
-		/// 	Private routine for Apply()
-		/// </summary>
-		private void ModifyStat()
-		{
-			this.originalValue = this.statRef.LocalXpPoolWithoutAbilities;
-			
-			switch(this.type)
-			{
-				case AbilityModifierType.IncreaseBy:
-				{
-					// Increment the stat by the target value
-					this.statRef.SetLocalXpPoolManually(this.originalValue + this.targetValue);
-					break;
-				}
-				case AbilityModifierType.IncreaseTo:
-				{
-					// Set the stat to the target value, only if the target value is more than the original
-					if(this.originalValue < this.targetValue)
-					{
-						this.statRef.SetLocalXpPoolManually(this.targetValue);
-					}
-					break;
-				}
-				case AbilityModifierType.DecreaseBy:
-				{
-					// Decrement the stat by the target value
-					this.statRef.SetLocalXpPoolManually(this.originalValue - this.targetValue);
-					break;
-				}
-				case AbilityModifierType.DecreaseTo:
-				{
-					// Set the stat to the target value, only if the target value is less than the original
-					if(this.originalValue > this.targetValue)
-					{
-						this.statRef.SetLocalXpPoolManually(this.targetValue);
-					}
-					break;
-				}
-				default:
-					Debug.Assert(false, "Unhandled condition for AbilityModifierType!");
-					break;
-			}
-			
-		}
-		
-		/// <summary>
-		/// 	Private routines for Unapply()
-		/// </summary>
-		private void RevertStat()
-		{
-			this.statRef.SetLocalXpPoolManually(this.originalValue);
-		}
+
 		
 		
 
@@ -200,11 +171,11 @@ namespace SphericalCow
 			}
 		}
 
-		public AbstractStatInstance StatReference
+		public AbstractStatInstance StatInstance
 		{
 			get
 			{
-				return this.statRef;
+				return this.statInst;
 			}
 		}
 
@@ -224,13 +195,13 @@ namespace SphericalCow
 			}
 		}
 
-		public int OriginalValue
+		/*public int OriginalValue
 		{
 			get
 			{
 				return this.originalValue;
 			}
-		}
+		}*/
 		
 		public bool IsModifierApplied
 		{

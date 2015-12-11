@@ -26,9 +26,9 @@ namespace SphericalCow
 			this.abilityModifierInstances = new List<AbilityModifierInstance>();
 
 			// Create ability modifier instances
-			foreach(var abilityModifier in this.abilityRef.AbilityModifiers)
+			foreach(var abilityModifierRef in this.abilityRef.AbilityModifiers)
 			{
-				this.abilityModifierInstances.Add(new AbilityModifierInstance(abilityModifier, this.character, this));
+				this.abilityModifierInstances.Add(new AbilityModifierInstance(abilityModifierRef, this.character, this));
 			}
 		}
 

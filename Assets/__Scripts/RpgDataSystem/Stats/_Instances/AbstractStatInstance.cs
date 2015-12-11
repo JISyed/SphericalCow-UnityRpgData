@@ -69,12 +69,15 @@ namespace SphericalCow
 			return Guid.NewGuid();
 		}
 		
+		/// <summary>
+		/// 	Only to be called by AbilityModifierInstance
+		/// </summary>
+		/// <returns>True if the modifier is applied to this stat, false otherwise</returns>
 		public bool ApplyModifier(AbilityModifierInstance modifier)
 		{
 			if(modifier.IsModifierApplied)
 			{
-				// TODO: Should this be false or true?
-				return false;
+				return true;
 			}
 			
 			bool statApplied = false;
@@ -142,11 +145,14 @@ namespace SphericalCow
 			return statApplied;
 		}
 		
+		/// <summary>
+		/// 	Only to be called by AbilityModifierInstance
+		/// </summary>
+		/// /// <returns>True if the modifier is APPLIED (not unapplied) to this stat, false otherwise</returns>
 		public bool UnapplyModifier(AbilityModifierInstance modifier)
 		{
-			if(modifier.IsModifierApplied)
+			if(!modifier.IsModifierApplied)
 			{
-				// TODO: Should this be false or true?
 				return false;
 			}
 			
@@ -213,7 +219,8 @@ namespace SphericalCow
 			}
 			
 			
-			return statUnapplied;
+			// Returning the oppposite so that AbilityModifierInstnace can know if it is applied onto this stat
+			return !statUnapplied;
 		}	
 		
 		
@@ -240,11 +247,6 @@ namespace SphericalCow
 			{
 				return this.statName;
 			}
-
-			protected set
-			{
-				this.statName = value;
-			}
 		}
 
 		public Guid StatGuid
@@ -252,11 +254,6 @@ namespace SphericalCow
 			get
 			{
 				return this.statGuid;
-			}
-
-			protected set
-			{
-				this.statGuid = value;
 			}
 		}
 		
@@ -270,6 +267,14 @@ namespace SphericalCow
 			protected set
 			{
 				this.localXpPool = value;
+			}
+		}
+		
+		public int NetAbilityXpOffset
+		{
+			get
+			{
+				return this.netAbilityOffset;
 			}
 		}
 		

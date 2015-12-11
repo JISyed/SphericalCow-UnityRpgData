@@ -64,7 +64,8 @@ namespace SphericalCow.Testing
 			// Only run if you are LOADING a character from file
 			else
 			{
-				Debug.LogWarning("Branch not implemened!");
+				// TODO: Load RpgCharacter Data from file
+				Debug.Assert(false, "Loading RpgCharacterData from file NOT implemented!");
 			}
 
 			// Make a StringBuilder because a ton of strings will be written
@@ -207,8 +208,8 @@ namespace SphericalCow.Testing
 					this.strBuild.Append("      ").Append("      ");
 					this.strBuild.Append("Target: ").Append(abilityModifier.TargetValue).Append("\n");
 
-					this.strBuild.Append("      ").Append("      ");
-					this.strBuild.Append("Original: ").Append(abilityModifier.OriginalValue).Append("\n");
+					//this.strBuild.Append("      ").Append("      ");
+					//this.strBuild.Append("Original: ").Append(abilityModifier.OriginalValue).Append("\n");
 				}
 				this.strBuild.Append("\n");
 			}
