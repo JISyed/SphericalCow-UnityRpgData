@@ -40,13 +40,18 @@ namespace SphericalCow
 
 		public void ApplyAbility()
 		{
-			// TODO: Implement ability application
+			foreach(var modifierInstance in this.abilityModifierInstances)
+			{
+				modifierInstance.Apply();
+			}
 		}
 
 		public void UnApplyAbility()
 		{
-			// TODO: Implement ability de-application
-			
+			foreach(var modifierInstance in this.abilityModifierInstances)
+			{
+				modifierInstance.Unapply();
+			}
 		}
 
 

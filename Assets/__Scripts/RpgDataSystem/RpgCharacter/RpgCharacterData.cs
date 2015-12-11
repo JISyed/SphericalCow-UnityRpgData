@@ -149,9 +149,9 @@ namespace SphericalCow
 
 		public void AddAbility(Ability abilityReference)
 		{
-			// TODO: Auto apply this ability onto the local stat instances
 			AbilityInstance newAbilityInst = new AbilityInstance(abilityReference, this);
 			this.abilities.Add(newAbilityInst);
+			newAbilityInst.ApplyAbility();
 		}
 
 

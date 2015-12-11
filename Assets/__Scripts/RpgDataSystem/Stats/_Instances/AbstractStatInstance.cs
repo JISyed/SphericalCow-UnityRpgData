@@ -64,10 +64,12 @@ namespace SphericalCow
 		// Methods
 		//
 		
+		
 		private Guid GenerateGuid()
 		{
 			return Guid.NewGuid();
 		}
+		
 		
 		/// <summary>
 		/// 	Only to be called by AbilityModifierInstance
