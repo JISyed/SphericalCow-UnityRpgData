@@ -15,5 +15,5 @@ MonoBehaviour:
   description: How quickly the player can move, stealth,  the chance of hit with melee
     weapons, and general vitality.
   icon: {fileID: 0}
-  xpAssignmentType: 0
-  absoluteMaxXpLevel: 999
+  statPointAssignmentType: 2
+  absoluteMaxStatPoint: 999

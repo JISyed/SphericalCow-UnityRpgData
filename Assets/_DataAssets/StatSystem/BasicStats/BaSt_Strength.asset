@@ -15,5 +15,5 @@ MonoBehaviour:
   description: Dictates the amount the player can lift, the damage they can do, and
     general vitality.
   icon: {fileID: 0}
-  xpAssignmentType: 0
-  absoluteMaxXpLevel: 999
+  statPointAssignmentType: 2
+  absoluteMaxStatPoint: 999

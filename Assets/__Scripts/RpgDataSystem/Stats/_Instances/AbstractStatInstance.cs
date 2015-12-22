@@ -1,5 +1,4 @@
-﻿//using UnityEngine;
-using Guid = System.Guid;
+﻿using Guid = System.Guid;
 
 namespace SphericalCow
 {
@@ -20,8 +19,7 @@ namespace SphericalCow
 		
 		private string statName;
 		private Guid statGuid;
-		private int localXpPool;			// Total accumulated XP for Use-Assigned progression
-		private int nextLevelXp;			// The total amount of local XP needed to level up
+		private int localStatPoints;		// Total accumulated stat points for this particular stat (used in both Use and Point assignment)
 		private int netAbilityOffset;		// The total amount of stat modification done by abilities (can be negative)
 		private int abilityMaxThreshold;	// The modified stat value if an ability applied "IncreaseTo" modification
 		private int abilityMinThreshold;	// The modified stat value if an ability applied "DecreaseTo" modification
@@ -38,8 +36,7 @@ namespace SphericalCow
 		{
 			this.statName = newStatName;
 			this.statGuid = this.GenerateGuid();
-			this.localXpPool = 0;					// TODO: Determine good default value for local XP pool
-			this.nextLevelXp = 100;					// TODO: Find intelligent way to calculate Next Level XP
+			this.localStatPoints = 0;					// TODO: Determine good default value for local stat point pool				
 			this.netAbilityOffset = 0;
 			this.abilityMaxThreshold = THRESHOLD_UNAPPLIED;		// "-1" means threshold wasn't applied
 			this.abilityMinThreshold = THRESHOLD_UNAPPLIED;		// "-1" means threshold wasn't applied
@@ -108,7 +105,7 @@ namespace SphericalCow
 				else
 				{
 					// If the current stat value is less than the target value to increase to
-					if(this.localXpPool < modifier.TargetValue)
+					if(this.localStatPoints < modifier.TargetValue)
 					{
 						this.abilityMaxThreshold = modifier.TargetValue;
 						statApplied = true;
@@ -131,7 +128,7 @@ namespace SphericalCow
 				else
 				{
 					// If the current stat value is greater than the target value to decrease to
-					if(this.localXpPool > modifier.TargetValue)
+					if(this.localStatPoints > modifier.TargetValue)
 					{
 						this.abilityMinThreshold = modifier.TargetValue;
 						statApplied = true;
@@ -233,14 +230,9 @@ namespace SphericalCow
 		// Properties
 		//
 		
-		public void SetLocalXpPoolManually(int newXpAmount)
+		public void SetLocalStatPointsManually(int newSpAmount)
 		{
-			this.LocalXpPoolWithoutAbilities = newXpAmount;
-		}
-
-		public void SetNextLevelXpManually(int newValue)
-		{
-			this.NextLevelXp = newValue;
+			this.LocalStatPointsWithoutAbilities = newSpAmount;
 		}
 		
 		public string StatName
@@ -259,20 +251,20 @@ namespace SphericalCow
 			}
 		}
 		
-		public int LocalXpPoolWithoutAbilities
+		public int LocalStatPointsWithoutAbilities
 		{
 			get
 			{
-				return this.localXpPool;
+				return this.localStatPoints;
 			}
 
 			protected set
 			{
-				this.localXpPool = value;
+				this.localStatPoints = value;
 			}
 		}
 		
-		public int NetAbilityXpOffset
+		public int NetAbilityStatPointOffset
 		{
 			get
 			{
@@ -281,19 +273,19 @@ namespace SphericalCow
 		}
 		
 		/// <summary>
-		///		This is the local XP pool plus any modifications applied by abilities
+		///		This is the local stat point pool plus any modifications applied by abilities
 		/// </summary>
-		public int NetLocalXp
+		public int NetLocalStatPoints
 		{
 			get
 			{
-				// Get the XP plus any modifications done by IncreaseBy or DecreaseBy mods
-				int subtotalXp = this.localXpPool + this.netAbilityOffset;
+				// Get the SP plus any modifications done by IncreaseBy or DecreaseBy mods
+				int subtotalSP = this.localStatPoints + this.netAbilityOffset;
 				
 				// Subtotal cannot be negative
-				if(subtotalXp < 0)
+				if(subtotalSP < 0)
 				{
-					subtotalXp = 0;
+					subtotalSP = 0;
 				}
 				
 				// Check if IncreaseTo or DecreaseTo mods apply to this stat
@@ -302,30 +294,25 @@ namespace SphericalCow
 					// If IncreaseTo was applied
 					if(this.abilityMaxThreshold > THRESHOLD_UNAPPLIED)
 					{
-						subtotalXp = this.abilityMaxThreshold;
+						subtotalSP = this.abilityMaxThreshold;
 					}
 					// If DecreaseTo was applied
 					else if(this.abilityMinThreshold > THRESHOLD_UNAPPLIED)
 					{
-						subtotalXp = this.abilityMaxThreshold;
+						subtotalSP = this.abilityMaxThreshold;
 					}
 				}
 				
-				return subtotalXp;
+				return subtotalSP;
 			}
 		}
 		
-		public int NextLevelXp
+		/// <summary>
+		/// 	Get the maximum amount of stat points possible for this particular stat. If 0 or less, then there is no max.
+		/// </summary>
+		public abstract int AbsoluteMaxStatPoints
 		{
-			get
-			{
-				return this.nextLevelXp;
-			}
-
-			protected set
-			{
-				this.nextLevelXp = value;
-			}
+			get;
 		}
 
 		public RpgCharacterData Character

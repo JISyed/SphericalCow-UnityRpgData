@@ -14,8 +14,8 @@ MonoBehaviour:
   statName: Health
   description: This is based upon strength, agility, and willpower.
   icon: {fileID: 0}
-  xpAssignmentType: 0
-  absoluteMaxXpLevel: 999
+  statPointAssignmentType: 2
+  absoluteMaxStatPoint: 999
   baseStatDerivations:
   - stat: {fileID: 11400000, guid: a6fbbb6e1904c4a5e8ca0f648a840556, type: 2}
     percentage: 58

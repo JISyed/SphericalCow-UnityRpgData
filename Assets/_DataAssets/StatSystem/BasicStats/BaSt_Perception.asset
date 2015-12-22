@@ -15,5 +15,5 @@ MonoBehaviour:
   description: 'How aware they are of the world around them, as well as accuracy with
     ranged weapons. '
   icon: {fileID: 0}
-  xpAssignmentType: 0
-  absoluteMaxXpLevel: 999
+  statPointAssignmentType: 2
+  absoluteMaxStatPoint: 999

@@ -14,6 +14,9 @@ namespace SphericalCow
 		// Data
 		//
 		
+		private int xp;										// Experience points of the player (not the same thing as stat points!)
+		private int levelUpXpThreshold;						// The amount of XP needed to level up
+		private int pointAssignedSpPool;					// "Global" pool of stat points that accumulates upon leveling up (for Point-Assigned only)
 		private ProgressionType progressionVariable;
 		private string characterName;
 		private List<BasicStatInstance> basicStats;
@@ -32,6 +35,9 @@ namespace SphericalCow
 		/// </summary>
 		public RpgCharacterData()
 		{
+			this.xp = 0;
+			this.levelUpXpThreshold = 100; 			// TODO: Find an intelligent way to calculate this
+			this.pointAssignedSpPool = 0;
 			this.progressionVariable = ProgressionType.Easy;
 			this.characterName = "Player";
 			this.basicStats = new List<BasicStatInstance>();
@@ -186,13 +192,47 @@ namespace SphericalCow
 		{
 			this.progressionVariable = newProgressionVariable;
 		}
-
-
-
-
+		
+		public void SetXpManually(int newXp)
+		{
+			this.xp = newXp;
+		}
+		
+		public void SetLevelUpXpThresholdManually(int newThreshold)
+		{
+			this.levelUpXpThreshold = newThreshold;
+		}
+		
+		
+		
+		
 		//
 		// Getters
 		//
+		
+		public int Xp
+		{
+			get
+			{
+				return this.xp;
+			}
+		}
+		
+		public int XpNeededToLevelUp
+		{
+			get
+			{
+				return this.levelUpXpThreshold;
+			}
+		}
+		
+		public int PointAssignedSpPool
+		{
+			get
+			{
+				return this.pointAssignedSpPool;
+			}
+		}
 
 		public string CharacterName
 		{

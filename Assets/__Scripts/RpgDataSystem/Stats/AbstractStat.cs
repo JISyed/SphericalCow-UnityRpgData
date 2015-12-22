@@ -11,8 +11,8 @@ namespace SphericalCow
 		[SerializeField] private string statName;
 		[TextArea(3,12)] [SerializeField] private string description;
 		[SerializeField] private Texture icon;
-		[SerializeField] private AssignmentType xpAssignmentType = AssignmentType.DefaultAssigned;
-		[SerializeField] private int absoluteMaxXpLevel;	// Cannot change
+		[SerializeField] private AssignmentType statPointAssignmentType = AssignmentType.DefaultAssigned;
+		[SerializeField] private int absoluteMaxStatPoint;	// Cannot change
 		
 		//
 		// Methods
@@ -49,19 +49,19 @@ namespace SphericalCow
 			}
 		}
 		
-		public AssignmentType XpAssignmentType
+		public AssignmentType StatPointAssignmentType
 		{
 			get
 			{
-				return this.xpAssignmentType;
+				return this.statPointAssignmentType;
 			}
 		}
 		
-		public int AbsoluteMaxXpLevel
+		public int AbsoluteMaxStatPoint
 		{
 			get
 			{
-				return this.absoluteMaxXpLevel;
+				return this.absoluteMaxStatPoint;
 			}
 		}
 	}

@@ -14,5 +14,5 @@ MonoBehaviour:
   statName: Luck
   description: Critcal Points?
   icon: {fileID: 0}
-  xpAssignmentType: 0
-  absoluteMaxXpLevel: 999
+  statPointAssignmentType: 2
+  absoluteMaxStatPoint: 999

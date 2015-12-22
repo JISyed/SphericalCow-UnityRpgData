@@ -1,5 +1,8 @@
 ﻿namespace SphericalCow
 {
+	/// <summary>
+	/// 	Determines how stat points should be assigned. Point, Use, or Default
+	/// </summary>
 	public enum AssignmentType 
 	{
 		PointAssigned,		// Uses a global pool that is user-allocated for all stats

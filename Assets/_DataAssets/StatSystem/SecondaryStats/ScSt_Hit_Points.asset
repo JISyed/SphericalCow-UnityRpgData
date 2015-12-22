@@ -14,8 +14,8 @@ MonoBehaviour:
   statName: Hit Points
   description: Equal to the Strength of the Character
   icon: {fileID: 0}
-  xpAssignmentType: 0
-  absoluteMaxXpLevel: 999
+  statPointAssignmentType: 2
+  absoluteMaxStatPoint: 999
   baseStatDerivations:
   - stat: {fileID: 11400000, guid: 7cc0b2800e56a4309b817716a6735d15, type: 2}
     percentage: 100

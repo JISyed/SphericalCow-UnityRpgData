@@ -11,7 +11,6 @@ namespace SphericalCow
 		private string statName;
 		private Guid statInstanceGuid;	// Using GUID for serialize a reference to another serialized object
 		private int targetValue;
-		//private int originalValue;
 		private bool modifierApplied;
 		[System.NonSerialized] private AbstractStatInstance statInst;
 		[System.NonSerialized] private RpgCharacterData character;
@@ -31,7 +30,6 @@ namespace SphericalCow
 			this.statInstanceGuid = this.statInst.StatGuid;
 			this.character = characterData;
 			this.targetValue = abilityModifierRef.TargetValue;
-			//this.originalValue = this.statInst.LocalXpPoolWithoutAbilities;
 			this.modifierApplied = false;
 		}
 		
@@ -194,14 +192,6 @@ namespace SphericalCow
 				return this.targetValue;
 			}
 		}
-
-		/*public int OriginalValue
-		{
-			get
-			{
-				return this.originalValue;
-			}
-		}*/
 		
 		public bool IsModifierApplied
 		{

@@ -112,6 +112,17 @@ namespace SphericalCow
 				return this.statReference;
 			}
 		}
+		
+		/// <summary>
+		/// 	Get the maximum amount of stat points possible for this particular stat. If 0 or less, then there is no max.
+		/// </summary>
+		override public int AbsoluteMaxStatPoints
+		{
+			get
+			{
+				return this.statReference.AbsoluteMaxStatPoint;
+			}
+		}
 	}
 }
 	

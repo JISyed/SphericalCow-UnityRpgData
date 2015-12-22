@@ -11,6 +11,8 @@ namespace SphericalCow.Testing
 	public class RpgCharacterTestScript : MonoBehaviour 
 	{
 		public string playerName;
+		public int initialXp = 0;
+		public int initialLevelUpThreshold = 100;
 		public ProgressionType progressionVariable;
 		public List<BasicStat> dataForBasicStats;
 		public List<SecondaryStat> dataForSecondaryStats;
@@ -22,6 +24,7 @@ namespace SphericalCow.Testing
 
 		public UI.Text playerNameLabel;
 		public UI.Text progressionVariableLabel;
+		public UI.Text xpLabel;
 		public UI.Text basicStatsLabel;
 		public UI.Text secondaryStatsLabel;
 		public UI.Text skillStatsLabel;
@@ -40,6 +43,8 @@ namespace SphericalCow.Testing
 				this.player = new RpgCharacterData();
 				this.player.SetCharacterName(this.playerName);
 				this.player.SetProgressionVariable(this.progressionVariable);
+				this.player.SetXpManually(this.initialXp);
+				this.player.SetLevelUpXpThresholdManually(this.initialLevelUpThreshold);
 
 				foreach(var basicStat in this.dataForBasicStats)
 				{
@@ -81,10 +86,11 @@ namespace SphericalCow.Testing
 		{
 			
 		}
+		
 
 		/// <summary>
 		///  	Used to refresh the Unity UI displaying data about the character.
-		/// 	Doens't have to run every frame
+		/// 	Doesn't have to run every frame
 		/// </summary>
 		private void RefreshUI()
 		{
@@ -93,7 +99,8 @@ namespace SphericalCow.Testing
 			//////////
 
 			this.playerNameLabel.text = this.player.CharacterName;
-			this.progressionVariableLabel.text = "Lvl: " + this.player.ProgressionVariable.ToString();
+			this.progressionVariableLabel.text = "Dif: " + this.player.ProgressionVariable.ToString();
+			this.xpLabel.text = "XP: " + this.player.Xp.ToString() + " / " + this.player.XpNeededToLevelUp.ToString();
 
 			// Clear String Builder
 			this.strBuild.Length = 0;
@@ -111,8 +118,8 @@ namespace SphericalCow.Testing
 				{
 					this.strBuild.Append("GUID: ").Append(basicStatInst.StatGuid.ToString()).Append("\n");
 				}
-				this.strBuild.Append("Current Level: ").Append(basicStatInst.NetLocalXp).Append("\n");
-				this.strBuild.Append("Next Level At: ").Append(basicStatInst.NextLevelXp).Append("\n\n");
+				this.strBuild.Append("Current SP: ").Append(basicStatInst.NetLocalStatPoints).Append(" / ").Append(basicStatInst.AbsoluteMaxStatPoints).Append("\n");
+				this.strBuild.Append("\n");
 			}
 			this.basicStatsLabel.text = this.strBuild.ToString();
 
@@ -132,8 +139,7 @@ namespace SphericalCow.Testing
 				{
 					this.strBuild.Append("GUID: ").Append(secStatInst.StatGuid.ToString()).Append("\n");
 				}
-				this.strBuild.Append("Current Level: ").Append(secStatInst.NetLocalXp).Append("\n");
-				this.strBuild.Append("Next Level At: ").Append(secStatInst.NextLevelXp).Append("\n");
+				this.strBuild.Append("Current SP: ").Append(secStatInst.NetLocalStatPoints).Append(" / ").Append(secStatInst.AbsoluteMaxStatPoints).Append("\n");
 
 				this.strBuild.Append("Derived From:\n");
 				foreach(var statPercentPair in secStatInst.DerivativeBasicStats)
@@ -161,8 +167,7 @@ namespace SphericalCow.Testing
 				{
 					this.strBuild.Append("GUID: ").Append(skillStatInst.StatGuid.ToString()).Append("\n");
 				}
-				this.strBuild.Append("Current Level: ").Append(skillStatInst.NetLocalXp).Append("\n");
-				this.strBuild.Append("Next Level At: ").Append(skillStatInst.NextLevelXp).Append("\n");
+				this.strBuild.Append("Current SP: ").Append(skillStatInst.NetLocalStatPoints).Append(" / ").Append(skillStatInst.AbsoluteMaxStatPoints).Append("\n");
 
 				this.strBuild.Append("Derived From:\n");
 				foreach(var statPercentPair in skillStatInst.DerivativeStats)
@@ -203,20 +208,15 @@ namespace SphericalCow.Testing
 					}
 
 					this.strBuild.Append("      ").Append("      ");
-					this.strBuild.Append(abilityModifier.Type.ToString()).Append("\n");
-
-					this.strBuild.Append("      ").Append("      ");
-					this.strBuild.Append("Target: ").Append(abilityModifier.TargetValue).Append("\n");
-
-					//this.strBuild.Append("      ").Append("      ");
-					//this.strBuild.Append("Original: ").Append(abilityModifier.OriginalValue).Append("\n");
+					this.strBuild.Append(abilityModifier.Type.ToString()).Append(": ").Append(abilityModifier.TargetValue).Append("\n");
 				}
 				this.strBuild.Append("\n");
 			}
 			this.abilitiesLabel.text = this.strBuild.ToString();
 			this.strBuild.Length = 0; // Clear
 		}
-
+		
+		
 		/// <summary>
 		/// Called when the Save button is pressed
 		/// </summary>
@@ -224,7 +224,7 @@ namespace SphericalCow.Testing
 		{
 			Debug.Log("Save not ready!");
 		}
-
+		
 		/// <summary>
 		/// Called when the Load button is pressed
 		/// </summary>
@@ -232,7 +232,7 @@ namespace SphericalCow.Testing
 		{
 			Debug.Log("Load not ready!");
 		}
-
+		
 		/// <summary>
 		/// Called when the Random Values button is pressed
 		/// </summary>
@@ -241,24 +241,25 @@ namespace SphericalCow.Testing
 			// Random values for basic stat instances
 			foreach(var basicStat in this.player.ListOfBasicStats)
 			{
-				basicStat.SetLocalXpPoolManually(Random.Range(0, 300));
-				basicStat.SetNextLevelXpManually(Random.Range(300, 400));
+				basicStat.SetLocalStatPointsManually(Random.Range(0, 300));
 			}
 
 
 			// Random values for secondary stat instances
 			foreach(var secondaryStat in this.player.ListOfSecondaryStats)
 			{
-				secondaryStat.SetLocalXpPoolManually(Random.Range(50, 500));
-				secondaryStat.SetNextLevelXpManually(Random.Range(500, 600));
+				// TODO: Secondary stats need to derive their values from base stats!
+				
+				secondaryStat.SetLocalStatPointsManually(Random.Range(50, 500));
 			}
 
 
 			// Random values for basic stat instances
 			foreach(var skillStat in this.player.ListOfSkillStats)
 			{
-				skillStat.SetLocalXpPoolManually(Random.Range(100, 600));
-				skillStat.SetNextLevelXpManually(Random.Range(600, 700));
+				// TODO: Skill stats need to derive their values from other stats!
+				
+				skillStat.SetLocalStatPointsManually(Random.Range(100, 600));
 			}
 
 
