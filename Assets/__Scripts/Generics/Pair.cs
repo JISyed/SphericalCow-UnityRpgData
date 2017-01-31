@@ -4,7 +4,7 @@
 namespace SphericalCow.Generics
 {
 	/// <summary>
-	/// 	Inmutable pair
+	/// 	Immutable pair
 	/// </summary>
 	public sealed class Pair<T1, T2> 
 	{
