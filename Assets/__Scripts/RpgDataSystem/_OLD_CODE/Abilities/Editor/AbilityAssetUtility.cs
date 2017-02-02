@@ -10,7 +10,7 @@ namespace SphericalCow.OldCode
 		/// 	Creates a new asset file containing a new instance of Ability.
 		/// 	Makes this method accessible from the Unity menu.
 		/// </summary>
-		[MenuItem("Assets/Create/SphericalCow/RPG Data System/Ability")]
+		[MenuItem("Assets/Create/SphericalCow/Old/RPG Data System/Ability")]
 		public static void CreateAbilityDataAsset()
 		{
 			StatsAndAttributesRegistry registry = AbilityAssetUtility.FindStatRegistry();
