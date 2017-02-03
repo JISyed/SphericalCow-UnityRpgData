@@ -21,5 +21,20 @@ namespace SphericalCow
 			newData.Init();
 			//registry.AddBasicStat(newStat);
 		}
+		
+		
+		/// <summary>
+		/// 	Creates a new asset file containing a new instance of #######.
+		/// 	Makes this method accessible from the Unity menu.
+		/// </summary>
+		[MenuItem("Assets/Create/SphericalCow/RPG Data System/XP Progressor")]
+		public static void CreateXpProgressorAsset()
+		{
+			//StatsAndAttributesRegistry registry = StatAssetUtility.FindStatRegistry();
+			XpProgressor newData = CustomDataAssetUtility.CreateAndReturnDataAsset<XpProgressor>();
+			newData.Init();
+			//registry.AddBasicStat(newStat);
+		}
+		
 	}
 }

@@ -40,6 +40,17 @@ public class SaveableGuid
 	}
 	
 	/// <summary>
+	/// 	Use with caution
+	/// </summary>
+	public void RepairGuid()
+	{
+		if(string.IsNullOrEmpty(this.guidString))
+		{
+			this.RandomizeGuid();
+		}
+	}
+	
+	/// <summary>
 	/// 	Initialize the Guid data from the string representation. The string representation must exist!
 	/// </summary>
 	public void LoadInternalData()

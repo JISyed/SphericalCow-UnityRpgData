@@ -23,7 +23,7 @@ namespace SphericalCow
 			
 			// Create a new file in the Project View on where ever the last selection was
 			// and automagically offer the ability to rename the file!
-			ProjectWindowUtil.CreateAsset(newAsset, typeof(T).Name + ".asset");
+			ProjectWindowUtil.CreateAsset(newAsset, "New " + typeof(T).Name + ".asset");
 		}
 		
 		// Creates a Unity .asset file in your project
@@ -36,7 +36,7 @@ namespace SphericalCow
 			
 			// Create a new file in the Project View on where ever the last selection was
 			// and automagically offer the ability to rename the file!
-			ProjectWindowUtil.CreateAsset(newAsset, typeof(T).Name + ".asset");
+			ProjectWindowUtil.CreateAsset(newAsset, "New " + typeof(T).Name + ".asset");
 			
 			// Return it to the caller
 			return newAsset;

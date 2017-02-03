@@ -11,8 +11,19 @@ namespace SphericalCow
 		[SerializeField] private string entityName;
 		[TextArea(3,12)] [SerializeField] private string description;
 		[SerializeField] private Texture icon;
-		[ReadOnly, SerializeField] private SaveableGuid guid;
+		[ReadOnly, SerializeField] private SaveableGuid id;		// Do not rename; renaming will cause problems
 		[ReadOnly, SerializeField] private bool isGuidInitialized = false;
+		
+		
+		void OnEnable()
+		{
+			if(string.IsNullOrEmpty(this.id.GuidString))
+			{
+				this.id.RepairGuid();
+				Debug.LogWarning("The ID for " + this.entityName 
+				                 + " went blank and had to be recreated! YAML data files may have to be fixed!");
+			}
+		}
 		
 		
 		/// <summary>
@@ -22,7 +33,7 @@ namespace SphericalCow
 		{
 			if(!this.isGuidInitialized)
 			{
-				this.guid = new SaveableGuid(true);
+				this.id = new SaveableGuid(true);
 				this.isGuidInitialized = true;
 			}
 		}
@@ -68,7 +79,7 @@ namespace SphericalCow
 		{
 			get
 			{
-				return this.guid.GuidData;
+				return this.id.GuidData;
 			}
 		}
 		
