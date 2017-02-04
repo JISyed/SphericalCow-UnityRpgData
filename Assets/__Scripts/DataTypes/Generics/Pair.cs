@@ -42,4 +42,5 @@ namespace SphericalCow.Generics
 		public T1 First { get; set; }
 		public T2 Second { get; set; }
 	}
+	
 }

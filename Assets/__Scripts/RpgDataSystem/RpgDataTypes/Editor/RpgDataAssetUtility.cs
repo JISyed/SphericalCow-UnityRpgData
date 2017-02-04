@@ -24,7 +24,7 @@ namespace SphericalCow
 		
 		
 		/// <summary>
-		/// 	Creates a new asset file containing a new instance of #######.
+		/// 	Creates a new asset file containing a new instance of XpProgressor
 		/// 	Makes this method accessible from the Unity menu.
 		/// </summary>
 		[MenuItem("Assets/Create/SphericalCow/RPG Data System/XP Progressor")]
@@ -35,6 +35,49 @@ namespace SphericalCow
 			newData.Init();
 			//registry.AddBasicStat(newStat);
 		}
+		
+		
+		/// <summary>
+		/// 	Creates a new asset file containing a new instance of BaseStat.
+		/// 	Makes this method accessible from the Unity menu.
+		/// </summary>
+		[MenuItem("Assets/Create/SphericalCow/RPG Data System/Base Stat")]
+		public static void CreateBaseStatAsset()
+		{
+			//StatsAndAttributesRegistry registry = StatAssetUtility.FindStatRegistry();
+			BaseStat newData = CustomDataAssetUtility.CreateAndReturnDataAsset<BaseStat>();
+			newData.Init();
+			//registry.AddBasicStat(newStat);
+		}
+		
+		
+		/// <summary>
+		/// 	Creates a new asset file containing a new instance of BaseStat.
+		/// 	Makes this method accessible from the Unity menu.
+		/// </summary>
+		[MenuItem("Assets/Create/SphericalCow/RPG Data System/Secondary Stat")]
+		public static void CreateSecondaryStatAsset()
+		{
+			//StatsAndAttributesRegistry registry = StatAssetUtility.FindStatRegistry();
+			SecondaryStat newData = CustomDataAssetUtility.CreateAndReturnDataAsset<SecondaryStat>();
+			newData.Init();
+			//registry.AddBasicStat(newStat);
+		}
+		
+		
+		/// <summary>
+		/// 	Creates a new asset file containing a new instance of SkillStat.
+		/// 	Makes this method accessible from the Unity menu.
+		/// </summary>
+		[MenuItem("Assets/Create/SphericalCow/RPG Data System/Skill Stat")]
+		public static void CreateSkillStatAsset()
+		{
+			//StatsAndAttributesRegistry registry = StatAssetUtility.FindStatRegistry();
+			SkillStat newData = CustomDataAssetUtility.CreateAndReturnDataAsset<SkillStat>();
+			newData.Init();
+			//registry.AddBasicStat(newStat);
+		}
+		
 		
 	}
 }

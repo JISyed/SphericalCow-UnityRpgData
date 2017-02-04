@@ -2,7 +2,7 @@
 
 namespace SphericalCow.OldCode
 {
-	abstract public class AbstractStat : ScriptableObject 
+	abstract public class OldAbstractStat : ScriptableObject 
 	{	
 		//
 		// Data
@@ -18,7 +18,7 @@ namespace SphericalCow.OldCode
 		// Methods
 		//
 
-		abstract public StatType GetStatType();
+		abstract public SphericalCow.OldCode.StatType GetStatType();
 
 		
 		//

@@ -6,7 +6,7 @@ namespace SphericalCow
 	/// <summary>
 	/// 	Represents any read-only RPG data type that has a name, decription, and icon
 	/// </summary>
-	public class AbstractRpgDataType : ScriptableObject 
+	public abstract class AbstractRpgDataType : ScriptableObject 
 	{
 		[SerializeField] private string entityName;
 		[TextArea(3,12)] [SerializeField] private string description;
@@ -17,12 +17,12 @@ namespace SphericalCow
 		
 		void OnEnable()
 		{
-			if(string.IsNullOrEmpty(this.id.GuidString))
-			{
-				this.id.RepairGuid();
-				Debug.LogWarning("The ID for " + this.entityName 
-				                 + " went blank and had to be recreated! YAML data files may have to be fixed!");
-			}
+//			if(string.IsNullOrEmpty(this.id.GuidString))
+//			{
+//				this.id.RepairGuid();
+//				Debug.LogWarning("The ID for " + this.entityName 
+//				                 + " went blank and had to be recreated! YAML data files may have to be fixed!");
+//			}
 		}
 		
 		

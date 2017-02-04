@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SphericalCow.OldCode
 {
-	public class SkillStat : AbstractStat 
+	public class SkillStat : OldAbstractStat 
 	{
 		//
 		// Data
@@ -16,9 +16,9 @@ namespace SphericalCow.OldCode
 		// Methods
 		//
 
-		public override StatType GetStatType ()
+		public override SphericalCow.OldCode.StatType GetStatType ()
 		{
-			return StatType.Skill;
+			return SphericalCow.OldCode.StatType.Skill;
 		}
 
 

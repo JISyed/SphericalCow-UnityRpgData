@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SphericalCow.OldCode
 {
-	public class SecondaryStat : AbstractStat 
+	public class SecondaryStat : OldAbstractStat 
 	{
 		//
 		// Data

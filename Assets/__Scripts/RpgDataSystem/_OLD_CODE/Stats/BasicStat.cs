@@ -2,7 +2,7 @@
 
 namespace SphericalCow.OldCode
 {
-	public class BasicStat : AbstractStat 
+	public class BasicStat : OldAbstractStat 
 	{
 		//
 		// Methods

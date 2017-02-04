@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 
-namespace SphericalCow.OldCode
+namespace SphericalCow
 {
 	[System.Serializable]
 	public class AbstractStatPercentagePair
 	{
-		[SerializeField] private OldAbstractStat stat;
-		[Range(0,100)] [SerializeField] private int percentage;
+		[SerializeField] private AbstractStat stat;
+		[Range(0,100)] [SerializeField] private float percentage;
 		
-		public OldAbstractStat Stat
+		public AbstractStat Stat
 		{
 			get
 			{
@@ -16,7 +16,7 @@ namespace SphericalCow.OldCode
 			}
 		}
 		
-		public int Percentage
+		public float Percentage
 		{
 			get
 			{

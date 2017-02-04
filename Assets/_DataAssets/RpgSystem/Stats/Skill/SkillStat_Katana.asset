@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57223884611aa43e49ebc9470d356c30, type: 3}
+  m_Name: SkillStat_Katana
+  m_EditorClassIdentifier: 
+  entityName: Katana
+  description: How good are you with a Japanese sword?
+  icon: {fileID: 0}
+  id:
+    guidString: 9838d004-c4d3-4d86-9b6d-4ebf08c0b8ac
+  isGuidInitialized: 1
+  spAssignmentType: 0
+  absoluteMaximumSp: 0
+  linkedStats:
+  - stat: {fileID: 11400000, guid: f1b1283664cd8434398fe020d2860426, type: 2}
+    percentage: 80
+  - stat: {fileID: 11400000, guid: 35bc650414aff413ab52a200953c42eb, type: 2}
+    percentage: 20

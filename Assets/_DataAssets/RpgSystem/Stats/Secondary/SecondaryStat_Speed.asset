@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67d850f4083ac4c16bf387936dd99c3b, type: 3}
+  m_Name: SecondaryStat_Speed
+  m_EditorClassIdentifier: 
+  entityName: Speed
+  description: Based off Agility and Strength
+  icon: {fileID: 0}
+  id:
+    guidString: 7e09cbfc-9651-4d17-9336-cbab60505756
+  isGuidInitialized: 1
+  spAssignmentType: 0
+  absoluteMaximumSp: 0
+  linkedStats:
+  - stat: {fileID: 11400000, guid: f1b1283664cd8434398fe020d2860426, type: 2}
+    percentage: 75
+  - stat: {fileID: 11400000, guid: dfcff0209064a47658a8f45ce7fb52fd, type: 2}
+    percentage: 25

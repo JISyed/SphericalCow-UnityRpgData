@@ -5,7 +5,7 @@ namespace SphericalCow.OldCode
 	[System.Serializable]
 	public class AbilityModifier 
 	{
-		[SerializeField] private AbstractStat statToModify;
+		[SerializeField] private OldAbstractStat statToModify;
 		[SerializeField] private AbilityModifierType type;
 		[SerializeField] private int targetValue;
 
@@ -28,7 +28,7 @@ namespace SphericalCow.OldCode
 		// Getters
 		//
 
-		public AbstractStat StatToModify
+		public OldAbstractStat StatToModify
 		{
 			get
 			{

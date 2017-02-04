@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67d850f4083ac4c16bf387936dd99c3b, type: 3}
+  m_Name: SecondaryStat_Health
+  m_EditorClassIdentifier: 
+  entityName: Health
+  description: This is based upon strength, agility, and willpower.
+  icon: {fileID: 0}
+  id:
+    guidString: 0d03fe0a-df30-458b-a0cb-4121161ce819
+  isGuidInitialized: 1
+  spAssignmentType: 0
+  absoluteMaximumSp: 0
+  linkedStats:
+  - stat: {fileID: 11400000, guid: f1b1283664cd8434398fe020d2860426, type: 2}
+    percentage: 58
+  - stat: {fileID: 11400000, guid: dfcff0209064a47658a8f45ce7fb52fd, type: 2}
+    percentage: 26
+  - stat: {fileID: 11400000, guid: 2eae193808e574ce49704739f71320eb, type: 2}
+    percentage: 16
