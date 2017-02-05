@@ -9,6 +9,9 @@ namespace SphericalCow
 	[System.Serializable]
 	public class BaseSpDeriver : AbstractSpDeriver 
 	{
+		/// <summary>
+		/// 	Constructor needs a BaseStat
+		/// </summary>
 		public BaseSpDeriver(BaseStat statReference) : base(statReference.Id)
 		{
 			// Intentionally empty
