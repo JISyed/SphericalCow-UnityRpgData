@@ -104,6 +104,30 @@ namespace SphericalCow
 		}
 		
 		
+		/// <summary>
+		/// 	The ID of the referenced XpProgressor
+		/// </summary>
+		public Guid XpProgressorId
+		{
+			get
+			{
+				return this.xpProgressorId.GuidData;
+			}
+		}
+		
+		
+		/// <summary>
+		/// 	The referenced XpProgressor
+		/// </summary>
+		public XpProgressor XpProgressorReference
+		{
+			get
+			{
+				return this.xpProgressor;
+			}
+		}
+		
+		
 	}
 }
 	
