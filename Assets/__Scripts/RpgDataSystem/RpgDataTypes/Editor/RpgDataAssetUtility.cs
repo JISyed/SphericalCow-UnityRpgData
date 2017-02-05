@@ -10,20 +10,6 @@ namespace SphericalCow
 	public static class RpgDataAssetUtility 
 	{
 		/// <summary>
-		/// 	Creates a new asset file containing a new instance of #######.
-		/// 	Makes this method accessible from the Unity menu.
-		/// </summary>
-		[MenuItem("Assets/Create/SphericalCow/Test/RPG Data System/Blank RPG Data Type")]
-		public static void CreateBlankRpgDataAsset()
-		{
-			//StatsAndAttributesRegistry registry = StatAssetUtility.FindStatRegistry();
-			AbstractRpgDataType newData = CustomDataAssetUtility.CreateAndReturnDataAsset<AbstractRpgDataType>();
-			newData.Init();
-			//registry.AddBasicStat(newStat);
-		}
-		
-		
-		/// <summary>
 		/// 	Creates a new asset file containing a new instance of XpProgressor
 		/// 	Makes this method accessible from the Unity menu.
 		/// </summary>
@@ -78,6 +64,20 @@ namespace SphericalCow
 			//registry.AddBasicStat(newStat);
 		}
 		
+		
+		
+		/// <summary>
+		/// 	Creates a new asset file containing a new instance of Ability.
+		/// 	Makes this method accessible from the Unity menu.
+		/// </summary>
+		[MenuItem("Assets/Create/SphericalCow/RPG Data System/Ability")]
+		public static void CreateAbilityAsset()
+		{
+			//StatsAndAttributesRegistry registry = StatAssetUtility.FindStatRegistry();
+			Ability newData = CustomDataAssetUtility.CreateAndReturnDataAsset<Ability>();
+			newData.Init();
+			//registry.AddBasicStat(newStat);
+		}
 		
 	}
 }

@@ -15,17 +15,6 @@ namespace SphericalCow
 		[ReadOnly, SerializeField] private bool isGuidInitialized = false;
 		
 		
-		void OnEnable()
-		{
-//			if(string.IsNullOrEmpty(this.id.GuidString))
-//			{
-//				this.id.RepairGuid();
-//				Debug.LogWarning("The ID for " + this.entityName 
-//				                 + " went blank and had to be recreated! YAML data files may have to be fixed!");
-//			}
-		}
-		
-		
 		/// <summary>
 		/// 	Initialized the RPG Data Type. Only runs once.
 		/// </summary>
@@ -37,6 +26,19 @@ namespace SphericalCow
 				this.isGuidInitialized = true;
 			}
 		}
+		
+		
+		/// <summary>
+		/// 	Used for deserialization of this object's ID (Guids cannot be serialized natively)
+		/// </summary>
+		public void RestoreGuidData()
+		{
+			if(this.id.IsGuidDataValid())
+			{
+				this.id.LoadInternalData();
+			}
+		}
+		
 		
 		
 		/// <summary>
@@ -80,6 +82,18 @@ namespace SphericalCow
 			get
 			{
 				return this.id.GuidData;
+			}
+		}
+		
+		
+		/// <summary>
+		/// 	Is the GUID initialized?
+		/// </summary>
+		protected bool IsGuidInitialized
+		{
+			get
+			{
+				return this.isGuidInitialized;
 			}
 		}
 		

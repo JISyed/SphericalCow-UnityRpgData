@@ -23,7 +23,7 @@ namespace SphericalCow
 		
 		
 		/// <summary>
-		/// 	Get the list of Base Stats linked to this Secondary Stat
+		/// 	The list of Base Stats linked to this Secondary Stat
 		/// </summary>
 		public ReadOnlyCollection<BaseStatPercentagePair> LinkedStats
 		{
