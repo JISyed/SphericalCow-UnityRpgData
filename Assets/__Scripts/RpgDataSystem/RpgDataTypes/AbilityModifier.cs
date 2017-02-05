@@ -12,44 +12,6 @@ namespace SphericalCow
 		[SerializeField] private AbstractStat modifiedStat;
 		[SerializeField] private AbilityModifierType type;
 		[SerializeField] private int assignedModifierValue;
-		//[ReadOnly, SerializeField] private SaveableGuid id;		// Do not rename; renaming will cause problems
-		//[ReadOnly, SerializeField] private bool isIdInitialized = false;
-		
-		
-		
-		/// <summary>
-		/// 	AbilityModifier's constructor
-		/// </summary>
-		public AbilityModifier()
-		{
-			//this.id = new SaveableGuid(true);
-		}
-		
-		
-		/// <summary>
-		/// 	Used to initialize the GUID. Only runs once
-		/// </summary>
-//		public void Init()
-//		{
-//			if(!this.isIdInitialized)
-//			{
-//				this.id = new SaveableGuid(true);
-//				this.isIdInitialized = true;
-//			}
-//		}
-		
-		
-		
-		/// <summary>
-		/// 	Used for deserialization of this object's ID (Guids cannot be serialized natively)
-		/// </summary>
-//		public void RestoreGuidData()
-//		{
-//			if(this.id.IsGuidDataValid())
-//			{
-//				this.id.LoadInternalData();
-//			}
-//		}
 		
 		
 		
@@ -87,18 +49,6 @@ namespace SphericalCow
 				return this.assignedModifierValue;
 			}
 		}
-		
-		
-		/// <summary>
-		/// 	The ID of this AbilityModifier
-		/// </summary>
-//		public Guid Id
-//		{
-//			get
-//			{
-//				return this.id.GuidData;
-//			}
-//		}
 		
 	}
 }

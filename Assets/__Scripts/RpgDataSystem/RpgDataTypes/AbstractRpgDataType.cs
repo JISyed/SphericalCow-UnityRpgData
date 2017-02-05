@@ -33,10 +33,7 @@ namespace SphericalCow
 		/// </summary>
 		public void RestoreGuidData()
 		{
-			if(this.id.IsGuidDataValid())
-			{
-				this.id.LoadInternalData();
-			}
+			this.id.LoadInternalData();
 		}
 		
 		

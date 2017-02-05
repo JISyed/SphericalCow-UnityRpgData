@@ -23,7 +23,7 @@ namespace SphericalCow
 		
 		
 		/// <summary>
-		/// 	Get the list of Stats linked to this Skill Stat
+		/// 	The list of Stats linked to this Skill Stat
 		/// </summary>
 		public ReadOnlyCollection<AbstractStatPercentagePair> LinkedStats
 		{

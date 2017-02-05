@@ -16,7 +16,7 @@ namespace SphericalCow
 		[SerializeField] private bool doesOldXtnlMultiplierIncrement;
 		
 		/// <summary>
-		/// 	Gets the initial value for XpToNextLevel (XTNL).
+		/// 	The initial value for XpToNextLevel (XTNL).
 		/// 	Infrequently needed for progression calculations.
 		/// 	Usually 1 or 0 depending on XpProressor file.
 		/// </summary>
@@ -29,7 +29,7 @@ namespace SphericalCow
 		}
 		
 		/// <summary>
-		/// 	Gets the multiplier for the level value used in progression calculations.
+		/// 	The multiplier for the level value. Used in progression calculations.
 		/// </summary>
 		public int LevelMultiplier
 		{
@@ -40,7 +40,7 @@ namespace SphericalCow
 		}
 		
 		/// <summary>
-		/// 	Gets the multiplier for the old XpToNextLevel (XTNL) value used in progression calculations.
+		/// 	The multiplier for the old XpToNextLevel (XTNL) value. Used in progression calculations.
 		/// </summary>
 		public int OldXtnlMultiplier
 		{

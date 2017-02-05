@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c66efc21e8eea4686a886a55383b1c7b, type: 3}
-  m_Name: KatanaOnly
+  m_Name: Ability_KatanaOnly
   m_EditorClassIdentifier: 
   entityName: Katanas Only
   description: You pledge to only use katanas as a weapon.

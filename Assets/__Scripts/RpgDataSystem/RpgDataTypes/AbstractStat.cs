@@ -19,7 +19,7 @@ namespace SphericalCow
 		
 		
 		/// <summary>
-		/// 	Returns the assignment method of SP for this stat
+		/// 	The assignment method of SP for this stat (UsedAssigned or PointAssigned)
 		/// </summary>
 		public SpAssignmentType SpAssignment
 		{
@@ -31,8 +31,8 @@ namespace SphericalCow
 		
 		
 		/// <summary>
-		/// 	Returns the absolute number of SP that can accumulate for this stat.
-		/// 	If set to 0, there is no max
+		/// 	The absolute number of SP that can accumulate for this stat.
+		/// 	If this value to 0, there is no max
 		/// </summary>
 		public int AbsoluteMaximumSp
 		{
