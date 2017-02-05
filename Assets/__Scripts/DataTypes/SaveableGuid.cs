@@ -21,6 +21,30 @@ public class SaveableGuid
 	{
 	}
 	
+	
+	
+	/// <summary>
+	/// 	Creates a GUID from string (may throw exceptions!)
+	/// </summary>
+	public SaveableGuid(string newGuidString)
+	{
+		this.guidString = newGuidString;
+		this.LoadInternalData();
+	}
+	
+	
+	
+	/// <summary>
+	/// 	Creates a GUID from a Guid object (may throw exceptions!)
+	/// </summary>
+	public SaveableGuid(Guid newGuid)
+	{
+		this.guid = newGuid;
+		this.UpdateStringRepresentation();
+	}
+	
+	
+	
 	/// <summary>
 	/// 	Specify if you want to make a complete instance of SavableGuid
 	/// </summary>
@@ -52,7 +76,8 @@ public class SaveableGuid
 	
 	
 	/// <summary>
-	/// 	Use with caution! Will give a new random GUID. May mess up existing serialized data!
+	/// 	Use with caution! Will give a new random GUID if the string representation is invalid. 
+	/// 	May mess up existing serialized data!
 	/// </summary>
 	public void RepairGuid()
 	{
@@ -100,7 +125,9 @@ public class SaveableGuid
 	
 	
 	
-	
+	/// <summary>
+	/// 	Generates a new random Guid and updates the string representation to match
+	/// </summary>
 	private void RandomizeGuid()
 	{
 		this.guid = Guid.NewGuid();
@@ -108,7 +135,9 @@ public class SaveableGuid
 	}
 	
 	
-	
+	/// <summary>
+	/// 	Given that the Guid data is valid, make the string representation of that Guid (for serialzation purposes)
+	/// </summary>
 	private void UpdateStringRepresentation()
 	{
 		Debug.Assert(this.IsGuidDataValid(), "An RPG data object has an invalid (empty) GUID!");
