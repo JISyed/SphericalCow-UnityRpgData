@@ -40,7 +40,7 @@ namespace SphericalCow
 		/// </summary>
 		public void LoadXpProgressor()
 		{
-			// TODO: Implement by putting XpProgressors in a registry and use xpProgressorId
+			// : Implement by putting XpProgressors in a registry and use xpProgressorId
 		}
 		
 		

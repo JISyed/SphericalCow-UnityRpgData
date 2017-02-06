@@ -35,7 +35,7 @@ namespace SphericalCow.OldCode
 		
 		protected override void SetupStatReference ()
 		{
-			// TODO: Setup BasicStatInstance is not implemented!
+			// : Setup BasicStatInstance is not implemented!
 			throw new System.NotImplementedException ();
 		}
 		

@@ -69,7 +69,7 @@ namespace SphericalCow.OldCode.Testing
 			// Only run if you are LOADING a character from file
 			else
 			{
-				// TODO: Load RpgCharacter Data from file
+				// : Load RpgCharacter Data from file
 				Debug.Assert(false, "Loading RpgCharacterData from file NOT implemented!");
 			}
 
@@ -248,7 +248,7 @@ namespace SphericalCow.OldCode.Testing
 			// Random values for secondary stat instances
 			foreach(var secondaryStat in this.player.ListOfSecondaryStats)
 			{
-				// TODO: Secondary stats need to derive their values from base stats!
+				// : Secondary stats need to derive their values from base stats!
 				
 				secondaryStat.SetLocalStatPointsManually(Random.Range(50, 500));
 			}
@@ -257,7 +257,7 @@ namespace SphericalCow.OldCode.Testing
 			// Random values for basic stat instances
 			foreach(var skillStat in this.player.ListOfSkillStats)
 			{
-				// TODO: Skill stats need to derive their values from other stats!
+				// : Skill stats need to derive their values from other stats!
 				
 				skillStat.SetLocalStatPointsManually(Random.Range(100, 600));
 			}

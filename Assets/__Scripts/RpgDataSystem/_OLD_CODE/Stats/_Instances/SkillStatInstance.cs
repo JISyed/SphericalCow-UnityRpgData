@@ -42,7 +42,7 @@ namespace SphericalCow.OldCode
 		
 		protected override void SetupStatReference ()
 		{
-			// TODO: Setup of stat reference in SkillStatInstance is not implemented!
+			// : Setup of stat reference in SkillStatInstance is not implemented!
 			throw new System.NotImplementedException ();
 		}
 

@@ -10,7 +10,7 @@ namespace SphericalCow.OldCode
 	/// </summary>
 	public class StatsAndAttributesRegistry : MonoBehaviour 
 	{
-		[SerializeField] private GameObject prefab;
+		//[SerializeField] private GameObject prefab;
 		
 		[SerializeField] private List<BasicStat> everyBasicStat;
 		[SerializeField] private List<SecondaryStat> everySecondaryStat;

@@ -36,7 +36,7 @@ namespace SphericalCow.OldCode
 		{
 			this.statName = newStatName;
 			this.statGuid = this.GenerateGuid();
-			this.localStatPoints = 0;					// TODO: Determine good default value for local stat point pool				
+			this.localStatPoints = 0;					// : Determine good default value for local stat point pool				
 			this.netAbilityOffset = 0;
 			this.abilityMaxThreshold = THRESHOLD_UNAPPLIED;		// "-1" means threshold wasn't applied
 			this.abilityMinThreshold = THRESHOLD_UNAPPLIED;		// "-1" means threshold wasn't applied

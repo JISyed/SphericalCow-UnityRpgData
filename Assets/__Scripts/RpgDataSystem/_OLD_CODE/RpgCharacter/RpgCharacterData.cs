@@ -36,7 +36,7 @@ namespace SphericalCow.OldCode
 		public RpgCharacterData()
 		{
 			this.xp = 0;
-			this.levelUpXpThreshold = 100; 			// TODO: Find an intelligent way to calculate this
+			this.levelUpXpThreshold = 100; 			// : Find an intelligent way to calculate this
 			this.pointAssignedSpPool = 0;
 			this.progressionVariable = ProgressionType.Easy;
 			this.characterName = "Player";
