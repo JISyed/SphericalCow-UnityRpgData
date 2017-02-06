@@ -10,7 +10,6 @@ namespace SphericalCow
 	public static class RpgDataAssetUtility 
 	{
 		private const string RpgSystemProjectPath = "Assets/__Scripts/RpgDataSystem";
-		private const string RpgRegistryPrefabName = "RpgDataRegistryObject";
 		
 		private static RpgDataRegistry rpgRegistryInstance = null;
 		
@@ -101,7 +100,7 @@ namespace SphericalCow
 			if(RpgDataAssetUtility.rpgRegistryInstance == null)
 			{
 				string[] folders = {RpgDataAssetUtility.RpgSystemProjectPath};
-				string[] searchResults = AssetDatabase.FindAssets(RpgDataAssetUtility.RpgRegistryPrefabName, folders);
+				string[] searchResults = AssetDatabase.FindAssets(RpgDataRegistry.RpgRegistryPrefabName, folders);
 				
 				if(searchResults == null)
 				{
