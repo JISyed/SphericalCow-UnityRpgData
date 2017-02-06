@@ -9,6 +9,13 @@ namespace SphericalCow
 	/// </summary>
 	public static class RpgDataAssetUtility 
 	{
+		private const string RpgSystemProjectPath = "Assets/__Scripts/RpgDataSystem";
+		private const string RpgRegistryPrefabName = "RpgDataRegistryObject";
+		
+		private static RpgDataRegistry rpgRegistryInstance = null;
+		
+		
+		
 		/// <summary>
 		/// 	Creates a new asset file containing a new instance of XpProgressor
 		/// 	Makes this method accessible from the Unity menu.
@@ -78,6 +85,59 @@ namespace SphericalCow
 			newData.Init();
 			//registry.AddBasicStat(newStat);
 		}
+		
+		
+		
+		
+		
+		
+		
+		/// <summary>
+		///  	Searches the Unity project for the prefab that holds the only instance of RpgDataRegistryObject.
+		///  	Editor only.
+		/// </summary>
+		private static RpgDataRegistry FindRpgDataRegistry()
+		{
+			if(RpgDataAssetUtility.rpgRegistryInstance == null)
+			{
+				string[] folders = {RpgDataAssetUtility.RpgSystemProjectPath};
+				string[] searchResults = AssetDatabase.FindAssets(RpgDataAssetUtility.RpgRegistryPrefabName, folders);
+				
+				if(searchResults == null)
+				{
+					Debug.LogError("Could not find the prefab RpgDataRegistryObject in the project! Did someone move or delete it?");
+					RpgDataAssetUtility.rpgRegistryInstance = null;
+				}
+				else
+				{
+					// Get the path of the given GUIDs
+					string path = AssetDatabase.GUIDToAssetPath(searchResults[0]);
+					
+					// Get the GameObject from the path
+					GameObject registryObject = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+					
+					Object oldSelection = Selection.activeObject;
+					Selection.activeObject = registryObject;
+					
+					// Get the registry from the game object
+					RpgDataRegistry theRegistry = registryObject.GetComponent<RpgDataRegistry>();
+					if(theRegistry == null)
+					{
+						Debug.LogError("RpgDataRegistry is missing from the associated prefab RpgDataRegistryObject!");
+					}
+					
+					Selection.activeObject = oldSelection;
+					
+					RpgDataAssetUtility.rpgRegistryInstance = theRegistry;
+				}
+			}
+			
+			return RpgDataAssetUtility.rpgRegistryInstance;
+		}
+		
+		
+		
+		
 		
 	}
 }

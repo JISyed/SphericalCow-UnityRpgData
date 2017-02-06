@@ -1,0 +1,161 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &174616
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 490614}
+  - 114: {fileID: 11438486}
+  m_Layer: 0
+  m_Name: RpgDataRegistryObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &490614
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 174616}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11438486
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 174616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3982677d13874b65b0d2c3818d7b4a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xpProgressors:
+  - {fileID: 11400000, guid: 95a68e9c1ba464b1f9006d4c00d161f2, type: 2}
+  baseStats:
+  - {fileID: 11400000, guid: f1b1283664cd8434398fe020d2860426, type: 2}
+  - {fileID: 11400000, guid: d183999288a534efbb42f91e999b691c, type: 2}
+  - {fileID: 11400000, guid: bbcfca262911a40d1b9d64ad743b47a6, type: 2}
+  - {fileID: 11400000, guid: dfcff0209064a47658a8f45ce7fb52fd, type: 2}
+  - {fileID: 11400000, guid: 2eae193808e574ce49704739f71320eb, type: 2}
+  secondaryStats:
+  - {fileID: 11400000, guid: d49a8405c1b0f4da1b796abe9236e4ee, type: 2}
+  - {fileID: 11400000, guid: 35bc650414aff413ab52a200953c42eb, type: 2}
+  - {fileID: 11400000, guid: 7148be7d28a7941b380a78d9b6487791, type: 2}
+  - {fileID: 11400000, guid: 5440411ee1bb54b369d55d1e70334989, type: 2}
+  skillStats:
+  - {fileID: 11400000, guid: 7aed580dd38354b6fb4fcb0576b7f1b6, type: 2}
+  - {fileID: 11400000, guid: a6d051dbfee4340c8b1fbdb87b3dc962, type: 2}
+  - {fileID: 11400000, guid: 61f0b1e590cfe4fc887b22c85568d91a, type: 2}
+  abilties:
+  - {fileID: 11400000, guid: 3aa527ee1fc7d4f5c9e94fb9bb704df1, type: 2}
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: abilties.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: baseStats.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: skillStats.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: xpProgressors.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: secondaryStats.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: xpProgressors.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 95a68e9c1ba464b1f9006d4c00d161f2,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: baseStats.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: f1b1283664cd8434398fe020d2860426,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: baseStats.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: d183999288a534efbb42f91e999b691c,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: baseStats.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: bbcfca262911a40d1b9d64ad743b47a6,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: baseStats.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: dfcff0209064a47658a8f45ce7fb52fd,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: baseStats.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: 2eae193808e574ce49704739f71320eb,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: secondaryStats.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: d49a8405c1b0f4da1b796abe9236e4ee,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: secondaryStats.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 35bc650414aff413ab52a200953c42eb,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: secondaryStats.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7148be7d28a7941b380a78d9b6487791,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: secondaryStats.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 5440411ee1bb54b369d55d1e70334989,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: skillStats.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7aed580dd38354b6fb4fcb0576b7f1b6,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: skillStats.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: a6d051dbfee4340c8b1fbdb87b3dc962,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: skillStats.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 61f0b1e590cfe4fc887b22c85568d91a,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: abilties.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 3aa527ee1fc7d4f5c9e94fb9bb704df1,
+        type: 2}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 174616}
+  m_IsPrefabParent: 1
