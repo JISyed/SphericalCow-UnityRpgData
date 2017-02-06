@@ -22,10 +22,13 @@ namespace SphericalCow
 		[MenuItem("Assets/Create/SphericalCow/RPG Data System/XP Progressor")]
 		public static void CreateXpProgressorAsset()
 		{
-			//StatsAndAttributesRegistry registry = StatAssetUtility.FindStatRegistry();
 			XpProgressor newData = CustomDataAssetUtility.CreateAndReturnDataAsset<XpProgressor>();
 			newData.Init();
-			//registry.AddBasicStat(newStat);
+			
+			RpgDataRegistry registry = RpgDataAssetUtility.FindRpgDataRegistry();
+			RpgRegistryUtility.AdderOfXpProgressor newAdder;
+			newAdder.xpProgressor = newData;
+			registry.AddRpgDataObject(newAdder);
 		}
 		
 		
@@ -36,10 +39,13 @@ namespace SphericalCow
 		[MenuItem("Assets/Create/SphericalCow/RPG Data System/Base Stat")]
 		public static void CreateBaseStatAsset()
 		{
-			//StatsAndAttributesRegistry registry = StatAssetUtility.FindStatRegistry();
 			BaseStat newData = CustomDataAssetUtility.CreateAndReturnDataAsset<BaseStat>();
 			newData.Init();
-			//registry.AddBasicStat(newStat);
+			
+			RpgDataRegistry registry = RpgDataAssetUtility.FindRpgDataRegistry();
+			RpgRegistryUtility.AdderOfBaseStat newAdder;
+			newAdder.baseStat = newData;
+			registry.AddRpgDataObject(newAdder);
 		}
 		
 		
@@ -50,10 +56,13 @@ namespace SphericalCow
 		[MenuItem("Assets/Create/SphericalCow/RPG Data System/Secondary Stat")]
 		public static void CreateSecondaryStatAsset()
 		{
-			//StatsAndAttributesRegistry registry = StatAssetUtility.FindStatRegistry();
 			SecondaryStat newData = CustomDataAssetUtility.CreateAndReturnDataAsset<SecondaryStat>();
 			newData.Init();
-			//registry.AddBasicStat(newStat);
+			
+			RpgDataRegistry registry = RpgDataAssetUtility.FindRpgDataRegistry();
+			RpgRegistryUtility.AdderOfSecondaryStat newAdder;
+			newAdder.secondaryStat = newData;
+			registry.AddRpgDataObject(newAdder);
 		}
 		
 		
@@ -64,10 +73,13 @@ namespace SphericalCow
 		[MenuItem("Assets/Create/SphericalCow/RPG Data System/Skill Stat")]
 		public static void CreateSkillStatAsset()
 		{
-			//StatsAndAttributesRegistry registry = StatAssetUtility.FindStatRegistry();
 			SkillStat newData = CustomDataAssetUtility.CreateAndReturnDataAsset<SkillStat>();
 			newData.Init();
-			//registry.AddBasicStat(newStat);
+			
+			RpgDataRegistry registry = RpgDataAssetUtility.FindRpgDataRegistry();
+			RpgRegistryUtility.AdderOfSkillStat newAdder;
+			newAdder.skillStat = newData;
+			registry.AddRpgDataObject(newAdder);
 		}
 		
 		
@@ -79,10 +91,13 @@ namespace SphericalCow
 		[MenuItem("Assets/Create/SphericalCow/RPG Data System/Ability")]
 		public static void CreateAbilityAsset()
 		{
-			//StatsAndAttributesRegistry registry = StatAssetUtility.FindStatRegistry();
 			Ability newData = CustomDataAssetUtility.CreateAndReturnDataAsset<Ability>();
 			newData.Init();
-			//registry.AddBasicStat(newStat);
+			
+			RpgDataRegistry registry = RpgDataAssetUtility.FindRpgDataRegistry();
+			RpgRegistryUtility.AdderOfAbility newAdder;
+			newAdder.ability = newData;
+			registry.AddRpgDataObject(newAdder);
 		}
 		
 		

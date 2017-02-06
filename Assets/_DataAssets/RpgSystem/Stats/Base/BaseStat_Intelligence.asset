@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4c987373e2244fa99e36268c3a0f630, type: 3}
+  m_Name: BaseStat_Intelligence
+  m_EditorClassIdentifier: 
+  entityName: Intelligence
+  description: Smart brains
+  icon: {fileID: 0}
+  id:
+    guidString: 9e29bb9f-6adc-4064-a739-3c1e0dca79a9
+  isGuidInitialized: 1
+  spAssignmentType: 0
+  absoluteMaximumSp: 0

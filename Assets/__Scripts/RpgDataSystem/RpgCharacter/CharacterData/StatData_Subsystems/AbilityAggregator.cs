@@ -38,7 +38,6 @@ namespace SphericalCow
 		
 		
 		
-		
 		/// <summary>
 		/// 	Constructor needs the Stat's ID being held in StatData
 		/// </summary>
@@ -105,6 +104,32 @@ namespace SphericalCow
 				return netMods;
 			}
 		}
+		
+		
+		/// <summary>
+		/// 	The ID of the Stat associated with this aggregator
+		/// </summary>
+		public Guid StatId
+		{
+			get
+			{
+				return this.statId.GuidData;
+			}
+		}
+		
+		
+		
+		/// <summary>
+		/// 	The AbilityModifiers applied onto the Stat associated with this aggregator
+		/// </summary>
+		public ReadOnlyCollection<AbilityModifierData> AppliedModifiers
+		{
+			get
+			{
+				return this.appliedModifiers.AsReadOnly();
+			}
+		}
+		
 		
 	}
 }

@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c66efc21e8eea4686a886a55383b1c7b, type: 3}
+  m_Name: Ability_HumanFortress
+  m_EditorClassIdentifier: 
+  entityName: Human Fortress
+  description: Forgo all weapons and become stronger than reinforced concrete
+  icon: {fileID: 0}
+  id:
+    guidString: ad6152af-7dc5-4671-afbd-2f7572edbda4
+  isGuidInitialized: 1
+  statModifiers:
+  - modifiedStat: {fileID: 11400000, guid: dfcff0209064a47658a8f45ce7fb52fd, type: 2}
+    type: 0
+    assignedModifierValue: 100
+  - modifiedStat: {fileID: 11400000, guid: 35bc650414aff413ab52a200953c42eb, type: 2}
+    type: 0
+    assignedModifierValue: 75
+  - modifiedStat: {fileID: 11400000, guid: 5440411ee1bb54b369d55d1e70334989, type: 2}
+    type: 2
+    assignedModifierValue: 20
+  - modifiedStat: {fileID: 11400000, guid: 7aed580dd38354b6fb4fcb0576b7f1b6, type: 2}
+    type: 3
+    assignedModifierValue: 0
+  - modifiedStat: {fileID: 11400000, guid: fafc6ebf14d924354a1a696b6805453f, type: 2}
+    type: 3
+    assignedModifierValue: 0
+  - modifiedStat: {fileID: 11400000, guid: a6d051dbfee4340c8b1fbdb87b3dc962, type: 2}
+    type: 3
+    assignedModifierValue: 0
+  - modifiedStat: {fileID: 11400000, guid: 61f0b1e590cfe4fc887b22c85568d91a, type: 2}
+    type: 3
+    assignedModifierValue: 0

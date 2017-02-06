@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67d850f4083ac4c16bf387936dd99c3b, type: 3}
+  m_Name: SecondaryStat_Leadership
+  m_EditorClassIdentifier: 
+  entityName: Leadership
+  description: Are you a good leader?
+  icon: {fileID: 0}
+  id:
+    guidString: eef7f6d8-4f01-45c6-bdd8-0c91118544c2
+  isGuidInitialized: 1
+  spAssignmentType: 0
+  absoluteMaximumSp: 0
+  linkedStats:
+  - stat: {fileID: 11400000, guid: c1ad88af8bd874170aa963a1c378f520, type: 2}
+    percentage: 31
+  - stat: {fileID: 11400000, guid: 2eae193808e574ce49704739f71320eb, type: 2}
+    percentage: 50
+  - stat: {fileID: 11400000, guid: d183999288a534efbb42f91e999b691c, type: 2}
+    percentage: 16
