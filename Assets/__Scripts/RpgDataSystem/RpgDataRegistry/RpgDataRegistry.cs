@@ -18,7 +18,12 @@ namespace SphericalCow
 		[SerializeField] private SkillStat[] skillStats;
 		[SerializeField] private Ability[] abilties;
 		
-		// TODO: Make data lists access from readonlycollection, not array
+		private ReadOnlyCollection<XpProgressor> readOnlyXpProgressors = null;
+		private ReadOnlyCollection<BaseStat> readOnlyBaseStats = null;
+		private ReadOnlyCollection<SecondaryStat> readOnlySecondaryStats = null;
+		private ReadOnlyCollection<SkillStat> readOnlySkillStats = null;
+		private ReadOnlyCollection<Ability> readOnlyAbilties = null;
+		
 		
 		
 		/// <summary>
@@ -74,7 +79,11 @@ namespace SphericalCow
 		/// </summary>
 		private void Init()
 		{
-			
+			this.readOnlyXpProgressors = new ReadOnlyCollection<XpProgressor>(new List<XpProgressor>(this.xpProgressors));
+			this.readOnlyBaseStats = new ReadOnlyCollection<BaseStat>(new List<BaseStat>(this.baseStats));
+			this.readOnlySecondaryStats = new ReadOnlyCollection<SecondaryStat>(new List<SecondaryStat>(this.secondaryStats));
+			this.readOnlySkillStats = new ReadOnlyCollection<SkillStat>(new List<SkillStat>(this.skillStats));
+			this.readOnlyAbilties = new ReadOnlyCollection<Ability>(new List<Ability>(this.abilties));
 		}
 		
 		
@@ -398,15 +407,22 @@ namespace SphericalCow
 			/// </summary>
 			public void CleanMissingReferences()
 			{
-				this.CleanXpProgressorArray();
-				this.CleanBaseStatArray();
-				this.CleanSecondaryStatArray();
-				this.CleanSkillStatArray();
-				this.CleanAbilityArray();
+				bool wereAnyListsCleaned = false;
+			
+				wereAnyListsCleaned = this.CleanXpProgressorArray();
+				wereAnyListsCleaned = this.CleanBaseStatArray();
+				wereAnyListsCleaned = this.CleanSecondaryStatArray();
+				wereAnyListsCleaned = this.CleanSkillStatArray();
+				wereAnyListsCleaned = this.CleanAbilityArray();
+				
+				if(!wereAnyListsCleaned)
+				{
+					Debug.Log("The RPG Data Registry wasn't in need of cleaning null entires");
+				}
 			}
 			
 			
-			private void CleanXpProgressorArray()
+			private bool CleanXpProgressorArray()
 			{
 				Debug.Assert(this.xpProgressors != null, "Cannot clean XpProgressor array when it's null!");
 				
@@ -435,9 +451,11 @@ namespace SphericalCow
 					this.xpProgressors = arrayReconstructor.ToArray();
 					Debug.Log("XpProgressor List in the RpgRegistry had null entries. Those entires were cleaned.");
 				}
+				
+				return arrayNeedsReconstruction;
 			}
 			
-			private void CleanBaseStatArray()
+			private bool CleanBaseStatArray()
 			{
 				Debug.Assert(this.baseStats != null, "Cannot clean BaseStat array when it's null!");
 				
@@ -466,9 +484,11 @@ namespace SphericalCow
 					this.baseStats = arrayReconstructor.ToArray();
 					Debug.Log("BaseStat List in the RpgRegistry had null entries. Those entires were cleaned.");
 				}
+				
+				return arrayNeedsReconstruction;
 			}
 			
-			private void CleanSecondaryStatArray()
+			private bool CleanSecondaryStatArray()
 			{
 				Debug.Assert(this.secondaryStats != null, "Cannot clean SecondaryStat array when it's null!");
 				
@@ -497,9 +517,11 @@ namespace SphericalCow
 					this.secondaryStats = arrayReconstructor.ToArray();
 					Debug.Log("SecondaryStat List in the RpgRegistry had null entries. Those entires were cleaned.");
 				}
+				
+				return arrayNeedsReconstruction;
 			}
 			
-			private void CleanSkillStatArray()
+			private bool CleanSkillStatArray()
 			{
 				Debug.Assert(this.skillStats != null, "Cannot clean SkillStat array when it's null!");
 				
@@ -528,9 +550,11 @@ namespace SphericalCow
 					this.skillStats = arrayReconstructor.ToArray();
 					Debug.Log("SkillStat List in the RpgRegistry had null entries. Those entires were cleaned.");
 				}
+				
+				return arrayNeedsReconstruction;
 			}
 			
-			private void CleanAbilityArray()
+			private bool CleanAbilityArray()
 			{
 				Debug.Assert(this.abilties != null, "Cannot clean Ability array when it's null!");
 				
@@ -559,6 +583,8 @@ namespace SphericalCow
 					this.abilties = arrayReconstructor.ToArray();
 					Debug.Log("Ability List in the RpgRegistry had null entries. Those entires were cleaned.");
 				}
+				
+				return arrayNeedsReconstruction;
 			}
 			
 		#endif
@@ -570,47 +596,47 @@ namespace SphericalCow
 		
 		
 		
-		public XpProgressor[] XpProgressors
+		public ReadOnlyCollection<XpProgressor> XpProgressors
 		{
 			get
 			{
-				return this.xpProgressors;
+				return this.readOnlyXpProgressors;
 			}
 		}
 		
 		
-		public BaseStat[] BaseStats
+		public ReadOnlyCollection<BaseStat> BaseStats
 		{
 			get
 			{
-				return this.baseStats;
+				return this.readOnlyBaseStats;
 			}
 		}
 		
 		
-		public SecondaryStat[] SecondaryStats
+		public ReadOnlyCollection<SecondaryStat> SecondaryStats
 		{
 			get
 			{
-				return this.secondaryStats;
+				return this.readOnlySecondaryStats;
 			}
 		}
 		
 		
-		public SkillStat[] SkillStats
+		public ReadOnlyCollection<SkillStat> SkillStats
 		{
 			get
 			{
-				return this.skillStats;
+				return this.readOnlySkillStats;
 			}
 		}
 		
 		
-		public Ability[] Abilities
+		public ReadOnlyCollection<Ability> Abilities
 		{
 			get
 			{
-				return this.abilties;
+				return this.readOnlyAbilties;
 			}
 		}
 		
