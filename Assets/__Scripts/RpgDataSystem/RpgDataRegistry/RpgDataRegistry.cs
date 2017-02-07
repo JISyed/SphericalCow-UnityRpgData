@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Guid = System.Guid;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace SphericalCow
 {
@@ -17,6 +18,7 @@ namespace SphericalCow
 		[SerializeField] private SkillStat[] skillStats;
 		[SerializeField] private Ability[] abilties;
 		
+		// TODO: Make data lists access from readonlycollection, not array
 		
 		
 		/// <summary>
@@ -386,6 +388,177 @@ namespace SphericalCow
 				
 				// Add new item
 				this.abilties[oldArraySize] = newAbility.ability;
+			}
+			
+			
+			
+			/// <summary>
+			/// 	Looks through each list in the registry and removes null references, shrinking the arrays.
+			/// 	Editor only. Should only be called by RpgDataFileWatcher
+			/// </summary>
+			public void CleanMissingReferences()
+			{
+				this.CleanXpProgressorArray();
+				this.CleanBaseStatArray();
+				this.CleanSecondaryStatArray();
+				this.CleanSkillStatArray();
+				this.CleanAbilityArray();
+			}
+			
+			
+			private void CleanXpProgressorArray()
+			{
+				Debug.Assert(this.xpProgressors != null, "Cannot clean XpProgressor array when it's null!");
+				
+				// Check if there are any null items in the array. If there isn't, there's no need to create a new array (wasting memory)
+				bool arrayNeedsReconstruction = false;
+				foreach(XpProgressor item in this.xpProgressors)
+				{
+					if(item == null)
+					{
+						arrayNeedsReconstruction = true;
+						break;
+					}
+				}
+				
+				// Create a new array with no null items
+				if(arrayNeedsReconstruction)
+				{
+					List<XpProgressor> arrayReconstructor = new List<XpProgressor>();
+					foreach(XpProgressor item in this.xpProgressors)
+					{
+						if(item != null)
+						{
+							arrayReconstructor.Add(item);
+						}
+					}
+					this.xpProgressors = arrayReconstructor.ToArray();
+					Debug.Log("XpProgressor List in the RpgRegistry had null entries. Those entires were cleaned.");
+				}
+			}
+			
+			private void CleanBaseStatArray()
+			{
+				Debug.Assert(this.baseStats != null, "Cannot clean BaseStat array when it's null!");
+				
+				// Check if there are any null items in the array. If there isn't, there's no need to create a new array (wasting memory)
+				bool arrayNeedsReconstruction = false;
+				foreach(BaseStat item in this.baseStats)
+				{
+					if(item == null)
+					{
+						arrayNeedsReconstruction = true;
+						break;
+					}
+				}
+				
+				// Create a new array with no null items
+				if(arrayNeedsReconstruction)
+				{
+					List<BaseStat> arrayReconstructor = new List<BaseStat>();
+					foreach(BaseStat item in this.baseStats)
+					{
+						if(item != null)
+						{
+							arrayReconstructor.Add(item);
+						}
+					}
+					this.baseStats = arrayReconstructor.ToArray();
+					Debug.Log("BaseStat List in the RpgRegistry had null entries. Those entires were cleaned.");
+				}
+			}
+			
+			private void CleanSecondaryStatArray()
+			{
+				Debug.Assert(this.secondaryStats != null, "Cannot clean SecondaryStat array when it's null!");
+				
+				// Check if there are any null items in the array. If there isn't, there's no need to create a new array (wasting memory)
+				bool arrayNeedsReconstruction = false;
+				foreach(SecondaryStat item in this.secondaryStats)
+				{
+					if(item == null)
+					{
+						arrayNeedsReconstruction = true;
+						break;
+					}
+				}
+				
+				// Create a new array with no null items
+				if(arrayNeedsReconstruction)
+				{
+					List<SecondaryStat> arrayReconstructor = new List<SecondaryStat>();
+					foreach(SecondaryStat item in this.secondaryStats)
+					{
+						if(item != null)
+						{
+							arrayReconstructor.Add(item);
+						}
+					}
+					this.secondaryStats = arrayReconstructor.ToArray();
+					Debug.Log("SecondaryStat List in the RpgRegistry had null entries. Those entires were cleaned.");
+				}
+			}
+			
+			private void CleanSkillStatArray()
+			{
+				Debug.Assert(this.skillStats != null, "Cannot clean SkillStat array when it's null!");
+				
+				// Check if there are any null items in the array. If there isn't, there's no need to create a new array (wasting memory)
+				bool arrayNeedsReconstruction = false;
+				foreach(SkillStat item in this.skillStats)
+				{
+					if(item == null)
+					{
+						arrayNeedsReconstruction = true;
+						break;
+					}
+				}
+				
+				// Create a new array with no null items
+				if(arrayNeedsReconstruction)
+				{
+					List<SkillStat> arrayReconstructor = new List<SkillStat>();
+					foreach(SkillStat item in this.skillStats)
+					{
+						if(item != null)
+						{
+							arrayReconstructor.Add(item);
+						}
+					}
+					this.skillStats = arrayReconstructor.ToArray();
+					Debug.Log("SkillStat List in the RpgRegistry had null entries. Those entires were cleaned.");
+				}
+			}
+			
+			private void CleanAbilityArray()
+			{
+				Debug.Assert(this.abilties != null, "Cannot clean Ability array when it's null!");
+				
+				// Check if there are any null items in the array. If there isn't, there's no need to create a new array (wasting memory)
+				bool arrayNeedsReconstruction = false;
+				foreach(Ability item in this.abilties)
+				{
+					if(item == null)
+					{
+						arrayNeedsReconstruction = true;
+						break;
+					}
+				}
+				
+				// Create a new array with no null items
+				if(arrayNeedsReconstruction)
+				{
+					List<Ability> arrayReconstructor = new List<Ability>();
+					foreach(Ability item in this.abilties)
+					{
+						if(item != null)
+						{
+							arrayReconstructor.Add(item);
+						}
+					}
+					this.abilties = arrayReconstructor.ToArray();
+					Debug.Log("Ability List in the RpgRegistry had null entries. Those entires were cleaned.");
+				}
 			}
 			
 		#endif

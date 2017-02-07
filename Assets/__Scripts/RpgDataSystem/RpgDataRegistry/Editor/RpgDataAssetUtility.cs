@@ -20,7 +20,7 @@ namespace SphericalCow
 		/// 	Makes this method accessible from the Unity menu.
 		/// </summary>
 		[MenuItem("Assets/Create/SphericalCow/RPG Data System/XP Progressor")]
-		public static void CreateXpProgressorAsset()
+		private static void CreateXpProgressorAsset()
 		{
 			XpProgressor newData = CustomDataAssetUtility.CreateAndReturnDataAsset<XpProgressor>();
 			newData.Init();
@@ -37,7 +37,7 @@ namespace SphericalCow
 		/// 	Makes this method accessible from the Unity menu.
 		/// </summary>
 		[MenuItem("Assets/Create/SphericalCow/RPG Data System/Base Stat")]
-		public static void CreateBaseStatAsset()
+		private static void CreateBaseStatAsset()
 		{
 			BaseStat newData = CustomDataAssetUtility.CreateAndReturnDataAsset<BaseStat>();
 			newData.Init();
@@ -54,7 +54,7 @@ namespace SphericalCow
 		/// 	Makes this method accessible from the Unity menu.
 		/// </summary>
 		[MenuItem("Assets/Create/SphericalCow/RPG Data System/Secondary Stat")]
-		public static void CreateSecondaryStatAsset()
+		private static void CreateSecondaryStatAsset()
 		{
 			SecondaryStat newData = CustomDataAssetUtility.CreateAndReturnDataAsset<SecondaryStat>();
 			newData.Init();
@@ -71,7 +71,7 @@ namespace SphericalCow
 		/// 	Makes this method accessible from the Unity menu.
 		/// </summary>
 		[MenuItem("Assets/Create/SphericalCow/RPG Data System/Skill Stat")]
-		public static void CreateSkillStatAsset()
+		private static void CreateSkillStatAsset()
 		{
 			SkillStat newData = CustomDataAssetUtility.CreateAndReturnDataAsset<SkillStat>();
 			newData.Init();
@@ -89,7 +89,7 @@ namespace SphericalCow
 		/// 	Makes this method accessible from the Unity menu.
 		/// </summary>
 		[MenuItem("Assets/Create/SphericalCow/RPG Data System/Ability")]
-		public static void CreateAbilityAsset()
+		private static void CreateAbilityAsset()
 		{
 			Ability newData = CustomDataAssetUtility.CreateAndReturnDataAsset<Ability>();
 			newData.Init();
@@ -110,7 +110,7 @@ namespace SphericalCow
 		///  	Searches the Unity project for the prefab that holds the only instance of RpgDataRegistryObject.
 		///  	Editor only.
 		/// </summary>
-		private static RpgDataRegistry FindRpgDataRegistry()
+		public static RpgDataRegistry FindRpgDataRegistry()
 		{
 			if(RpgDataAssetUtility.rpgRegistryInstance == null)
 			{
