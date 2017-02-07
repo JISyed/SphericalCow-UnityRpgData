@@ -58,6 +58,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7aed580dd38354b6fb4fcb0576b7f1b6, type: 2}
   - {fileID: 11400000, guid: a6d051dbfee4340c8b1fbdb87b3dc962, type: 2}
   - {fileID: 11400000, guid: 61f0b1e590cfe4fc887b22c85568d91a, type: 2}
+  - {fileID: 11400000, guid: fafc6ebf14d924354a1a696b6805453f, type: 2}
   abilties:
   - {fileID: 11400000, guid: 3aa527ee1fc7d4f5c9e94fb9bb704df1, type: 2}
   - {fileID: 11400000, guid: 34a663cd154c442f387f40779c9c461f, type: 2}
@@ -78,7 +79,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: skillStats.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: xpProgressors.Array.size
@@ -86,7 +87,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: secondaryStats.Array.size
-      value: 5
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: xpProgressors.Array.data[0]
@@ -186,6 +187,15 @@ Prefab:
       value: 
       objectReference: {fileID: 11400000, guid: c1ad88af8bd874170aa963a1c378f520,
         type: 2}
+    - target: {fileID: 0}
+      propertyPath: skillStats.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: fafc6ebf14d924354a1a696b6805453f,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: secondaryStats.Array.data[5]
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 174616}

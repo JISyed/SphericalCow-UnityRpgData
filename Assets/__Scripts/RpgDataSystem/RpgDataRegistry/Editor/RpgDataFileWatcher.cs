@@ -162,17 +162,7 @@ namespace SphericalCow
 		}
 		
 		
-
 		
 		
-		
-		/// <summary>
-		/// 	Shrinks the data arrays in the RpgDataRegistry if they have null references
-		/// </summary>
-		[MenuItem("Tasks/SphericalCow/RPG Data System/Clean Registry of Null References")]
-		private static void MenuCallToCleanRegistry()
-		{
-			RpgDataFileWatcher.CleanNullReferencesFromRpgRegistry();
-		}
 	}
 }

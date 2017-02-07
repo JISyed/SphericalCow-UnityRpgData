@@ -394,7 +394,7 @@ namespace SphericalCow
 			
 			/// <summary>
 			/// 	Looks through each list in the registry and removes null references, shrinking the arrays.
-			/// 	Editor only. Should only be called by RpgDataFileWatcher
+			/// 	Editor only. Should only be called by RpgDataFileWatcher or RpgDataRegistryEditor
 			/// </summary>
 			public void CleanMissingReferences()
 			{
