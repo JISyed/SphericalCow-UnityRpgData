@@ -28,7 +28,9 @@ namespace SphericalCow
 		/// </summary>
 		public void LoadAbility()
 		{
-			// TODO: Implement by putting Abilities in a registry and use id
+			this.id.LoadInternalData();
+			this.ability = RpgDataRegistry.Instance.SearchAbility(this.id.GuidData);
+			Debug.Assert(this.ability != null, "AbilityData failed to find the Ability of ID " + this.id.GuidString);
 		}
 		
 		

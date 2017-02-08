@@ -44,8 +44,28 @@ namespace SphericalCow
 		/// </summary>
 		public void LoadAbilityModifier()
 		{
-			// TODO: Implement by putting Abilities in a registry and use abilityId with foreach loops
+			this.abilityId.LoadInternalData();
+			
+			Ability ability = RpgDataRegistry.Instance.SearchAbility(this.abilityId.GuidData);
+			Debug.Assert(ability != null, "AbilityModifierData failed to find the Ability of ID " + this.abilityId.GuidString);
+			
+			int indexTalley = 0;
+			foreach(AbilityModifier m in ability.StatModifiers)
+			{
+				if(indexTalley == this.modifierIndex)
+				{
+					this.abilityModifier = m;
+					break;
+				}
+				
+				indexTalley++;
+			}
+			
+			Debug.Assert(this.abilityModifier != null, "AbilityModifierData failed to find the AbilityModifier of Ability "
+			             + ability.Name + " for Modifier index " + this.modifierIndex.ToString());
 		}
+		
+		
 		
 		
 		/// <summary>

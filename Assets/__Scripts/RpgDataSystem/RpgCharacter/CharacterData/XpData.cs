@@ -40,7 +40,9 @@ namespace SphericalCow
 		/// </summary>
 		public void LoadXpProgressor()
 		{
-			// : Implement by putting XpProgressors in a registry and use xpProgressorId
+			this.xpProgressorId.LoadInternalData();
+			this.xpProgressor = RpgDataRegistry.Instance.SearchXpProgressor(this.xpProgressorId.GuidData);
+			Debug.Assert(this.xpProgressor != null, "XpData failed to find the XpProgressor of ID " + this.xpProgressorId.GuidString);
 		}
 		
 		

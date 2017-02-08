@@ -18,6 +18,7 @@ namespace SphericalCow
 		{
 			/// <summary>
 			/// 	Are there any limits imposed by any of the AbilityModifiers?
+			/// 	If there are no modifications, this should be NoLimit
 			/// </summary>
 			public ModifierLimitType netLimit;
 			
@@ -25,6 +26,7 @@ namespace SphericalCow
 			/// 	The total modifications applied by the AbilityModifiers
 			/// 	If there is no limit, this adds or subtracts from the final SP value of a stat.
 			/// 	If there is a limit, this value indcates what that limit is.
+			/// 	If there are no modifications at all, the limit should be NoLimit and the value should be 0
 			/// </summary>
 			public int netValue;
 		}

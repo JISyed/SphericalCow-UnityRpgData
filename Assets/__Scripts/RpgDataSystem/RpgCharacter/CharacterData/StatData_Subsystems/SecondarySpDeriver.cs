@@ -28,7 +28,7 @@ namespace SphericalCow
 		/// </summary>
 		public override void DeriveSp()
 		{
-			// TODO: Implement!
+			// TODO: Implement by refering to SecondaryStat's linked stats
 		}
 		
 		

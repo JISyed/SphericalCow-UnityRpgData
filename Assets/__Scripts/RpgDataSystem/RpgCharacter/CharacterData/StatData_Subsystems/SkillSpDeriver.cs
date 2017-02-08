@@ -27,7 +27,7 @@ namespace SphericalCow
 		/// </summary>
 		public override void DeriveSp()
 		{
-			// TODO: Implement!
+			// TODO: Implement by refering to SkillStat's linked stats
 		}
 		
 		

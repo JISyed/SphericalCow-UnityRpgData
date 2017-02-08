@@ -11,7 +11,7 @@ namespace SphericalCow
 	[System.Serializable]
 	public class RpgCharacterData
 	{
-		[SerializeField] private SaveableGuid id;
+		[SerializeField] private SaveableGuid id;	// This is the ID of the character itself
 		[SerializeField] private string name;
 		[SerializeField] private int unallocatedSpPool = 0;
 		[SerializeField] private XpData xpData;
