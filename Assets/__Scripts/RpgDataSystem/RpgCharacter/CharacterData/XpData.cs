@@ -23,6 +23,8 @@ namespace SphericalCow
 		/// </summary>
 		public XpData(XpProgressor newXpProgressor)
 		{
+			Debug.Assert(newXpProgressor != null, "XpData's constructor is being given a null XpProgressor!");
+			
 			this.xpProgressor = newXpProgressor;
 			this.xpProgressorId = new SaveableGuid(newXpProgressor.Id);
 			this.level = 1;

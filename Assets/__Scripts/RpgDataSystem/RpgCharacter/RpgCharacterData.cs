@@ -23,12 +23,19 @@ namespace SphericalCow
 		
 		
 		/// <summary>
-		/// 	Constructor requires an XpProgressor
+		/// 	Constructor requires an XpProgressor, and optionally, a name
 		/// </summary>
-		public RpgCharacterData(XpProgressor newXpProgressor)
+		public RpgCharacterData(XpProgressor newXpProgressor, string newName = "Unnamed")
 		{
+			Debug.Assert(newXpProgressor != null, "RpgCharacterData consturctor is being given a null XpProgressor!");
+			if(string.IsNullOrEmpty(newName))
+			{
+				Debug.LogWarning("RpgCharacterData constructor was given a null or empty new name string");
+				newName = "Unnamed";
+			}
+			
 			this.id = new SaveableGuid(true);
-			this.name = "Unnamed";
+			this.name = newName;
 			this.xpData = new XpData(newXpProgressor);
 			this.appliedAbilities = new List<AbilityData>();
 			this.appliedStats = new List<StatData>();
@@ -36,6 +43,7 @@ namespace SphericalCow
 			this.UpdateReadOnlyStatsList();
 			this.UpdateReadOnlyAbilitiesList();
 		}
+		
 		
 		
 		
@@ -150,6 +158,21 @@ namespace SphericalCow
 				return this.readOnlyAbilitiesList;
 			}
 		}
+		
+		
+		/// <summary>
+		/// 	The XpProgressor being used by this RPG Character
+		/// </summary>
+		public XpProgressor XpProgressor
+		{
+			get
+			{
+				return this.xpData.XpProgressorReference;
+			}
+		}
+		
+		
+		
 		
 		
 		
