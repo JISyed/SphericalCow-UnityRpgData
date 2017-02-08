@@ -39,6 +39,21 @@ namespace SphericalCow
 		
 		
 		
+		/// <summary>
+		/// 	Adds a certain amount of XP to this Character. This system was designed only for adding XP, not removing.
+		/// 	Any negative parameter will be turned positive.
+		/// 	Returns true if the newly added XP causes the RPG Character to level up, false otherwise.
+		/// </summary>
+		/// <returns><c>true</c>, if newly added XP causes the RPG Character to level up, <c>false</c> otherwise.</returns>
+		/// <param name="xpAmount">The amount of XP to add. Will be turned negated if negative</param>
+		public bool AddXp(int xpAmount)
+		{
+			Debug.Assert(this.xpData != null, "RpgCharacter of name " + this.name + " has no XpData record!");
+			return this.xpData.AddXp(xpAmount);
+		}
+		
+		
+		
 		
 		/// <summary>
 		/// 	The ID of this RPG Character

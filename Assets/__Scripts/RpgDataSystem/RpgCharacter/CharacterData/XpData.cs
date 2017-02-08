@@ -46,8 +46,53 @@ namespace SphericalCow
 		}
 		
 		
+		
+		
 		/// <summary>
-		/// 	Calculates the new XTNL (XP to the next level) given the old XTNL and new Level
+		/// 	Adds a certain amount of XP into the XpData record. This system was designed only for adding XP, not removing.
+		/// 	Any negative numbers will be turned positive.
+		/// 	Returns true if the newly added XP causes the RPG Character to level up, false otherwise.
+		/// </summary>
+		/// <returns><c>true</c>, if newly added XP causes the RPG Character to level up, <c>false</c> otherwise.</returns>
+		/// <param name="xpAmount">The amount of XP to add. Will be turned negated if negative</param>
+		public bool AddXp(int xpAmount)
+		{
+			bool didLevelup = false;
+			
+			if(xpAmount < 0)
+			{
+				xpAmount = -xpAmount;
+			}
+			
+			this.xp += xpAmount;
+			
+			if(this.xp >= this.xpToNextLevel)
+			{
+				this.LevelUp();
+				didLevelup = true;
+			}
+			
+			return didLevelup;
+		}
+		
+		
+		
+		
+		/// <summary>
+		/// 	Levels up the Character, updating the current Level in this record.
+		/// </summary>
+		private void LevelUp()
+		{
+			this.level++;
+			this.xpToNextLevel = this.CalculateXpProgression(this.level, this.xpToNextLevel);
+		}
+		
+		
+		
+		
+		/// <summary>
+		/// 	Calculates the new XTNL (XP to the next level) given the old XTNL and new Level.
+		/// 	If the associated XpProgressor increments internal multipliers, those will be incremented here.
 		/// </summary>
 		/// <param name="newLevel">The new level.</param>
 		/// <param name="oldXtnl">Old value for XpToNextLevel.</param>
@@ -68,6 +113,10 @@ namespace SphericalCow
 			
 			return newXtnl;
 		}
+		
+		
+		
+		
 		
 		
 		/// <summary>
