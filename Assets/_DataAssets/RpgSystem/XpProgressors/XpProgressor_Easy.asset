@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Name: XpProgressor_Easy
   m_EditorClassIdentifier: 
   entityName: Easy Progression
-  description: 2 x Old XTNL
+  description: Easiest progression possible
   icon: {fileID: 0}
   id:
     guidString: b010f779-cee9-4964-adab-7340e8aa2472
   isGuidInitialized: 1
-  initialOldXtnl: 1
-  levelMultiplier: 0
-  oldXtnlMultiplier: 2
+  initialOldXtnl: 0
+  levelMultiplier: 100
+  oldXtnlMultiplier: 1
   doesLevelMultiplierIncrement: 0
   doesOldXtnlMultiplierIncrement: 0
