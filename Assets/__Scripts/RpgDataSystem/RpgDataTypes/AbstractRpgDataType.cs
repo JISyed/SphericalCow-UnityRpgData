@@ -94,5 +94,25 @@ namespace SphericalCow
 			}
 		}
 		
+		
+		
+#if UNITY_EDITOR
+		/// <summary>
+		/// 	WARNING: Only to be called from within the Unity Editor, not the game!
+		/// 	Should only be called by Editor scripts.
+		/// 	Creates a new ID for this RPG Data object instance, replacing the old one.
+		/// 	CAUTION: Using this may break links with YAML serialized data for RpgCharacterData and its subsystems
+		/// </summary>
+		public void RegenerateNewId()
+		{
+			if(Application.isEditor)
+			{
+				this.id.RepairGuid();
+				
+			}
+		}
+#endif
+		
+		
 	}
 }

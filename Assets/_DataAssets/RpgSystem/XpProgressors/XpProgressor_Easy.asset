@@ -14,8 +14,8 @@ MonoBehaviour:
   entityName: Easy Progression
   description: 2 x Old XTNL
   icon: {fileID: 0}
-  guid:
-    guidString: 23b64c78-a26c-4c59-b4fd-9ba334fef3e2
+  id:
+    guidString: b010f779-cee9-4964-adab-7340e8aa2472
   isGuidInitialized: 1
   initialOldXtnl: 1
   levelMultiplier: 0

@@ -4,7 +4,7 @@ using UnityEditor;
 namespace SphericalCow
 {
 	/// <summary>
-	/// 	Acts as a custom inspector to RpgDataRegistryEditor
+	/// 	Acts as a custom inspector to RpgDataRegistry
 	/// </summary>
 	[CustomEditor(typeof(RpgDataRegistry))]
 	public class RpgDataRegistryEditor : Editor 
@@ -29,6 +29,7 @@ namespace SphericalCow
 		private void RemoveNullReferencesFromRegistry()
 		{
 			this.registry.CleanMissingReferences();
+			EditorUtility.SetDirty(this.registry);
 		}
 	}
 }

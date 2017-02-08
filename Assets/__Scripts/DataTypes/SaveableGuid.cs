@@ -85,7 +85,12 @@ public class SaveableGuid
 		{
 			this.RandomizeGuid();
 		}
+		else
+		{
+			this.guid = new Guid(this.guidString);
+		}
 	}
+	
 	
 	
 	/// <summary>
