@@ -33,12 +33,40 @@ namespace SphericalCow
 		{
 			get
 			{
+				// Start with the SP from the raw pool (the SP that is not modified by anything)
 				int finalSp = this.rawSpPool;
 				
-				// TODO: Get additional SP from the SpDeriver
+				// Add additional SP from the SpDeriver
+				finalSp += this.linkedStatsDerivedPool.DerivedSpPool;
 				
-				// TODO: Determing additional SP from Abilities
-				
+				// Determing additional SP from Abilities (may alter the SP greatly)
+				AbilityAggregator.NetModifications statMods = this.abilityModifications.AbilityModifiedSp;
+				if(statMods.netLimit == ModifierLimitType.NoLimit)	// IncreaseBy or DecreaseBy only
+				{
+					finalSp += statMods.netValue;
+				}
+				else
+				{
+					// For Stats that are stuck with IncreaseTo or DecreaseTo
+					if(statMods.netLimit == ModifierLimitType.UpperLimit)	// DecreaseTo
+					{
+						if(finalSp > statMods.netValue)
+						{
+							finalSp = statMods.netValue;
+						}
+					}
+					else if(statMods.netLimit == ModifierLimitType.LowerLimit)	// IncreaseTo
+					{
+						if(finalSp < statMods.netValue)
+						{
+							finalSp = statMods.netValue;
+						}
+					}
+					else
+					{
+						Debug.LogError("Somebody added a new enum entry into ModifierLimitType!");
+					}
+				}
 				
 				
 				return finalSp;
