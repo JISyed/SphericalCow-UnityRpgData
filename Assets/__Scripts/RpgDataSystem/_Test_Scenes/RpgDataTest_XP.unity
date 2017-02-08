@@ -198,6 +198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: Marc
   xpProgressorName: Easy Progression
+  startingHealthPoints: 111
 --- !u!1 &1072833027
 GameObject:
   m_ObjectHideFlags: 0

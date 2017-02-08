@@ -10,6 +10,7 @@ namespace SphericalCow.Testing
 	{
 		[SerializeField] private string characterName;
 		[SerializeField] private string xpProgressorName;
+		[SerializeField] private int startingHealthPoints;
 		
 		private RpgCharacterData character;
 		private XpProgressor xpProgressor;
@@ -23,10 +24,15 @@ namespace SphericalCow.Testing
 			this.xpProgressor = RpgDataRegistry.Instance.SearchXpProgressor(this.xpProgressorName);
 			Debug.Assert(this.xpProgressor != null, "Could not find an XpProgressor by the name " + this.xpProgressorName);
 			
-			this.character = new RpgCharacterData(this.xpProgressor, this.characterName);
+			this.character = new RpgCharacterData(this.xpProgressor, 
+			                                      this.startingHealthPoints, 
+			                                      this.startingHealthPoints, 
+			                                      this.characterName);
 			
 			Debug.Log("Name: " + this.character.Name);
 			Debug.Log("ID: " + this.character.Id.ToString());
+			Debug.Log("HP: " + this.character.Hp.ToString());
+			Debug.Log("MaxHP: " + this.character.MaximumHp.ToString());
 			Debug.Log("XP: " + this.character.Xp.ToString());
 			Debug.Log("XpToNextLevel: " + this.character.XpToNextLevel.ToString());
 			Debug.Log("Level: " + this.character.Level.ToString());
