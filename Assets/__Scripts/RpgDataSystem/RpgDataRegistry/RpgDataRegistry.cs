@@ -79,6 +79,29 @@ namespace SphericalCow
 		/// </summary>
 		private void Init()
 		{
+			// Deserialize the Guids within every entry of the registry (serialized as strings, we want Guids)
+			foreach(XpProgressor entry in this.xpProgressors)
+			{
+				entry.RestoreGuidData();
+			}
+			foreach(BaseStat entry in this.baseStats)
+			{
+				entry.RestoreGuidData();
+			}
+			foreach(SecondaryStat entry in this.secondaryStats)
+			{
+				entry.RestoreGuidData();
+			}
+			foreach(SkillStat entry in this.skillStats)
+			{
+				entry.RestoreGuidData();
+			}
+			foreach(Ability entry in this.abilties)
+			{
+				entry.RestoreGuidData();
+			}
+			
+			// Initialize the read-only list of every entry in the registry
 			this.readOnlyXpProgressors = new ReadOnlyCollection<XpProgressor>(new List<XpProgressor>(this.xpProgressors));
 			this.readOnlyBaseStats = new ReadOnlyCollection<BaseStat>(new List<BaseStat>(this.baseStats));
 			this.readOnlySecondaryStats = new ReadOnlyCollection<SecondaryStat>(new List<SecondaryStat>(this.secondaryStats));
