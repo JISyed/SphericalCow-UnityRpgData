@@ -30,6 +30,7 @@ namespace SphericalCow.Testing
 		public UI.Text equationLabel;
 		
 		public GameObject testXpPanel;
+		public GameObject testHpPanel;
 		
 		
 		
@@ -89,6 +90,53 @@ namespace SphericalCow.Testing
 		}
 		
 		
+		
+		/// <summary>
+		/// 	Add more HP to the character. Cannot exceed the maximum HP of the character
+		/// </summary>
+		public void AddHp(int newHpToAdd)
+		{
+			// No negative parameters
+			if(newHpToAdd < 0)
+			{
+				newHpToAdd = -newHpToAdd;
+			}
+			
+			
+		}
+		
+		/// <summary>
+		/// 	Add more HP to the character. Cannot go lower than 0 HP
+		/// </summary>
+		public void RemoveHp(int newHpToRemove)
+		{
+			// No negative parameters
+			if(newHpToRemove < 0)
+			{
+				newHpToRemove = -newHpToRemove;
+			}
+			
+			
+		}
+		
+		
+		/// <summary>
+		/// 	Change how much addition there is to the character's maximum HP. Will re-adjust the HP if needed
+		/// </summary>
+		public void ChangeAdditionalMaxHp(int newAdditonalMaxHp)
+		{
+			// No negative parameters
+			if(newAdditonalMaxHp < 0)
+			{
+				newAdditonalMaxHp = -newAdditonalMaxHp;
+			}
+			
+			
+		}
+		
+		
+		
+		
 		/// <summary>
 		///  	Used to refresh the Unity UI displaying data about the character.
 		/// 	Doesn't have to run every frame
@@ -116,6 +164,12 @@ namespace SphericalCow.Testing
 		public void ToggleXpButtonPanel()
 		{
 			this.testXpPanel.SetActive(!this.testXpPanel.activeSelf);
+		}
+		
+		
+		public void ToggleHpButtonPanel()
+		{
+			this.testHpPanel.SetActive(!this.testHpPanel.activeSelf);
 		}
 		
 		
