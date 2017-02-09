@@ -29,6 +29,8 @@ namespace SphericalCow.Testing
 		public UI.Text difficultyLabel;
 		public UI.Text equationLabel;
 		
+		public GameObject testXpPanel;
+		
 		
 		
 		// Use this for initialization
@@ -59,7 +61,7 @@ namespace SphericalCow.Testing
 		/// 	The RPG character wasn't designed to loop through the 
 		/// 	instnace of multiple levelups, so that's implemented here
 		/// </summary>
-		private void AddXp(int newXpToAdd)
+		public void AddXp(int newXpToAdd)
 		{
 			// No negative parameters
 			if(newXpToAdd < 0)
@@ -82,9 +84,9 @@ namespace SphericalCow.Testing
 				
 				didLevelUp = this.character.AddXp(0);	// Don't add any more XP, but check for leveling up
 			}
+			
+			this.RefreshUI();
 		}
-		
-		
 		
 		
 		/// <summary>
@@ -106,6 +108,16 @@ namespace SphericalCow.Testing
 			                                              this.character.XpProgressor.LevelMultiplier,
 			                                              this.character.XpProgressor.OldXtnlMultiplier);
 			this.equationLabel.text = progressionEquationStr;
+			
 		}
+		
+		
+		
+		public void ToggleXpButtonPanel()
+		{
+			this.testXpPanel.SetActive(!this.testXpPanel.activeSelf);
+		}
+		
+		
 	}
 }
