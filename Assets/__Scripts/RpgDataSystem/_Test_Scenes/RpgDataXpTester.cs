@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
+using UI = UnityEngine.UI;
+using Guid = System.Guid;
+using System.Text;	// For StringBuilder
 
 namespace SphericalCow.Testing
 {
@@ -8,12 +10,23 @@ namespace SphericalCow.Testing
 	/// </summary>
 	public class RpgDataXpTester : MonoBehaviour 
 	{
-		[SerializeField] private string characterName;
+		[SerializeField] private string givenCharacterName;
 		[SerializeField] private string xpProgressorName;
 		[SerializeField] private int startingHealthPoints;
 		
 		private RpgCharacterData character;
 		private XpProgressor xpProgressor;
+		
+		
+		public UI.Text nameLabel;
+		public UI.Text idLabel;
+		public UI.Text hpLabel;
+		public UI.Text maxHpLabel;
+		public UI.Text xpLabel;
+		public UI.Text xtnlLabel;
+		public UI.Text levelLabel;
+		public UI.Text difficultyLabel;
+		public UI.Text equationLabel;
 		
 		
 		
@@ -27,26 +40,32 @@ namespace SphericalCow.Testing
 			this.character = new RpgCharacterData(this.xpProgressor, 
 			                                      this.startingHealthPoints, 
 			                                      this.startingHealthPoints, 
-			                                      this.characterName);
+			                                      this.givenCharacterName);
 			
-			Debug.Log("Name: " + this.character.Name);
-			Debug.Log("ID: " + this.character.Id.ToString());
-			Debug.Log("HP: " + this.character.Hp.ToString());
-			Debug.Log("MaxHP: " + this.character.MaximumHp.ToString());
-			Debug.Log("XP: " + this.character.Xp.ToString());
-			Debug.Log("XpToNextLevel: " + this.character.XpToNextLevel.ToString());
-			Debug.Log("Level: " + this.character.Level.ToString());
-			Debug.Log("Difficulty: " + this.character.XpProgressor.Name);
-			string progressionEquationStr = string.Format("newXTNL = {0} * currLevel + {1} * oldXTNL", 
-			                                              this.character.XpProgressor.LevelMultiplier,
-			                                              this.character.XpProgressor.OldXtnlMultiplier);
-			Debug.Log("Difficulty Equation: " + progressionEquationStr);
+			this.RefreshUI();
 		}
 		
-		// Update is called once per frame
-		void Update () 
+		
+		
+		/// <summary>
+		///  	Used to refresh the Unity UI displaying data about the character.
+		/// 	Doesn't have to run every frame
+		/// </summary>
+		private void RefreshUI()
 		{
+			this.nameLabel.text = this.character.Name;
+			this.idLabel.text = this.character.Id.ToString();
+			this.hpLabel.text = this.character.Hp.ToString();
+			this.maxHpLabel.text = this.character.MaximumHp.ToString();
+			this.xpLabel.text = this.character.Xp.ToString();
+			this.xtnlLabel.text = this.character.XpToNextLevel.ToString();
+			this.levelLabel.text = this.character.Level.ToString();
+			this.difficultyLabel.text = this.character.XpProgressor.Name;
 			
+			string progressionEquationStr = string.Format("newXtnl = {0} * Level + {1} * oldXtnl", 
+			                                              this.character.XpProgressor.LevelMultiplier,
+			                                              this.character.XpProgressor.OldXtnlMultiplier);
+			this.equationLabel.text = progressionEquationStr;
 		}
 	}
 }
