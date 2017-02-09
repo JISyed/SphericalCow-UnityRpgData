@@ -1,14 +1,19 @@
 ﻿using UnityEngine;
 using UI = UnityEngine.UI;
 using Guid = System.Guid;
+using System.Text;	// For StringBuilder
 
 namespace SphericalCow.Testing
 {
 	/// <summary>
-	/// 	Test script for XpProgressor and XpData
+	/// 	Test script for AbstractStat, BaseStat, SecondaryStat, SkillStat, and StatData (with subsystems)
 	/// </summary>
-	public class RpgDataXpTester : MonoBehaviour 
+	public class RpgDataStatTester : MonoBehaviour 
 	{
+		//
+		// Data
+		//
+		
 		[SerializeField] private string givenCharacterName;
 		[SerializeField] private string xpProgressorName;
 		[SerializeField] private int startingHealthPoints;
@@ -33,6 +38,12 @@ namespace SphericalCow.Testing
 		
 		
 		
+		
+		//
+		// Unity Events
+		//
+		
+		
 		// Use this for initialization
 		void Start () 
 		{
@@ -52,6 +63,47 @@ namespace SphericalCow.Testing
 			
 			this.RefreshUI();
 		}
+		
+		
+		
+		
+		
+		
+		//
+		// Routines
+		//
+		
+		
+		/// <summary>
+		///  	Used to refresh the Unity UI displaying data about the character.
+		/// 	Doesn't have to run every frame
+		/// </summary>
+		private void RefreshUI()
+		{
+			this.nameLabel.text = this.character.Name;
+			this.idLabel.text = this.character.Id.ToString();
+			this.hpLabel.text = this.character.Hp.ToString();
+			this.maxHpLabel.text = this.character.MaximumHp.ToString();
+			this.xpLabel.text = this.character.Xp.ToString();
+			this.xtnlLabel.text = this.character.XpToNextLevel.ToString();
+			this.levelLabel.text = this.character.Level.ToString();
+			this.difficultyLabel.text = this.character.XpProgressor.Name;
+			
+			string progressionEquationStr = string.Format("newXtnl = {0} * Level + {1} * oldXtnl", 
+			                                              this.character.XpProgressor.LevelMultiplier,
+			                                              this.character.XpProgressor.OldXtnlMultiplier);
+			this.equationLabel.text = progressionEquationStr;
+			
+		}
+		
+		
+		
+		
+		
+		
+		//
+		// Buttons
+		//
 		
 		
 		
@@ -87,6 +139,7 @@ namespace SphericalCow.Testing
 			
 			this.RefreshUI();
 		}
+		
 		
 		
 		
@@ -152,38 +205,18 @@ namespace SphericalCow.Testing
 		}
 		
 		
-		
-		
 		/// <summary>
-		///  	Used to refresh the Unity UI displaying data about the character.
-		/// 	Doesn't have to run every frame
+		/// 	Toggles the XP test panel.
 		/// </summary>
-		private void RefreshUI()
-		{
-			this.nameLabel.text = this.character.Name;
-			this.idLabel.text = this.character.Id.ToString();
-			this.hpLabel.text = this.character.Hp.ToString();
-			this.maxHpLabel.text = this.character.MaximumHp.ToString();
-			this.xpLabel.text = this.character.Xp.ToString();
-			this.xtnlLabel.text = this.character.XpToNextLevel.ToString();
-			this.levelLabel.text = this.character.Level.ToString();
-			this.difficultyLabel.text = this.character.XpProgressor.Name;
-			
-			string progressionEquationStr = string.Format("newXtnl = {0} * Level + {1} * oldXtnl", 
-			                                              this.character.XpProgressor.LevelMultiplier,
-			                                              this.character.XpProgressor.OldXtnlMultiplier);
-			this.equationLabel.text = progressionEquationStr;
-			
-		}
-		
-		
-		
 		public void ToggleXpButtonPanel()
 		{
 			this.testXpPanel.SetActive(!this.testXpPanel.activeSelf);
 		}
 		
 		
+		/// <summary>
+		/// 	Toggles the HP test panel.
+		/// </summary>
 		public void ToggleHpButtonPanel()
 		{
 			this.testHpPanel.SetActive(!this.testHpPanel.activeSelf);
