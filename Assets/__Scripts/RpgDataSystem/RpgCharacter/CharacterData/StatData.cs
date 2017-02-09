@@ -20,6 +20,10 @@ namespace SphericalCow
 		
 		
 		
+		
+		/// <summary>
+		/// 	The unaltered SP of this stat, un-influenced from other stats or abilities
+		/// </summary>
 		public int RawStatPoints
 		{
 			get
@@ -29,6 +33,9 @@ namespace SphericalCow
 		}
 		
 		
+		/// <summary>
+		/// 	The total SP (stat points) of this stat. This value will be influenced by other stats and abilties
+		/// </summary>
 		public int StatPoints
 		{
 			get
@@ -73,6 +80,44 @@ namespace SphericalCow
 			}
 		}
 		
+		
+		
+		
+		/// <summary>
+		/// 	The ID of the associated Stat
+		/// </summary>
+		public Guid Id
+		{
+			get
+			{
+				return this.statId.GuidData;
+			}
+		}
+		
+		
+		/// <summary>
+		/// 	The name of the associated Stat
+		/// </summary>
+		public string Name
+		{
+			get
+			{
+				return this.statReference.Name;
+			}
+		}
+		
+		
+		/// <summary>
+		/// 	The Stat definition from the RPG data assets
+		/// </summary>
+		/// <value>The stat reference.</value>
+		public AbstractStat StatReference
+		{
+			get
+			{
+				return this.statReference;
+			}
+		}
 		
 	}
 }

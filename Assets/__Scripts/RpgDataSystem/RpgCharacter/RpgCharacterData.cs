@@ -178,6 +178,88 @@ namespace SphericalCow
 		
 		
 		
+		/// <summary>
+		/// 	Adds a new Stat to this Character. Also creates an internal record for the stat.
+		/// 	Will not add a particular stat more than once.
+		/// </summary>
+		public void AddStat(AbstractStat newStat)
+		{
+			// Check if this stat was already added
+			StatData statData = this.SearchStat(newStat.Id);
+			
+			// Add the stat
+			if(statData == null)
+			{
+				
+			}
+		}
+		
+		
+		
+		/// <summary>
+		/// 	Search for a stat in this Character by ID. Will return null if no such stat is found
+		/// </summary>
+		public StatData SearchStat(Guid statId)
+		{
+			StatData foundStat = null;
+			
+			foreach(StatData s in this.appliedStats)
+			{
+				if(s.Id.Equals(statId))
+				{
+					foundStat = s;
+					break;
+				}
+			}
+			
+			return foundStat;
+		}
+		
+		
+		/// <summary>
+		/// 	Search for a stat in this Character by name. Will return null if no such stat is found
+		/// </summary>
+		public StatData SearchStat(string statName)
+		{
+			StatData foundStat = null;
+			
+			foreach(StatData s in this.appliedStats)
+			{
+				if(s.Name.Equals(statName))
+				{
+					foundStat = s;
+					break;
+				}
+			}
+			
+			return foundStat;
+		}
+		
+		
+		
+		/// <summary>
+		/// 	Search for a stat in this Character by a Stat data asset (BaseStat, SecondaryStat, SkillStat). 
+		/// 	Will return null if no such stat is found
+		/// </summary>
+		public StatData SearchStat(AbstractStat statDefinition)
+		{
+			StatData foundStat = null;
+			
+			foreach(StatData s in this.appliedStats)
+			{
+				if(ReferenceEquals(s.StatReference, statDefinition))
+				{
+					foundStat = s;
+					break;
+				}
+			}
+			
+			return foundStat;
+		}
+		
+		
+		
+		
 		
 		/// <summary>
 		/// 	The ID of this RPG Character
