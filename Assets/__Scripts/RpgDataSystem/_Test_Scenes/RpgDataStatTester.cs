@@ -18,10 +18,12 @@ namespace SphericalCow.Testing
 		[SerializeField] private string xpProgressorName;
 		[SerializeField] private int startingHealthPoints;
 		[SerializeField] private int startingXp;
+		[SerializeField] private bool showStatAndAbilityIds;
 		
 		private RpgCharacterData character;
 		private XpProgressor xpProgressor;
 		
+		private StringBuilder stringBuilder;
 		
 		public UI.Text nameLabel;
 		public UI.Text idLabel;
@@ -32,6 +34,7 @@ namespace SphericalCow.Testing
 		public UI.Text levelLabel;
 		public UI.Text difficultyLabel;
 		public UI.Text equationLabel;
+		public UI.Text statsLabel;
 		
 		public GameObject testXpPanel;
 		public GameObject testHpPanel;
@@ -47,6 +50,8 @@ namespace SphericalCow.Testing
 		// Use this for initialization
 		void Start () 
 		{
+			this.stringBuilder = new StringBuilder();
+			
 			Debug.Assert(string.IsNullOrEmpty(this.xpProgressorName) == false, 
 			             "Please provide an proper XpProgressor in the Inspector");
 			
@@ -60,6 +65,7 @@ namespace SphericalCow.Testing
 			                                      this.startingHealthPoints, 
 			                                      this.givenCharacterName);
 			this.AddXp(this.startingXp);
+			
 			
 			this.RefreshUI();
 		}
@@ -93,6 +99,31 @@ namespace SphericalCow.Testing
 			                                              this.character.XpProgressor.LevelMultiplier,
 			                                              this.character.XpProgressor.OldXtnlMultiplier);
 			this.equationLabel.text = progressionEquationStr;
+			
+			
+			// Print stats
+			
+			foreach(StatData statData in this.character.AppliedStats)
+			{
+				this.stringBuilder.Append(statData.Name).Append("\n");
+				if(this.showStatAndAbilityIds)
+				{
+					this.stringBuilder.Append("    ID: ").Append(statData.Id.ToString()).Append("\n");
+				}
+				this.stringBuilder.Append("    Type: ").Append(statData.Type.ToString()).Append("\n");
+				this.stringBuilder.Append("    Raw SP: ").Append(statData.RawStatPoints).Append(" / ");
+				this.stringBuilder.Append(statData.StatReference.AbsoluteMaximumSp).Append("\n");
+				// TODO: Print final SP (modified from raw SP)
+				this.stringBuilder.Append("    Use Counter: ").Append(statData.StatUseCounter).Append("\n");
+				this.stringBuilder.Append("\n\n");
+			}
+			this.statsLabel.text = this.stringBuilder.ToString();
+			this.stringBuilder.Length = 0;
+			
+			if(this.character.AppliedStats.Count == 0)
+			{
+				this.statsLabel.text = "No stats applied...";
+			}
 			
 		}
 		

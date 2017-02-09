@@ -190,7 +190,15 @@ namespace SphericalCow
 			// Add the stat
 			if(statData == null)
 			{
-				
+				statData = new StatData(newStat);
+				this.appliedStats.Add(statData);
+			}
+			else
+			{
+				if(Debug.isDebugBuild)
+				{
+					Debug.LogWarning("The stat " + newStat.Name + " was already added to " + this.Name);
+				}
 			}
 		}
 		

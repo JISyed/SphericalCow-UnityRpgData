@@ -13,24 +13,32 @@ namespace SphericalCow
 		[SerializeField] private SaveableGuid statId;
 		[SerializeField] private StatType type;
 		[SerializeField] private int rawSpPool;
+		[SerializeField] private int statUseCounter;
 		[System.NonSerialized] private AbstractSpDeriver linkedStatsDerivedPool;
 		[System.NonSerialized] private AbilityAggregator abilityModifications;
-		[SerializeField] private int statUseCounter;
 		
 		
 		
 		
 		
-		/// <summary>
-		/// 	The unaltered SP of this stat, un-influenced from other stats or abilities
-		/// </summary>
-		public int RawStatPoints
+		public StatData(AbstractStat newStat)
 		{
-			get
-			{
-				return this.rawSpPool;
-			}
+			this.statReference = newStat;
+			this.statId = new SaveableGuid(newStat.Id);
+			this.type = newStat.GetStatType();
+			this.rawSpPool = 0;
+			this.statUseCounter = 0;
+			
+			// TODO: Initialize the SPDeriver
+			
+			// TODO: Initialize the AbilityAggregator
+			
+			
 		}
+		
+		
+		
+		
 		
 		
 		/// <summary>
@@ -81,6 +89,30 @@ namespace SphericalCow
 		}
 		
 		
+		/// <summary>
+		/// 	The unaltered SP of this stat, un-influenced from other stats or abilities
+		/// </summary>
+		public int RawStatPoints
+		{
+			get
+			{
+				return this.rawSpPool;
+			}
+		}
+		
+		
+		
+		/// <summary>
+		/// 	A numerical factor for this stat that increases the more the stat is used
+		/// </summary>
+		public int StatUseCounter
+		{
+			get
+			{
+				return this.statUseCounter;
+			}
+		}
+		
 		
 		
 		/// <summary>
@@ -116,6 +148,18 @@ namespace SphericalCow
 			get
 			{
 				return this.statReference;
+			}
+		}
+		
+		
+		/// <summary>
+		/// 	The type of stat (Base, Secondary, Skill)
+		/// </summary>
+		public StatType Type
+		{
+			get
+			{
+				return this.type;
 			}
 		}
 		
