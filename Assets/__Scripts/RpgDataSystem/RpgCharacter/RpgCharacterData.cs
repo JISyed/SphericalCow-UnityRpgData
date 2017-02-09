@@ -11,6 +11,7 @@ namespace SphericalCow
 	[System.Serializable]
 	public class RpgCharacterData
 	{
+		private const string DefaultName = "Unnamed One";
 		private const int DefaultHealthPoints = 100;
 		
 		[SerializeField] private SaveableGuid id;	// This is the ID of the character itself
@@ -30,13 +31,13 @@ namespace SphericalCow
 		/// <summary>
 		/// 	Constructor requires an XpProgressor, starting HP, maximum HP, and optionally, a name
 		/// </summary>
-		public RpgCharacterData(XpProgressor newXpProgressor, int newHP, int newMaxHp, string newName = "Unnamed")
+		public RpgCharacterData(XpProgressor newXpProgressor, int newHP, int newMaxHp, string newName = RpgCharacterData.DefaultName)
 		{
 			Debug.Assert(newXpProgressor != null, "RpgCharacterData consturctor is being given a null XpProgressor!");
 			if(string.IsNullOrEmpty(newName))
 			{
 				Debug.LogWarning("RpgCharacterData constructor was given a null or empty new name string");
-				newName = "Unnamed";
+				newName = RpgCharacterData.DefaultName;
 			}
 			if(newMaxHp <= 0)
 			{

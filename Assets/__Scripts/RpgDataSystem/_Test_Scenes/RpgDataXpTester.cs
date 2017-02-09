@@ -34,18 +34,56 @@ namespace SphericalCow.Testing
 		// Use this for initialization
 		void Start () 
 		{
-			Debug.Assert(string.IsNullOrEmpty(this.xpProgressorName) == false, "Please provide an proper XpProgressor in the Inspector");
+			Debug.Assert(string.IsNullOrEmpty(this.xpProgressorName) == false, 
+			             "Please provide an proper XpProgressor in the Inspector");
+			
 			this.xpProgressor = RpgDataRegistry.Instance.SearchXpProgressor(this.xpProgressorName);
-			Debug.Assert(this.xpProgressor != null, "Could not find an XpProgressor by the name " + this.xpProgressorName);
+			
+			Debug.Assert(this.xpProgressor != null, 
+			             "Could not find an XpProgressor by the name " + this.xpProgressorName);
 			
 			this.character = new RpgCharacterData(this.xpProgressor, 
 			                                      this.startingHealthPoints, 
 			                                      this.startingHealthPoints, 
 			                                      this.givenCharacterName);
-			this.character.AddXp(this.startingXp);
+			this.AddXp(this.startingXp);
 			
 			this.RefreshUI();
 		}
+		
+		
+		
+		
+		/// <summary>
+		/// 	Give any amount of XP to the character. 
+		/// 	The RPG character wasn't designed to loop through the 
+		/// 	instnace of multiple levelups, so that's implemented here
+		/// </summary>
+		private void AddXp(int newXpToAdd)
+		{
+			// No negative parameters
+			if(newXpToAdd < 0)
+			{
+				newXpToAdd = -newXpToAdd;
+			}
+			
+			// Add the XP
+			bool didLevelUp = false;
+			didLevelUp = this.character.AddXp(newXpToAdd);
+			
+			// Check if the player leveled up. 
+			// Checking in a loop because multiple levelups may be possible if too much XP was given at once
+			while(didLevelUp)
+			{
+				Debug.Log("LEVELUP!       " + 
+				          this.character.Name + 
+				          " has now upgraded to Level " + 
+				          this.character.Level.ToString());
+				
+				didLevelUp = this.character.AddXp(0);	// Don't add any more XP, but check for leveling up
+			}
+		}
+		
 		
 		
 		
