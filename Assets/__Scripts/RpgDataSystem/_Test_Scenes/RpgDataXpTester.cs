@@ -102,7 +102,15 @@ namespace SphericalCow.Testing
 				newHpToAdd = -newHpToAdd;
 			}
 			
+			// Being revived means the Character had 0 HP before and then was given HP
+			bool wasRevived = this.character.AddHp(newHpToAdd);
 			
+			if(wasRevived)
+			{
+				Debug.Log(this.character.Name + " was revived!");
+			}
+			
+			this.RefreshUI();
 		}
 		
 		/// <summary>
@@ -116,7 +124,15 @@ namespace SphericalCow.Testing
 				newHpToRemove = -newHpToRemove;
 			}
 			
+			// Character will be defeated only if he/she reaches 0 HP and having had some HP before
+			bool wasDefeated = this.character.Hp != 0 && this.character.RemoveHp(newHpToRemove);
 			
+			if(wasDefeated)
+			{
+				Debug.Log(this.character.Name + " was defeated!");
+			}
+			
+			this.RefreshUI();
 		}
 		
 		
@@ -131,7 +147,9 @@ namespace SphericalCow.Testing
 				newAdditonalMaxHp = -newAdditonalMaxHp;
 			}
 			
+			this.character.SetAdditonalMaxHp(newAdditonalMaxHp);
 			
+			this.RefreshUI();
 		}
 		
 		

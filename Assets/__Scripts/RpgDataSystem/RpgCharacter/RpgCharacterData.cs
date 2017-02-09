@@ -115,8 +115,66 @@ namespace SphericalCow
 		{
 			// This should remain "=", not "+="; we are not accumulating additionalMaxHp
 			this.additionalMaxHp = newAdditonalMaxHp;
+			
+			if(this.hp > this.MaximumHp)
+			{
+				this.hp = this.MaximumHp;
+			}
 		}
 		
+		
+		
+		
+		/// <summary>
+		/// 	Add health points to this Character. Negative values will be made positive.
+		/// 	Cannot exceed the maximum HP of this Character.
+		/// 	Will return true if prior to calling this method, the Character had 0 HP,
+		/// 	as to notify the develeoper that the Character "revived"
+		/// </summary>
+		/// <returns><c>true</c>, if HP was previously 0, indicating revival of the character, <c>false</c> otherwise.</returns>
+		/// <param name="hpAmount">The amount of HP to add. Cannot be negative</param>
+		public bool AddHp(int hpAmount)
+		{
+			if(hpAmount < 0)
+			{
+				hpAmount = -hpAmount;
+			}
+			
+			bool wasRevived = this.hp == 0 && hpAmount != 0;
+			
+			this.hp += hpAmount;
+			if(this.hp > this.MaximumHp)
+			{
+				this.hp = this.MaximumHp;
+			}
+			
+			return wasRevived;
+		}
+		
+		
+		/// <summary>
+		/// 	Removes health points from this Character. Negative values will be made positive.
+		/// 	Cannot deplete past 0 HP.
+		/// 	Will return true if the Character loses all of the HP once this method is called,
+		/// 	as to notify the developer that the Character "died" or "was defeated"
+		/// </summary>
+		/// <returns><c>true</c>, if hp was removed, <c>false</c> otherwise.</returns>
+		/// <param name="hpAmount">Hp amount.</param>
+		public bool RemoveHp(int hpAmount)
+		{
+			if(hpAmount < 0)
+			{
+				hpAmount = -hpAmount;
+			}
+			
+			this.hp -= hpAmount;
+			if(this.hp < 0)
+			{
+				this.hp = 0;
+			}
+			
+			return this.hp == 0;
+		}
 		
 		
 		

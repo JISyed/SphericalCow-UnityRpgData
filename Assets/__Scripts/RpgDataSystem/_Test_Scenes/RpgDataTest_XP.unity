@@ -2426,7 +2426,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   givenCharacterName: Marc
   xpProgressorName: Easy Progression
-  startingHealthPoints: 111
+  startingHealthPoints: 150
   startingXp: 0
   nameLabel: {fileID: 1414853501}
   idLabel: {fileID: 1481991925}
