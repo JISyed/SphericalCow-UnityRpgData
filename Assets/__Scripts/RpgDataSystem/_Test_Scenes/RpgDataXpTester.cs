@@ -13,6 +13,7 @@ namespace SphericalCow.Testing
 		[SerializeField] private string givenCharacterName;
 		[SerializeField] private string xpProgressorName;
 		[SerializeField] private int startingHealthPoints;
+		[SerializeField] private int startingXp;
 		
 		private RpgCharacterData character;
 		private XpProgressor xpProgressor;
@@ -41,6 +42,7 @@ namespace SphericalCow.Testing
 			                                      this.startingHealthPoints, 
 			                                      this.startingHealthPoints, 
 			                                      this.givenCharacterName);
+			this.character.AddXp(this.startingXp);
 			
 			this.RefreshUI();
 		}

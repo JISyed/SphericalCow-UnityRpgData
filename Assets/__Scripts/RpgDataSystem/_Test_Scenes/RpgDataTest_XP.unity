@@ -713,6 +713,7 @@ MonoBehaviour:
   givenCharacterName: Marc
   xpProgressorName: Easy Progression
   startingHealthPoints: 111
+  startingXp: 20
   nameLabel: {fileID: 1414853501}
   idLabel: {fileID: 1481991925}
   hpLabel: {fileID: 2058665234}
@@ -1261,8 +1262,8 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -120.800003, y: -19}
-  m_SizeDelta: {x: 36.2000122, y: 24}
+  m_AnchoredPosition: {x: -81.0999985, y: -19}
+  m_SizeDelta: {x: 153.5, y: 24}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1434548305
 MonoBehaviour:
@@ -1295,7 +1296,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'XP: '
+  m_Text: XP / To Next Level
 --- !u!222 &1434548306
 CanvasRenderer:
   m_ObjectHideFlags: 0
