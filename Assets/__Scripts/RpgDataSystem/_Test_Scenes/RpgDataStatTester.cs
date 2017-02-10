@@ -38,6 +38,7 @@ namespace SphericalCow.Testing
 		
 		public GameObject testXpPanel;
 		public GameObject testHpPanel;
+		public GameObject testStatPanel;
 		
 		
 		
@@ -64,8 +65,9 @@ namespace SphericalCow.Testing
 			                                      this.startingHealthPoints, 
 			                                      this.startingHealthPoints, 
 			                                      this.givenCharacterName);
-			this.AddXp(this.startingXp);
 			
+			
+			this.AddXp(this.startingXp);
 			
 			this.RefreshUI();
 		}
@@ -108,13 +110,20 @@ namespace SphericalCow.Testing
 				this.stringBuilder.Append(statData.Name).Append("\n");
 				if(this.showStatAndAbilityIds)
 				{
-					this.stringBuilder.Append("    ID: ").Append(statData.Id.ToString()).Append("\n");
+					this.stringBuilder.Append("      ID: ").Append(statData.Id.ToString()).Append("\n");
 				}
-				this.stringBuilder.Append("    Type: ").Append(statData.Type.ToString()).Append("\n");
-				this.stringBuilder.Append("    Raw SP: ").Append(statData.RawStatPoints).Append(" / ");
-				this.stringBuilder.Append(statData.StatReference.AbsoluteMaximumSp).Append("\n");
+				this.stringBuilder.Append("      Type: ").Append(statData.Type.ToString()).Append("\n");
+				this.stringBuilder.Append("      Raw SP: ").Append(statData.RawStatPoints);
+				if(statData.StatReference.AbsoluteMaximumSp != 0)
+				{
+					this.stringBuilder.Append(" / ").Append(statData.StatReference.AbsoluteMaximumSp).Append("\n");
+				}
+				else
+				{
+					this.stringBuilder.Append("\n");
+				}
 				// TODO: Print final SP (modified from raw SP)
-				this.stringBuilder.Append("    Use Counter: ").Append(statData.StatUseCounter).Append("\n");
+				this.stringBuilder.Append("      Use Counter: ").Append(statData.StatUseCounter).Append("\n");
 				this.stringBuilder.Append("\n\n");
 			}
 			this.statsLabel.text = this.stringBuilder.ToString();
@@ -124,6 +133,8 @@ namespace SphericalCow.Testing
 			{
 				this.statsLabel.text = "No stats applied...";
 			}
+			
+			
 			
 		}
 		
@@ -236,6 +247,25 @@ namespace SphericalCow.Testing
 		}
 		
 		
+		
+		/// <summary>
+		/// 	Add a new stat to the RpgCharacter. Needs the name of the stat from the data assets (not filename!)
+		/// </summary>
+		public void AddStat(string statName)
+		{
+			AbstractStat newStat = RpgDataRegistry.Instance.SearchAnyStat(statName);
+			
+			Debug.Assert(newStat != null, "Trying to add a stat, but couldn't find the stat \"" + statName + "\"");
+			
+			this.character.AddStat(newStat);
+			
+			this.RefreshUI();
+		}
+		
+		
+		
+		
+		
 		/// <summary>
 		/// 	Toggles the XP test panel.
 		/// </summary>
@@ -253,6 +283,14 @@ namespace SphericalCow.Testing
 			this.testHpPanel.SetActive(!this.testHpPanel.activeSelf);
 		}
 		
+		
+		/// <summary>
+		/// 	Toggles the Stat test panel.
+		/// </summary>
+		public void ToggleStatButtonPanel()
+		{
+			this.testStatPanel.SetActive(!this.testStatPanel.activeSelf);
+		}
 		
 	}
 }
