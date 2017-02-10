@@ -192,6 +192,10 @@ namespace SphericalCow
 			{
 				statData = new StatData(newStat);
 				this.appliedStats.Add(statData);
+				
+				// TODO: Link other stats here
+				
+				// TODO: Link abilities here
 			}
 			else
 			{
@@ -201,6 +205,64 @@ namespace SphericalCow
 				}
 			}
 		}
+		
+		
+		/// <summary>
+		/// 	Remove a stat from this Character by name
+		/// </summary>
+		public void RemoveStat(string oldStatName)
+		{
+			// Check if this stat exists in the Character
+			StatData statData = this.SearchStat(oldStatName);
+			
+			if(statData != null)
+			{
+				this.UnlinkAndRemoveStat(statData);
+			}
+			else
+			{
+				if(Debug.isDebugBuild)
+				{
+					Debug.LogWarning("The stat \"" + oldStatName + "\" was already removed from " + this.Name);
+				}
+			}
+			
+		}
+		
+		
+		/// <summary>
+		/// 	Remove a stat from this Character by ID
+		/// </summary>
+		public void RemoveStat(Guid oldStatId)
+		{
+			// Check if this stat exists in the Character
+			StatData statData = this.SearchStat(oldStatId);
+			
+			if(statData != null)
+			{
+				this.UnlinkAndRemoveStat(statData);
+			}
+			else
+			{
+				if(Debug.isDebugBuild)
+				{
+					Debug.LogWarning("The stat of ID \"" + oldStatId.ToString() + "\" was already removed from " + this.Name);
+				}
+			}
+			
+		}
+		
+		
+		
+		private void UnlinkAndRemoveStat(StatData oldStat)
+		{
+			// TODO: Do stat unlinking here before deleting the statData instance
+			
+			// TODO: Do ability unlinking here before deleting the statData instance
+			
+			this.appliedStats.Remove(oldStat);
+		}
+		
 		
 		
 		

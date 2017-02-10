@@ -113,7 +113,8 @@ namespace SphericalCow.Testing
 					this.stringBuilder.Append("      ID: ").Append(statData.Id.ToString()).Append("\n");
 				}
 				this.stringBuilder.Append("      Type: ").Append(statData.Type.ToString()).Append("\n");
-				this.stringBuilder.Append("      Raw SP: ").Append(statData.RawStatPoints);
+				this.stringBuilder.Append("      Raw SP: ").Append(statData.RawStatPoints).Append("\n");
+				this.stringBuilder.Append("      Final SP: ").Append(statData.StatPoints);
 				if(statData.StatReference.AbsoluteMaximumSp != 0)
 				{
 					this.stringBuilder.Append(" / ").Append(statData.StatReference.AbsoluteMaximumSp).Append("\n");
@@ -122,8 +123,7 @@ namespace SphericalCow.Testing
 				{
 					this.stringBuilder.Append("\n");
 				}
-				// TODO: Print final SP (modified from raw SP)
-				this.stringBuilder.Append("      Use Counter: ").Append(statData.StatUseCounter).Append("\n");
+				this.stringBuilder.Append("      Use Factor: ").Append(statData.UseFactor).Append("\n");
 				this.stringBuilder.Append("\n\n");
 			}
 			this.statsLabel.text = this.stringBuilder.ToString();
@@ -262,6 +262,17 @@ namespace SphericalCow.Testing
 			this.RefreshUI();
 		}
 		
+		
+		
+		/// <summary>
+		/// 	Remove a stat to the RpgCharacter. Needs the name of the stat from the data assets (not filename!)
+		/// </summary>
+		public void RemoveStat(string statName)
+		{
+			this.character.RemoveStat(statName);
+			
+			this.RefreshUI();
+		}
 		
 		
 		

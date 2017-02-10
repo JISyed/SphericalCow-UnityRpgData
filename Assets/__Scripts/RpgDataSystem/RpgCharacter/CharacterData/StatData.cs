@@ -13,7 +13,7 @@ namespace SphericalCow
 		[SerializeField] private SaveableGuid statId;
 		[SerializeField] private StatType type;
 		[SerializeField] private int rawSpPool;
-		[SerializeField] private int statUseCounter;
+		[SerializeField] private int useFactor;
 		[System.NonSerialized] private AbstractSpDeriver linkedStatsDerivedPool;
 		[System.NonSerialized] private AbilityAggregator abilityModifications;
 		
@@ -27,9 +27,24 @@ namespace SphericalCow
 			this.statId = new SaveableGuid(newStat.Id);
 			this.type = newStat.GetStatType();
 			this.rawSpPool = 0;
-			this.statUseCounter = 0;
+			this.useFactor = 1;
 			
 			// TODO: Initialize the SPDeriver
+			switch (this.type) 
+			{
+			case StatType.Base:
+				this.linkedStatsDerivedPool = new BaseSpDeriver(newStat as BaseStat);
+				break;
+			case StatType.Secondary:
+				this.linkedStatsDerivedPool = new SecondarySpDeriver(newStat as SecondaryStat);
+				break;
+			case StatType.Skill:
+				this.linkedStatsDerivedPool = new SkillSpDeriver(newStat as SkillStat);
+				break;
+			default:
+				Debug.LogError("Somebody added a new entry into the enum StatType");
+				break;
+			}
 			
 			// TODO: Initialize the AbilityAggregator
 			
@@ -55,6 +70,7 @@ namespace SphericalCow
 				finalSp += this.linkedStatsDerivedPool.DerivedSpPool;
 				
 				// Determing additional SP from Abilities (may alter the SP greatly)
+				/*
 				AbilityAggregator.NetModifications statMods = this.abilityModifications.AbilityModifiedSp;
 				if(statMods.netLimit == ModifierLimitType.NoLimit)	// IncreaseBy or DecreaseBy only
 				{
@@ -82,7 +98,7 @@ namespace SphericalCow
 						Debug.LogError("Somebody added a new enum entry into ModifierLimitType!");
 					}
 				}
-				
+				//*/
 				
 				return finalSp;
 			}
@@ -105,11 +121,11 @@ namespace SphericalCow
 		/// <summary>
 		/// 	A numerical factor for this stat that increases the more the stat is used
 		/// </summary>
-		public int StatUseCounter
+		public int UseFactor
 		{
 			get
 			{
-				return this.statUseCounter;
+				return this.useFactor;
 			}
 		}
 		
