@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4c987373e2244fa99e36268c3a0f630, type: 3}
   m_Name: BaseStat_Perception
   m_EditorClassIdentifier: 
-  entityName: 
+  entityName: Perception
   description: 'How aware they are of the world around them, as well as accuracy with
     ranged weapons. '
   icon: {fileID: 0}

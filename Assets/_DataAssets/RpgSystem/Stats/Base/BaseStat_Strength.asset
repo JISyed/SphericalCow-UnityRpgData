@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4c987373e2244fa99e36268c3a0f630, type: 3}
   m_Name: BaseStat_Strength
   m_EditorClassIdentifier: 
-  entityName: 
+  entityName: Strength
   description: Dictates the amount the player can lift, the damage they can do, and
     general vitality.
   icon: {fileID: 0}
