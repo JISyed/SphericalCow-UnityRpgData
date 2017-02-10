@@ -112,7 +112,7 @@ namespace SphericalCow
 		
 		
 		/// <summary>
-		/// 	Search for an XpProgressor by ID
+		/// 	Search for an XpProgressor by ID. Will return null if not found
 		/// </summary>
 		public XpProgressor SearchXpProgressor(Guid byId)
 		{
@@ -132,7 +132,7 @@ namespace SphericalCow
 		
 		
 		/// <summary>
-		/// 	Search for an XpProgressor by name (not filename)
+		/// 	Search for an XpProgressor by name (not filename). Will return null if not found
 		/// </summary>
 		public XpProgressor SearchXpProgressor(string byName)
 		{
@@ -155,7 +155,103 @@ namespace SphericalCow
 		
 		
 		/// <summary>
-		/// 	Search for a BaseStat by ID
+		/// 	Search for any Stat by ID.
+		/// 	Will search among BaseStats, SecondaryStats, and SkillStats.
+		/// 	Will return null if not found
+		/// </summary>
+		public AbstractStat SearchAnyStat(Guid byId)
+		{
+			AbstractStat foundObject = null;
+			
+			foreach(BaseStat entry in this.baseStats)
+			{
+				if(entry.Id.Equals(byId))
+				{
+					foundObject = entry;
+					break;
+				}
+			}
+			
+			if(foundObject == null)
+			{
+				foreach(SecondaryStat entry in this.secondaryStats)
+				{
+					if(entry.Id.Equals(byId))
+					{
+						foundObject = entry;
+						break;
+					}
+				}
+				
+				if(foundObject == null)
+				{
+					foreach(SkillStat entry in this.skillStats)
+					{
+						if(entry.Id.Equals(byId))
+						{
+							foundObject = entry;
+							break;
+						}
+					}
+				}
+			}
+			
+			return foundObject;
+		}
+		
+		/// <summary>
+		/// 	Search for any Stat by name (not filename). 
+		/// 	Will search among BaseStats, SecondaryStats, and SkillStats. 
+		/// 	Will return null if not found
+		/// </summary>
+		public AbstractStat SearchAnyStat(string byName)
+		{
+			AbstractStat foundObject = null;
+			
+			foreach(BaseStat entry in this.baseStats)
+			{
+				if(entry.Name.Equals(byName))
+				{
+					foundObject = entry;
+					break;
+				}
+			}
+			
+			if(foundObject == null)
+			{
+				foreach(SecondaryStat entry in this.secondaryStats)
+				{
+					if(entry.Name.Equals(byName))
+					{
+						foundObject = entry;
+						break;
+					}
+				}
+				
+				if(foundObject == null)
+				{
+					foreach(SkillStat entry in this.skillStats)
+					{
+						if(entry.Name.Equals(byName))
+						{
+							foundObject = entry;
+							break;
+						}
+					}
+				}
+			}
+			
+			
+			return foundObject;
+		}
+		
+		
+		
+		
+		
+		
+		/// <summary>
+		/// 	Search for a BaseStat by ID. Will return null if not found
 		/// </summary>
 		public BaseStat SearchBaseStat(Guid byId)
 		{
@@ -174,7 +270,7 @@ namespace SphericalCow
 		}
 		
 		/// <summary>
-		/// 	Search for a BaseStat by name (not filename)
+		/// 	Search for a BaseStat by name (not filename). Will return null if not found
 		/// </summary>
 		public BaseStat SearchBaseStat(string byName)
 		{
@@ -204,7 +300,7 @@ namespace SphericalCow
 		
 		
 		/// <summary>
-		/// 	Search for a SecondaryStat by ID
+		/// 	Search for a SecondaryStat by ID. Will return null if not found
 		/// </summary>
 		public SecondaryStat SearchSecondaryStat(Guid byId)
 		{
@@ -224,7 +320,7 @@ namespace SphericalCow
 		
 		
 		/// <summary>
-		/// 	Search for a SecondaryStat by name (not filename)
+		/// 	Search for a SecondaryStat by name (not filename). Will return null if not found
 		/// </summary>
 		public SecondaryStat SearchSecondaryStat(string byName)
 		{
@@ -247,7 +343,7 @@ namespace SphericalCow
 		
 		
 		/// <summary>
-		/// 	Search for a SkillStat by ID
+		/// 	Search for a SkillStat by ID. Will return null if not found
 		/// </summary>
 		public SkillStat SearchSkillStat(Guid byId)
 		{
@@ -267,7 +363,7 @@ namespace SphericalCow
 		
 		
 		/// <summary>
-		/// 	Search for a SkillStat by name (not filename)
+		/// 	Search for a SkillStat by name (not filename). Will return null if not found
 		/// </summary>
 		public SkillStat SearchSkillStat(string byName)
 		{
@@ -289,7 +385,7 @@ namespace SphericalCow
 		
 		
 		/// <summary>
-		/// 	Search for an Ability by ID
+		/// 	Search for an Ability by ID. Will return null if not found
 		/// </summary>
 		public Ability SearchAbility(Guid byId)
 		{
@@ -309,7 +405,7 @@ namespace SphericalCow
 		
 		
 		/// <summary>
-		/// 	Search for an Ability by name (not filename)
+		/// 	Search for an Ability by name (not filename). Will return null if not found
 		/// </summary>
 		public Ability SearchAbility(string byName)
 		{
