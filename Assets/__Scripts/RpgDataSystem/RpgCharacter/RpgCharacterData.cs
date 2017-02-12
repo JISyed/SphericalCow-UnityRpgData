@@ -756,7 +756,8 @@ namespace SphericalCow
 		private void UpgradeStatPointsByPointAllocation()
 		{
 			// Constant used to modulate the relationship between number of stats and amount of new SP on levelup
-			float k = 1.0f;
+			float k = RpgDataRegistry.Instance.PointToStatRatio;
+			int m = RpgDataRegistry.Instance.PointAssignedMultiplier;
 			
 			
 			// In point assigned, the number of stats you currently have becomes the basis for how many
@@ -764,7 +765,7 @@ namespace SphericalCow
 			// For example, if k==1 and you have 4 applied stats, you should get 4 SP added into the global pool on levelup.
 			// Players can them manually allocate those 4 SP into each stat evenly, or all into one stat if they wanted to.
 			
-			this.unallocatedSpPool += (int) Mathf.Round(k * (float) this.NumberOfAppliedStats);
+			this.unallocatedSpPool += ((int) Mathf.Round(k * (float) this.NumberOfAppliedStats)) * m;
 		}
 		
 		
