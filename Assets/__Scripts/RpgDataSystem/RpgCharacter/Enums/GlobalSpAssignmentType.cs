@@ -2,15 +2,10 @@
 {
 	/// <summary>
 	/// 	Determines how a stat will allocate or assign SP when new SP is gained.
-	/// 	Designated per stat, not per character
+	/// 	Designated per player, not per stat
 	/// </summary>
-	public enum SpAssignmentType 
+	public enum GlobalSpAssignmentType 
 	{
-		/// <summary>
-		/// 	Use the default allocation method determined by global definition using GlobalSpAssignmentType
-		/// </summary>
-		Default,
-		
 		/// <summary>
 		/// 	SP is allocated based on whether a stat is used or not
 		/// </summary>

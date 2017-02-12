@@ -12,6 +12,9 @@ namespace SphericalCow
 	/// </summary>
 	public class RpgDataRegistry : MonoBehaviour 
 	{
+		[Range(1,100)][SerializeField] private int pointAssignedMultiplier = 1;	// Used in PointAssigned algorithm
+		[Range(0.5f, 2.0f)][SerializeField] private float pointToStatRatio = 1.0f;	// Used in PointAssigned algorithm
+		[SerializeField] private GlobalSpAssignmentType defaultSpAssignment;
 		[SerializeField] private XpProgressor[] xpProgressors;
 		[SerializeField] private BaseStat[] baseStats;
 		[SerializeField] private SecondaryStat[] secondaryStats;
@@ -714,7 +717,9 @@ namespace SphericalCow
 		
 		
 		
-		
+		/// <summary>
+		/// 	List of all XpProgressors in the registry
+		/// </summary>
 		public ReadOnlyCollection<XpProgressor> XpProgressors
 		{
 			get
@@ -724,6 +729,9 @@ namespace SphericalCow
 		}
 		
 		
+		/// <summary>
+		/// 	List of all BaseStats in the registry
+		/// </summary>
 		public ReadOnlyCollection<BaseStat> BaseStats
 		{
 			get
@@ -733,6 +741,9 @@ namespace SphericalCow
 		}
 		
 		
+		/// <summary>
+		/// 	List of all SecondaryStats in the registry
+		/// </summary>
 		public ReadOnlyCollection<SecondaryStat> SecondaryStats
 		{
 			get
@@ -742,6 +753,9 @@ namespace SphericalCow
 		}
 		
 		
+		/// <summary>
+		/// 	List of all SkillStats in the registry
+		/// </summary>
 		public ReadOnlyCollection<SkillStat> SkillStats
 		{
 			get
@@ -751,6 +765,9 @@ namespace SphericalCow
 		}
 		
 		
+		/// <summary>
+		/// 	List of all Abilties in the registry
+		/// </summary>
 		public ReadOnlyCollection<Ability> Abilities
 		{
 			get
@@ -760,6 +777,9 @@ namespace SphericalCow
 		}
 		
 		
+		/// <summary>
+		/// 	Total number of XpProgressors on record in the registry
+		/// </summary>
 		public int NumberOfXpProgressors
 		{
 			get
@@ -769,6 +789,9 @@ namespace SphericalCow
 		}
 		
 		
+		/// <summary>
+		/// 	Total number of BaseStats on record in the registry
+		/// </summary>
 		public int NumberOfBaseStats
 		{
 			get
@@ -778,6 +801,9 @@ namespace SphericalCow
 		}
 		
 		
+		/// <summary>
+		/// 	Total number of SecondaryStats on record in the registry
+		/// </summary>
 		public int NumberOfSecondaryStats
 		{
 			get
@@ -787,6 +813,9 @@ namespace SphericalCow
 		}
 		
 		
+		/// <summary>
+		/// 	Total number of SkillStats on record in the registry
+		/// </summary>
 		public int NumberOfSkillStats
 		{
 			get
@@ -796,6 +825,9 @@ namespace SphericalCow
 		}
 		
 		
+		/// <summary>
+		/// 	Total number of Abilities on record in the registry
+		/// </summary>
 		public int NumberOfAbilities
 		{
 			get
@@ -803,6 +835,47 @@ namespace SphericalCow
 				return this.abilties.Length;
 			}
 		}
+		
+		
+		/// <summary>
+		/// 	The default SP assignment method to apply onto RpgCharacters (either UseAssigned or PointAssigned)
+		/// </summary>
+		public GlobalSpAssignmentType DefaultStatPointAssignment
+		{
+			get
+			{
+				return this.defaultSpAssignment;
+			}
+		}
+		
+		
+		/// <summary>
+		/// 	Used in PointAssigned algorithm. This multiplies the amount of SP rewarded on levelup
+		/// 	after doing the point-assignment calculations. Default value is 1.
+		/// </summary>
+		public int PointAssignedMultiplier
+		{
+			get
+			{
+				return this.pointAssignedMultiplier;
+			}
+		}
+		
+		
+		/// <summary>
+		/// 	Used in PointAssigned algorithm. It's the ratio between how many stats a character has 
+		/// 	and how many SP should be rewarded when leveling up. For example, if a player has 4 stats
+		///		and the point-to-stat ratio is 0.5, then players will get 2 SP on levelup. If the ratio 
+		///		is 1.0, then they will get 4 SP. If 2.0, they will get 8 SP. 
+		/// </summary>
+		public float PointToStatRatio
+		{
+			get
+			{
+				return this.pointToStatRatio;
+			}
+		}
+		
 		
 		
 	}

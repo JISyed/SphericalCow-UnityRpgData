@@ -15,6 +15,7 @@ namespace SphericalCow.Testing
 		//
 		
 		[SerializeField] private string givenCharacterName;
+		[SerializeField] private GlobalSpAssignmentType statPointAssignment;
 		[SerializeField] private string xpProgressorName;
 		[SerializeField] private int startingHealthPoints;
 		[SerializeField] private int startingXp;
@@ -36,10 +37,12 @@ namespace SphericalCow.Testing
 		public UI.Text equationLabel;
 		public UI.Text statsLabel;
 		public UI.Text globalSpLabel;
+		public UI.Text spAllocLabel;
 		
 		public GameObject testXpPanel;
 		public GameObject testHpPanel;
 		public GameObject testStatPanel;
+		public GameObject testPointAllocSpPanel;
 		
 		
 		
@@ -64,7 +67,8 @@ namespace SphericalCow.Testing
 			
 			this.character = new RpgCharacterData(this.xpProgressor, 
 			                                      this.startingHealthPoints, 
-			                                      this.startingHealthPoints, 
+			                                      this.startingHealthPoints,
+			                                      this.statPointAssignment, 
 			                                      this.givenCharacterName);
 			
 			
@@ -104,6 +108,7 @@ namespace SphericalCow.Testing
 			this.equationLabel.text = progressionEquationStr;
 			
 			this.globalSpLabel.text = this.character.UnallocatedSp.ToString();
+			this.spAllocLabel.text = this.character.StatPointAssignmentType.ToString();
 			
 			
 			// Print stats
@@ -281,6 +286,50 @@ namespace SphericalCow.Testing
 		
 		
 		/// <summary>
+		/// 	Adds SP from the Character's global SP pool into a particular stat, given its name
+		/// </summary>
+		/// <param name="spToAdd">Amount of SP to add to the given stat</param>
+		/// <param name="statName">The name of the stat to add SP into, if it exists (not filename)</param>
+		public void AddSpFromGlobalPool(int spToAdd, string statName)
+		{
+			bool statExists = this.character.AddStatPointsFromUnallocatedPool(spToAdd, statName);
+			
+			if(!statExists)
+			{
+				Debug.LogError("Could not add SP from global pool because stat " + statName + " does not exist!");
+			}
+			
+			this.RefreshUI();
+		}
+		
+		
+		public void AddSpFromGlobalPoolToStatAgility()
+		{
+			this.AddSpFromGlobalPool(1, "Agility");
+		}
+		
+		public void AddSpFromGlobalPoolToStatStrength()
+		{
+			this.AddSpFromGlobalPool(1, "Strength");
+		}
+		
+		public void AddSpFromGlobalPoolToStatHealth()
+		{
+			this.AddSpFromGlobalPool(1, "Health");
+		}
+		
+		public void AddSpFromGlobalPoolToStatKatana()
+		{
+			this.AddSpFromGlobalPool(1, "Katana");
+		}
+		
+		
+		
+		
+		
+		
+		
+		/// <summary>
 		/// 	Toggles the XP test panel.
 		/// </summary>
 		public void ToggleXpButtonPanel()
@@ -304,6 +353,15 @@ namespace SphericalCow.Testing
 		public void ToggleStatButtonPanel()
 		{
 			this.testStatPanel.SetActive(!this.testStatPanel.activeSelf);
+		}
+		
+		
+		/// <summary>
+		/// 	Toggles the Point Allocation test panel.
+		/// </summary>
+		public void TogglePointAllocationButtonPanel()
+		{
+			this.testPointAllocSpPanel.SetActive(!this.testPointAllocSpPanel.activeSelf);
 		}
 		
 	}

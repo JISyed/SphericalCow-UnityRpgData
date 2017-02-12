@@ -54,6 +54,23 @@ namespace SphericalCow
 		
 		
 		
+		/// <summary>
+		/// 	Increases the SP of this stat's individual (raw) pool. This action cannot be undone!
+		/// </summary>
+		/// <param name="spToAdd">SP to add to this stat. Will be made positve if negative</param>
+		public void AddStatPointsToRawPool(int spToAdd)
+		{
+			if(spToAdd < 0)
+			{
+				spToAdd = -spToAdd;
+			}
+			
+			this.rawSpPool += spToAdd;
+			
+			// TODO: Invoke an SP recalculation on linked stats and abilties
+		}
+		
+		
 		
 		
 		/// <summary>

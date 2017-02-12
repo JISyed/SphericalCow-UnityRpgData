@@ -25,6 +25,7 @@ namespace SphericalCow
 		[SerializeField] private List<AbilityData> appliedAbilities;
 		[SerializeField] private int numOfStats;
 		[SerializeField] private int numOfAbilities;
+		[SerializeField] private GlobalSpAssignmentType assignmentType;
 		
 		[System.NonSerialized] private ReadOnlyCollection<StatData> readOnlyStatsList;
 		[System.NonSerialized] private ReadOnlyCollection<AbilityData> readOnlyAbilitiesList;
@@ -33,7 +34,11 @@ namespace SphericalCow
 		/// <summary>
 		/// 	Constructor requires an XpProgressor, starting HP, maximum HP, and optionally, a name
 		/// </summary>
-		public RpgCharacterData(XpProgressor newXpProgressor, int newHP, int newMaxHp, string newName = RpgCharacterData.DefaultName)
+		public RpgCharacterData(XpProgressor newXpProgressor, 
+		                        int newHP, 
+		                        int newMaxHp, 
+		                        GlobalSpAssignmentType typeOfSpAssignment, 
+		                        string newName = RpgCharacterData.DefaultName)
 		{
 			Debug.Assert(newXpProgressor != null, "RpgCharacterData consturctor is being given a null XpProgressor!");
 			if(string.IsNullOrEmpty(newName))
@@ -80,6 +85,7 @@ namespace SphericalCow
 			this.appliedStats = new List<StatData>();
 			this.numOfStats = 0;
 			this.numOfAbilities = 0;
+			this.assignmentType = typeOfSpAssignment;
 			
 			this.UpdateReadOnlyStatsList();
 			this.UpdateReadOnlyAbilitiesList();
@@ -104,11 +110,21 @@ namespace SphericalCow
 			bool didLevelUp = this.xpData.AddXp(xpAmount);
 			
 			if(didLevelUp)
-			{
-				// Currently using only point assigned algorithm
-				// TODO: Place the UseAssigned algorithm here
-				
-				this.UpgradeStatPointsByPointAllocation();
+			{				
+				if(this.StatPointAssignmentType == GlobalSpAssignmentType.PointAssigned)
+				{
+					this.UpgradeStatPointsByPointAllocation();
+				}
+				else if(this.StatPointAssignmentType == GlobalSpAssignmentType.UseAssigned)
+				{
+					// TODO: Place UseAssigned algorithm call here!
+					Debug.LogWarning("UseAssigned algorithm currenly not implemented! Using point assigned method instead");
+					this.UpgradeStatPointsByPointAllocation();
+				}
+				else
+				{
+					Debug.LogError("Someone added a new type of SP assignment method. See GlobalSpAssignmentType");
+				}
 			}
 			
 			return didLevelUp;
@@ -332,6 +348,12 @@ namespace SphericalCow
 		/// </summary>
 		public StatData SearchStat(AbstractStat statDefinition)
 		{
+			if(statDefinition == null)
+			{
+				Debug.LogWarning("RpgCharacterData.SearchStat(AbstractStat) was given a null AbstractStat!");
+				return null;
+			}
+			
 			StatData foundStat = null;
 			
 			foreach(StatData s in this.appliedStats)
@@ -345,6 +367,109 @@ namespace SphericalCow
 			
 			return foundStat;
 		}
+		
+		
+		
+		
+		/// <summary>
+		/// 	Takes a certain amount of SP out of the Character's unallocated pool 
+		/// 	and puts it into the pool of the given stat.
+		/// </summary>
+		/// <returns><c>true</c>, if the given stat exists in this Character <c>false</c> otherwise.</returns>
+		/// <param name="spToAdd">The amount of SP to add to the given stat and remove from the unallocated pool</param>
+		/// <param name="statName">The name of the stat</param>
+		public bool AddStatPointsFromUnallocatedPool(int spToAdd, string statName)
+		{
+			if(spToAdd < 0)
+			{
+				spToAdd = -spToAdd;
+			}
+			
+			int remainingUnallocatedSp = this.UnallocatedSp - spToAdd;
+			
+			if(remainingUnallocatedSp < 0)
+			{
+				spToAdd = spToAdd + remainingUnallocatedSp;
+				Debug.Log("Unallocated Pool has ran out");
+			}
+			
+			bool statExists = this.AddSpToStat(spToAdd, statName);
+			if(statExists)
+			{
+				this.unallocatedSpPool -= spToAdd;
+				return true;
+			}
+			
+			return false;
+		}
+		
+		
+		/// <summary>
+		/// 	Takes a certain amount of SP out of the Character's unallocated pool 
+		/// 	and puts it into the pool of the given stat.
+		/// </summary>
+		/// <returns><c>true</c>, if the given stat exists in this Character <c>false</c> otherwise.</returns>
+		/// <param name="spToAdd">The amount of SP to add to the given stat and remove from the unallocated pool</param>
+		/// <param name="statId">The ID of the stat</param>
+		public bool AddStatPointsFromUnallocatedPool(int spToAdd, Guid statId)
+		{
+			if(spToAdd < 0)
+			{
+				spToAdd = -spToAdd;
+			}
+			
+			int remainingUnallocatedSp = this.UnallocatedSp - spToAdd;
+			
+			if(remainingUnallocatedSp < 0)
+			{
+				spToAdd = spToAdd + remainingUnallocatedSp;
+				Debug.Log("Unallocated Pool has ran out");
+			}
+			
+			bool statExists = this.AddSpToStat(spToAdd, statId);
+			if(statExists)
+			{
+				this.unallocatedSpPool -= spToAdd;
+				return true;
+			}
+			
+			return false;
+		}
+		
+		
+		/// <summary>
+		/// 	Takes a certain amount of SP out of the Character's unallocated pool 
+		/// 	and puts it into the pool of the given stat.
+		/// </summary>
+		/// <returns><c>true</c>, if the given stat exists in this Character <c>false</c> otherwise.</returns>
+		/// <param name="spToAdd">The amount of SP to add to the given stat and remove from the unallocated pool</param>
+		/// <param name="statDefinition">The definition file for the stat</param>
+		public bool AddStatPointsFromUnallocatedPool(int spToAdd, AbstractStat statDefinition)
+		{
+			if(spToAdd < 0)
+			{
+				spToAdd = -spToAdd;
+			}
+			
+			int remainingUnallocatedSp = this.UnallocatedSp - spToAdd;
+			
+			if(remainingUnallocatedSp < 0)
+			{
+				spToAdd = spToAdd + remainingUnallocatedSp;
+				Debug.Log("Unallocated Pool has ran out");
+			}
+			
+			bool statExists = this.AddSpToStat(spToAdd, statDefinition);
+			if(statExists)
+			{
+				this.unallocatedSpPool -= spToAdd;
+				return true;
+			}
+			
+			return false;
+		}
+		
+		
 		
 		
 		
@@ -523,6 +648,102 @@ namespace SphericalCow
 			}
 		}
 		
+		
+		/// <summary>
+		/// 	The method in which the Character allocates SP when leveling up (either UseAssigned or PointAssigned)
+		/// </summary>
+		public GlobalSpAssignmentType StatPointAssignmentType
+		{
+			get
+			{
+				return this.assignmentType;
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/// <summary>
+		/// 	Adds SP into the individual pool of the given stat name, if that stat is applied to this Character.
+		/// 	If that stat doesn't exist, no new SP will be added and will return false.
+		/// </summary>
+		/// <returns><c>true</c>, if the stat given was found in this character, <c>false</c> otherwise.</returns>
+		/// <param name="spToAdd">Amount of SP to add. Will be turned positive if negative</param>
+		/// <param name="statName">The name of the stat (not filename)</param>
+		private bool AddSpToStat(int spToAdd, string statName)
+		{
+			StatData foundStat = this.SearchStat(statName);
+			
+			if(foundStat != null)
+			{
+				this.AddSpToStatData(spToAdd, foundStat);
+				return true;
+			}
+			
+			return false;
+		}
+		
+		
+		/// <summary>
+		/// 	Adds SP into the individual pool of the given stat ID, if that stat is applied to this Character.
+		/// 	If that stat doesn't exist, no new SP will be added and will return false.
+		/// </summary>
+		/// <returns><c>true</c>, if the stat given was found in this character, <c>false</c> otherwise.</returns>
+		/// <param name="spToAdd">Amount of SP to add. Will be turned positive if negative</param>
+		/// <param name="statId">The ID of the stat</param>
+		private bool AddSpToStat(int spToAdd, Guid statId)
+		{
+			StatData foundStat = this.SearchStat(statId);
+			
+			if(foundStat != null)
+			{
+				this.AddSpToStatData(spToAdd, foundStat);
+				return true;
+			}
+			
+			return false;
+		}
+		
+		
+		/// <summary>
+		/// 	Adds SP into the individual pool of the given stat definition file, if that stat is applied to this Character.
+		/// 	If that stat doesn't exist, no new SP will be added and will return false.
+		/// </summary>
+		/// <returns><c>true</c>, if the stat given was found in this character, <c>false</c> otherwise.</returns>
+		/// <param name="spToAdd">Amount of SP to add. Will be turned positive if negative</param>
+		/// <param name="statDefinition">The data asset for pertaining to this stat (from the RpgDataRegistry)</param>
+		private bool AddSpToStat(int spToAdd, AbstractStat statDefinition)
+		{
+			StatData foundStat = this.SearchStat(statDefinition);
+			
+			if(foundStat != null)
+			{
+				this.AddSpToStatData(spToAdd, foundStat);
+				return true;
+			}
+			
+			return false;
+		}
+		
+		
+		
+		/// <summary>
+		/// 	Pernamently adds SP to the given StatData instance.
+		/// 	Warning: Will not check for null parameters!
+		/// </summary>
+		/// <param name="spToAdd">SP to add to the given stat instance</param>
+		/// <param name="stat">The stat instance to increment</param>
+		private void AddSpToStatData(int spToAdd, StatData stat)
+		{
+			stat.AddStatPointsToRawPool(spToAdd);
+		}
 		
 		
 		
