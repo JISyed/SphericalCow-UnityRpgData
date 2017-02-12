@@ -35,6 +35,7 @@ namespace SphericalCow.Testing
 		public UI.Text difficultyLabel;
 		public UI.Text equationLabel;
 		public UI.Text statsLabel;
+		public UI.Text globalSpLabel;
 		
 		public GameObject testXpPanel;
 		public GameObject testHpPanel;
@@ -101,6 +102,8 @@ namespace SphericalCow.Testing
 			                                              this.character.XpProgressor.LevelMultiplier,
 			                                              this.character.XpProgressor.OldXtnlMultiplier);
 			this.equationLabel.text = progressionEquationStr;
+			
+			this.globalSpLabel.text = this.character.UnallocatedSp.ToString();
 			
 			
 			// Print stats

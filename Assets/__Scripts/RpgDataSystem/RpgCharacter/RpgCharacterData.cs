@@ -19,10 +19,12 @@ namespace SphericalCow
 		[SerializeField] private int hp;
 		[SerializeField] private int maxHp;
 		[SerializeField] private int additionalMaxHp;
-		[SerializeField] private int unallocatedSpPool = 0;
+		[SerializeField] private int unallocatedSpPool;		// Global SP pool used with Use-Assigned system
 		[SerializeField] private XpData xpData;
 		[SerializeField] private List<StatData> appliedStats;
 		[SerializeField] private List<AbilityData> appliedAbilities;
+		[SerializeField] private int numOfStats;
+		[SerializeField] private int numOfAbilities;
 		
 		[System.NonSerialized] private ReadOnlyCollection<StatData> readOnlyStatsList;
 		[System.NonSerialized] private ReadOnlyCollection<AbilityData> readOnlyAbilitiesList;
@@ -73,8 +75,11 @@ namespace SphericalCow
 			this.maxHp = newMaxHp;
 			this.additionalMaxHp = 0;
 			this.xpData = new XpData(newXpProgressor);
+			this.unallocatedSpPool = 0;
 			this.appliedAbilities = new List<AbilityData>();
 			this.appliedStats = new List<StatData>();
+			this.numOfStats = 0;
+			this.numOfAbilities = 0;
 			
 			this.UpdateReadOnlyStatsList();
 			this.UpdateReadOnlyAbilitiesList();
@@ -95,7 +100,18 @@ namespace SphericalCow
 		public bool AddXp(int xpAmount)
 		{
 			Debug.Assert(this.xpData != null, "RpgCharacter of name " + this.name + " has no XpData record!");
-			return this.xpData.AddXp(xpAmount);
+			
+			bool didLevelUp = this.xpData.AddXp(xpAmount);
+			
+			if(didLevelUp)
+			{
+				// Currently using only point assigned algorithm
+				// TODO: Place the UseAssigned algorithm here
+				
+				this.UpgradeStatPointsByPointAllocation();
+			}
+			
+			return didLevelUp;
 		}
 		
 		
@@ -196,6 +212,8 @@ namespace SphericalCow
 				// TODO: Link other stats here
 				
 				// TODO: Link abilities here
+				
+				this.UpdateReadOnlyStatsList();
 			}
 			else
 			{
@@ -261,6 +279,7 @@ namespace SphericalCow
 			// TODO: Do ability unlinking here before deleting the statData instance
 			
 			this.appliedStats.Remove(oldStat);
+			this.UpdateReadOnlyStatsList();
 		}
 		
 		
@@ -466,6 +485,33 @@ namespace SphericalCow
 		}
 		
 		
+		
+		/// <summary>
+		/// 	The current number of applied stats on this Character
+		/// </summary>
+		public int NumberOfAppliedStats
+		{
+			get
+			{
+				return this.numOfStats;
+			}
+		}
+		
+		
+		
+		/// <summary>
+		/// 	The current number of applied abilities on this Character
+		/// </summary>
+		public int NumberOfAppliedAbilities
+		{
+			get
+			{
+				return this.numOfAbilities;
+			}
+		}
+		
+		
+		
 		/// <summary>
 		/// 	The XpProgressor being used by this RPG Character
 		/// </summary>
@@ -482,12 +528,43 @@ namespace SphericalCow
 		
 		
 		
+		
+		/// <summary>
+		/// 	Increases SP in a global pool that the player can later use to allocate into certain stats
+		/// </summary>
+		private void UpgradeStatPointsByPointAllocation()
+		{
+			// Constant used to modulate the relationship between number of stats and amount of new SP on levelup
+			float k = 1.0f;
+			
+			
+			// In point assigned, the number of stats you currently have becomes the basis for how many
+			// SP you gain when you level up. This is multiplied by a constant k.
+			// For example, if k==1 and you have 4 applied stats, you should get 4 SP added into the global pool on levelup.
+			// Players can them manually allocate those 4 SP into each stat evenly, or all into one stat if they wanted to.
+			
+			this.unallocatedSpPool += (int) Mathf.Round(k * (float) this.NumberOfAppliedStats);
+		}
+		
+		
+		/// <summary>
+		/// 	Increases SP in all currently applied stats based off frequency of use (useFactor)
+		/// </summary>
+		private void UpgradeStatPointsByUseAllocation()
+		{
+			// TODO: Implement UseAssigned algorithm when stats upgrade
+		}
+		
+		
+		
+		
 		/// <summary>
 		/// 	Recreates the read-only list of applied stats. Calling this too often may invoke the GarbageCollector
 		/// </summary>
 		private void UpdateReadOnlyStatsList()
 		{
 			this.readOnlyStatsList = this.appliedStats.AsReadOnly();
+			this.numOfStats = this.appliedStats.Count;
 		}
 		
 		
@@ -497,6 +574,7 @@ namespace SphericalCow
 		private void UpdateReadOnlyAbilitiesList()
 		{
 			this.readOnlyAbilitiesList = this.appliedAbilities.AsReadOnly();
+			this.numOfAbilities = this.appliedAbilities.Count;
 		}
 		 
 		
