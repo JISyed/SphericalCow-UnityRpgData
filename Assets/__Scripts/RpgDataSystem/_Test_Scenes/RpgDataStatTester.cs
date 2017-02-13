@@ -43,6 +43,7 @@ namespace SphericalCow.Testing
 		public GameObject testHpPanel;
 		public GameObject testStatPanel;
 		public GameObject testPointAllocSpPanel;
+		public GameObject testUseAllocSpPanel;
 		
 		
 		
@@ -325,6 +326,23 @@ namespace SphericalCow.Testing
 		
 		
 		
+		/// <summary>
+		/// 	Tells the RPG system that the given stat was used. Used for UseAssigned SP calculations.
+		/// 	In game logic, marking a stat as used is highly recommended whenever a stat is "used" somehow.
+		/// </summary>
+		/// <param name="statName">Stat name.</param>
+		public void MarkSomeStatAsUsed(string statName)
+		{
+			bool statExists = this.character.MarkStatAsUsed(statName);
+			if(!statExists)
+			{
+				Debug.LogError("Could not mark stat " + statName + " as used because it does not exist!");
+			}
+			
+			this.RefreshUI();
+		}
+		
+		
 		
 		
 		
@@ -362,6 +380,15 @@ namespace SphericalCow.Testing
 		public void TogglePointAllocationButtonPanel()
 		{
 			this.testPointAllocSpPanel.SetActive(!this.testPointAllocSpPanel.activeSelf);
+		}
+		
+		
+		/// <summary>
+		/// 	Toggles the Use Allocation test panel.
+		/// </summary>
+		public void ToggleUseAllocationButtonPanel()
+		{
+			this.testUseAllocSpPanel.SetActive(!this.testUseAllocSpPanel.activeSelf);
 		}
 		
 	}

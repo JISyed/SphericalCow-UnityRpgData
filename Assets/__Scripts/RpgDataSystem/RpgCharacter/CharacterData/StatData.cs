@@ -72,6 +72,18 @@ namespace SphericalCow
 		
 		
 		
+		/// <summary>
+		/// 	Tells the system that this stat was used. This is needed for UseAssigned SP calculations.
+		/// 	Call this whenever this stat was used in your game logic. Call as many times as this stat is used.
+		/// </summary>
+		public void MarkStatAsUsed()
+		{
+			this.useFactor++;
+		}
+		
+		
+		
+		
 		
 		/// <summary>
 		/// 	The total SP (stat points) of this stat. This value will be influenced by other stats and abilties

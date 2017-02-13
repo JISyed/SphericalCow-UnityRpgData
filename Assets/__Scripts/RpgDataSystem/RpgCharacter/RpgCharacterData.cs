@@ -117,9 +117,7 @@ namespace SphericalCow
 				}
 				else if(this.StatPointAssignmentType == GlobalSpAssignmentType.UseAssigned)
 				{
-					// TODO: Place UseAssigned algorithm call here!
-					Debug.LogWarning("UseAssigned algorithm currenly not implemented! Using point assigned method instead");
-					this.UpgradeStatPointsByPointAllocation();
+					this.UpgradeStatPointsByUseAllocation();
 				}
 				else
 				{
@@ -470,6 +468,68 @@ namespace SphericalCow
 		}
 		
 		
+		/// <summary>
+		/// 	Tells the system that the given stat was used. This is needed for UseAssigned SP calculations.
+		/// 	Call this whenever that given stat was used in your game logic. Call as many times as needed.
+		/// 	Will return false if the given stat was not found in this Character.
+		/// </summary>
+		/// <returns><c>true</c>, if the given stat exists in this Character <c>false</c> otherwise.</returns>
+		/// <param name="statName">The name of the stat</param>
+		public bool MarkStatAsUsed(string statName)
+		{
+			StatData foundStat = this.SearchStat(statName);
+			
+			if(foundStat != null)
+			{
+				foundStat.MarkStatAsUsed();
+				return true;
+			}
+			
+			return false;
+		}
+		
+		
+		/// <summary>
+		/// 	Tells the system that the given stat was used. This is needed for UseAssigned SP calculations.
+		/// 	Call this whenever that given stat was used in your game logic. Call as many times as needed.
+		/// 	Will return false if the given stat was not found in this Character.
+		/// </summary>
+		/// <returns><c>true</c>, if the given stat exists in this Character <c>false</c> otherwise.</returns>
+		/// <param name="statId">The ID of the stat</param>
+		public bool MarkStatAsUsed(Guid statId)
+		{
+			StatData foundStat = this.SearchStat(statId);
+			
+			if(foundStat != null)
+			{
+				foundStat.MarkStatAsUsed();
+				return true;
+			}
+			
+			return false;
+		}
+		
+		
+		/// <summary>
+		/// 	Tells the system that the given stat was used. This is needed for UseAssigned SP calculations.
+		/// 	Call this whenever that given stat was used in your game logic. Call as many times as needed.
+		/// 	Will return false if the given stat was not found in this Character.
+		/// </summary>
+		/// <returns><c>true</c>, if the given stat exists in this Character <c>false</c> otherwise.</returns>
+		/// <param name="statDefinition">The definition file of the stat</param>
+		public bool MarkStatAsUsed(AbstractStat statDefinition)
+		{
+			StatData foundStat = this.SearchStat(statDefinition);
+			
+			if(foundStat != null)
+			{
+				foundStat.MarkStatAsUsed();
+				return true;
+			}
+			
+			return false;
+		}
+		
 		
 		
 		
@@ -774,7 +834,56 @@ namespace SphericalCow
 		/// </summary>
 		private void UpgradeStatPointsByUseAllocation()
 		{
-			// TODO: Implement UseAssigned algorithm when stats upgrade
+			int minFactor = int.MaxValue;
+			//int maxFactor = int.MinValue;
+			int factorSum = 0;
+			
+			// Add up all the useFactors of the stats into factorSum
+			foreach(StatData stat in this.appliedStats)
+			{
+				factorSum += stat.UseFactor;
+				
+				if(stat.UseFactor < minFactor)
+				{
+					minFactor = stat.UseFactor;
+				}
+				
+				//if(stat.UseFactor > maxFactor)
+				//{
+				//	maxFactor = stat.UseFactor;
+				//}
+			}
+			
+			//int factorRange = maxFactor - minFactor;
+			
+			// Modify the factorSum to only include the difference of useFactor.
+			// For example:
+			//					Stat1.UseFactor = 2     [XX      ]
+			//                  Stat2.UseFactor = 8     [XXXXXXXX]
+			//                  
+			//                  MinFactor = 2;   Sum = 10
+			//                  NewSum = Sum - (MinFactor * NumOfStats)
+			//
+			//                  Stat1:                  [        ]
+			//                  Stat2:                  [XXXXXX  ]
+			//
+			//factorSum = factorSum - (minFactor * this.NumberOfAppliedStats);
+			
+			
+			// Find the average of the useFactors
+			float factorsAverage = (float) this.NumberOfAppliedStats / (float) factorSum;
+			
+			
+			// Use the average to add new SP into each stat. 
+			// The stats with higher useFactors will be rewarded more SP
+			foreach(StatData stat in this.appliedStats)
+			{
+				float spIncrease = (float) stat.UseFactor * factorsAverage;
+				int actualSpIncrease = (int) Mathf.Round(spIncrease);
+				
+				stat.AddStatPointsToRawPool(actualSpIncrease);
+			}
+			
 		}
 		
 		
