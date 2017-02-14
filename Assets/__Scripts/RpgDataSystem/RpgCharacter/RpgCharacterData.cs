@@ -834,55 +834,54 @@ namespace SphericalCow
 		/// </summary>
 		private void UpgradeStatPointsByUseAllocation()
 		{
-			int minFactor = int.MaxValue;
-			//int maxFactor = int.MinValue;
-			int factorSum = 0;
+//			int minFactor = int.MaxValue;
+//			int factorSum = 0;
+//			
+//			// Add up all the useFactors of the stats into factorSum
+//			foreach(StatData stat in this.appliedStats)
+//			{
+//				factorSum += stat.UseFactor;
+//				
+//				if(stat.UseFactor < minFactor)
+//				{
+//					minFactor = stat.UseFactor;
+//				}
+//			}
+//			
+//			
+//			// Find the average of the useFactors
+//			float factorsAverage = (float) this.NumberOfAppliedStats / (float) factorSum;
+//			
+//			
+//			// Use the average to add new SP into each stat. 
+//			// The stats with higher useFactors will be rewarded more SP
+//			foreach(StatData stat in this.appliedStats)
+//			{
+//				float spIncrease = (float) stat.UseFactor * factorsAverage;
+//				int actualSpIncrease = (int) Mathf.Round(spIncrease);
+//				
+//				stat.AddStatPointsToRawPool(actualSpIncrease);
+//			}
 			
-			// Add up all the useFactors of the stats into factorSum
+			float useFactorRatio = RpgDataRegistry.Instance.UseFactorRatio;
+			int useAllocMultiplier = RpgDataRegistry.Instance.UseAssignedMultiplier;
+			
 			foreach(StatData stat in this.appliedStats)
 			{
-				factorSum += stat.UseFactor;
+				// Calculate a multiplier to impose onto a UseFactor based off a square root function
+				// Where: UseFactor = f, useFactorRatio = r, and factorMultiplier = m :
+				//        m = sqrt(f*r)
+				// Where r is a constant and f is always different
+				// Test this function on Demos online calculator
+				float factorMultiplier = Mathf.Sqrt(useFactorRatio * (float) stat.UseFactor);
 				
-				if(stat.UseFactor < minFactor)
-				{
-					minFactor = stat.UseFactor;
-				}
+				// Use the factorMultiplier and a developer-defined multiplier to calculate the newly added SP
+				int spIncrease = useAllocMultiplier * (int) Mathf.Round(factorMultiplier);
 				
-				//if(stat.UseFactor > maxFactor)
-				//{
-				//	maxFactor = stat.UseFactor;
-				//}
+				// Increment the stat
+				stat.AddStatPointsToRawPool(spIncrease);
 			}
 			
-			//int factorRange = maxFactor - minFactor;
-			
-			// Modify the factorSum to only include the difference of useFactor.
-			// For example:
-			//					Stat1.UseFactor = 2     [XX      ]
-			//                  Stat2.UseFactor = 8     [XXXXXXXX]
-			//                  
-			//                  MinFactor = 2;   Sum = 10
-			//                  NewSum = Sum - (MinFactor * NumOfStats)
-			//
-			//                  Stat1:                  [        ]
-			//                  Stat2:                  [XXXXXX  ]
-			//
-			//factorSum = factorSum - (minFactor * this.NumberOfAppliedStats);
-			
-			
-			// Find the average of the useFactors
-			float factorsAverage = (float) this.NumberOfAppliedStats / (float) factorSum;
-			
-			
-			// Use the average to add new SP into each stat. 
-			// The stats with higher useFactors will be rewarded more SP
-			foreach(StatData stat in this.appliedStats)
-			{
-				float spIncrease = (float) stat.UseFactor * factorsAverage;
-				int actualSpIncrease = (int) Mathf.Round(spIncrease);
-				
-				stat.AddStatPointsToRawPool(actualSpIncrease);
-			}
 			
 		}
 		

@@ -14,6 +14,8 @@ namespace SphericalCow
 	{
 		[Range(1,100)][SerializeField] private int pointAssignedMultiplier = 1;	// Used in PointAssigned algorithm
 		[Range(0.5f, 2.0f)][SerializeField] private float pointToStatRatio = 1.0f;	// Used in PointAssigned algorithm
+		[Range(1,100)][SerializeField] private int useAssignedMultiplier = 1;	// Used for UseAssigned algorithm
+		[Range(0.1f, 2.0f)][SerializeField] private float useFactorRatio = 0.5f;	// Used for UseAssinged algorithm
 		[SerializeField] private GlobalSpAssignmentType defaultSpAssignment;
 		[SerializeField] private XpProgressor[] xpProgressors;
 		[SerializeField] private BaseStat[] baseStats;
@@ -876,6 +878,34 @@ namespace SphericalCow
 			}
 		}
 		
+		
+		/// <summary>
+		/// 	Used in UseAssigned algorithm. This multiplies the amount of SP rewarded on levelup
+		/// 	after doing the use-assignment calculations. Default value is 1.
+		/// </summary>
+		public int UseAssignedMultiplier
+		{
+			get
+			{
+				return this.useAssignedMultiplier;
+			}
+		}
+		
+		
+		/// <summary>
+		/// 	Used in UseAssigned algorithm. It's the ratio of the stat's UseFactor to be calculated
+		/// 	into a square root function in order to get the amount of SP rewarded on level up.
+		/// 	The function is:
+		/// 						rewarded_SP = sqrt(UseFactor * Ratio) * Multiplier
+		/// 	This function can be studied on an online graphing calculator like Demos
+		/// </summary>
+		public float UseFactorRatio
+		{
+			get
+			{
+				return this.useFactorRatio;
+			}
+		}
 		
 		
 	}

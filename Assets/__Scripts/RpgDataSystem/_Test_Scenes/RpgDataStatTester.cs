@@ -15,14 +15,12 @@ namespace SphericalCow.Testing
 		//
 		
 		[SerializeField] private string givenCharacterName;
-		[SerializeField] private GlobalSpAssignmentType statPointAssignment;
-		[SerializeField] private string xpProgressorName;
+		[SerializeField] private XpProgressor xpProgressor;
 		[SerializeField] private int startingHealthPoints;
 		[SerializeField] private int startingXp;
 		[SerializeField] private bool showStatAndAbilityIds;
 		
 		private RpgCharacterData character;
-		private XpProgressor xpProgressor;
 		
 		private StringBuilder stringBuilder;
 		
@@ -58,18 +56,12 @@ namespace SphericalCow.Testing
 		{
 			this.stringBuilder = new StringBuilder();
 			
-			Debug.Assert(string.IsNullOrEmpty(this.xpProgressorName) == false, 
-			             "Please provide an proper XpProgressor in the Inspector");
-			
-			this.xpProgressor = RpgDataRegistry.Instance.SearchXpProgressor(this.xpProgressorName);
-			
-			Debug.Assert(this.xpProgressor != null, 
-			             "Could not find an XpProgressor by the name " + this.xpProgressorName);
+			Debug.Assert(this.xpProgressor != null, "Could not assign a null XpProgressor");
 			
 			this.character = new RpgCharacterData(this.xpProgressor, 
 			                                      this.startingHealthPoints, 
 			                                      this.startingHealthPoints,
-			                                      this.statPointAssignment, 
+			                                      RpgDataRegistry.Instance.DefaultStatPointAssignment, 
 			                                      this.givenCharacterName);
 			
 			

@@ -47,7 +47,7 @@ namespace SphericalCow.Testing
 			this.character = new RpgCharacterData(this.xpProgressor, 
 			                                      this.startingHealthPoints, 
 			                                      this.startingHealthPoints,
-			                                      GlobalSpAssignmentType.PointAssigned, 
+			                                      RpgDataRegistry.Instance.DefaultStatPointAssignment, 
 			                                      this.givenCharacterName);
 			this.AddXp(this.startingXp);
 			

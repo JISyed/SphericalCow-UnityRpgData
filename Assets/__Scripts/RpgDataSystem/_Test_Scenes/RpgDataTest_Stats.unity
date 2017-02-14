@@ -5134,8 +5134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   givenCharacterName: Chang
-  statPointAssignment: 0
-  xpProgressorName: Easy Progression
+  xpProgressor: {fileID: 11400000, guid: 95a68e9c1ba464b1f9006d4c00d161f2, type: 2}
   startingHealthPoints: 150
   startingXp: 0
   showStatAndAbilityIds: 1
