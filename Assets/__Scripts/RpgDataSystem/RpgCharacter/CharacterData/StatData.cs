@@ -71,8 +71,6 @@ namespace SphericalCow
 			}
 			
 			this.rawSpPool += spToAdd;
-			
-			//this.RecalculateLinkedStatPoints();
 		}
 		
 		

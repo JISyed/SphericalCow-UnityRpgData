@@ -24,7 +24,7 @@ namespace SphericalCow
 		
 		
 		/// <summary>
-		/// 	Aquire SP that derive from linked stats and their percentage of SP contribution.
+		/// 	Acquire SP that derive from linked stats and their percentage of SP contribution.
 		/// 	This method varies on the type of stat (Base, Secondary, Skill)
 		/// </summary>
 		public override void DeriveSp(List<StatData> appliedStats)
@@ -41,11 +41,11 @@ namespace SphericalCow
 					// Does the base stat exist in this character?
 					if(linkedStat.Id.Equals(baseStat.Stat.Id))
 					{
-						int linkedStatSp = linkedStat.ModifiedUnlinkedStatPoints;
+						int linkedStatSp = linkedStat.StatPoints;
 						
 						// Calculate contributions of this linked stat to to this deriver's pool
 						int contributions = (int) Mathf.Round(baseStat.Percentage/100.0f * (float) linkedStatSp);
-						Debug.Log("Contribution: " + contributions.ToString());
+						//Debug.Log("Contribution: " + contributions.ToString());
 						
 						// Add contributions to this deriver's pool
 						this.DerivedSpPool += contributions;
@@ -56,7 +56,7 @@ namespace SphericalCow
 				}
 			}
 			
-			Debug.Log("FinalDerivedPool: " + this.DerivedSpPool.ToString());
+			//Debug.Log("FinalDerivedPool: " + this.DerivedSpPool.ToString());
 		}
 		
 		
