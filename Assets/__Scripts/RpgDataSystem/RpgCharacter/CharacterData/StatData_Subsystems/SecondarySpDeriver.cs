@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Guid = System.Guid;
+using System.Collections.Generic;
 
 namespace SphericalCow
 {
@@ -26,7 +27,7 @@ namespace SphericalCow
 		/// 	Aquire SP that derive from linked stats and their percentage of SP contribution.
 		/// 	This method varies on the type of stat (Base, Secondary, Skill)
 		/// </summary>
-		public override void DeriveSp()
+		public override void DeriveSp(List<StatData> appliedStats)
 		{
 			// TODO: Implement by refering to SecondaryStat's linked stats
 		}

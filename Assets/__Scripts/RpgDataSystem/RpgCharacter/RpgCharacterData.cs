@@ -215,17 +215,20 @@ namespace SphericalCow
 		public void AddStat(AbstractStat newStat)
 		{
 			// Check if this stat was already added
-			StatData statData = this.SearchStat(newStat.Id);
+			StatData statData = this.SearchStat(newStat);
 			
 			// Add the stat
 			if(statData == null)
 			{
-				statData = new StatData(newStat);
+				statData = new StatData(newStat, this.appliedStats);
 				this.appliedStats.Add(statData);
 				
-				// TODO: Link other stats here
-				
 				// TODO: Link abilities here
+				
+				
+				this.RecalculateAllLinkedStatsPools();
+				
+				
 				
 				this.UpdateReadOnlyStatsList();
 			}
@@ -288,12 +291,12 @@ namespace SphericalCow
 		
 		private void UnlinkAndRemoveStat(StatData oldStat)
 		{
-			// TODO: Do stat unlinking here before deleting the statData instance
-			
 			// TODO: Do ability unlinking here before deleting the statData instance
 			
 			this.appliedStats.Remove(oldStat);
 			this.UpdateReadOnlyStatsList();
+			
+			this.RecalculateAllLinkedStatsPools();
 		}
 		
 		
@@ -304,6 +307,12 @@ namespace SphericalCow
 		/// </summary>
 		public StatData SearchStat(Guid statId)
 		{
+			if(statId.Equals(Guid.Empty))
+			{
+				Debug.LogWarning("RpgCharacterData.SearchStat(Guid) was given an empty GUID!");
+				return null;
+			}
+			
 			StatData foundStat = null;
 			
 			foreach(StatData s in this.appliedStats)
@@ -324,6 +333,12 @@ namespace SphericalCow
 		/// </summary>
 		public StatData SearchStat(string statName)
 		{
+			if(string.IsNullOrEmpty(statName))
+			{
+				Debug.LogWarning("RpgCharacterData.SearchStat(string) was given a null or empty string!");
+				return null;
+			}
+			
 			StatData foundStat = null;
 			
 			foreach(StatData s in this.appliedStats)
@@ -356,7 +371,7 @@ namespace SphericalCow
 			
 			foreach(StatData s in this.appliedStats)
 			{
-				if(ReferenceEquals(s.StatReference, statDefinition))
+				if(s.StatReference.Id.Equals(statDefinition.Id))
 				{
 					foundStat = s;
 					break;
@@ -378,23 +393,11 @@ namespace SphericalCow
 		/// <param name="statName">The name of the stat</param>
 		public bool AddStatPointsFromUnallocatedPool(int spToAdd, string statName)
 		{
-			if(spToAdd < 0)
-			{
-				spToAdd = -spToAdd;
-			}
+			StatData foundStat = this.SearchStat(statName);
 			
-			int remainingUnallocatedSp = this.UnallocatedSp - spToAdd;
-			
-			if(remainingUnallocatedSp < 0)
+			if(foundStat != null)
 			{
-				spToAdd = spToAdd + remainingUnallocatedSp;
-				Debug.Log("Unallocated Pool has ran out");
-			}
-			
-			bool statExists = this.AddSpToStat(spToAdd, statName);
-			if(statExists)
-			{
-				this.unallocatedSpPool -= spToAdd;
+				this.PrivAddSpFromUnallocPool(spToAdd, foundStat);
 				return true;
 			}
 			
@@ -411,23 +414,11 @@ namespace SphericalCow
 		/// <param name="statId">The ID of the stat</param>
 		public bool AddStatPointsFromUnallocatedPool(int spToAdd, Guid statId)
 		{
-			if(spToAdd < 0)
-			{
-				spToAdd = -spToAdd;
-			}
+			StatData foundStat = this.SearchStat(statId);
 			
-			int remainingUnallocatedSp = this.UnallocatedSp - spToAdd;
-			
-			if(remainingUnallocatedSp < 0)
+			if(foundStat != null)
 			{
-				spToAdd = spToAdd + remainingUnallocatedSp;
-				Debug.Log("Unallocated Pool has ran out");
-			}
-			
-			bool statExists = this.AddSpToStat(spToAdd, statId);
-			if(statExists)
-			{
-				this.unallocatedSpPool -= spToAdd;
+				this.PrivAddSpFromUnallocPool(spToAdd, foundStat);
 				return true;
 			}
 			
@@ -444,28 +435,17 @@ namespace SphericalCow
 		/// <param name="statDefinition">The definition file for the stat</param>
 		public bool AddStatPointsFromUnallocatedPool(int spToAdd, AbstractStat statDefinition)
 		{
-			if(spToAdd < 0)
-			{
-				spToAdd = -spToAdd;
-			}
+			StatData foundStat = this.SearchStat(statDefinition);
 			
-			int remainingUnallocatedSp = this.UnallocatedSp - spToAdd;
-			
-			if(remainingUnallocatedSp < 0)
+			if(foundStat != null)
 			{
-				spToAdd = spToAdd + remainingUnallocatedSp;
-				Debug.Log("Unallocated Pool has ran out");
-			}
-			
-			bool statExists = this.AddSpToStat(spToAdd, statDefinition);
-			if(statExists)
-			{
-				this.unallocatedSpPool -= spToAdd;
+				this.PrivAddSpFromUnallocPool(spToAdd, foundStat);
 				return true;
 			}
 			
 			return false;
 		}
+		
 		
 		
 		/// <summary>
@@ -531,6 +511,18 @@ namespace SphericalCow
 		}
 		
 		
+		
+		/// <summary>
+		/// 	Loops through all applied stats of this Character and recalculates derived SP
+		/// 	for each stat's linked stats
+		/// </summary>
+		public void RecalculateAllLinkedStatsPools()
+		{
+			foreach(StatData stat in this.appliedStats)
+			{
+				stat.RecalculateLinkedStatPoints();
+			}
+		}
 		
 		
 		
@@ -726,81 +718,43 @@ namespace SphericalCow
 		
 		
 		
-		
-		
-		
-		
 		/// <summary>
-		/// 	Adds SP into the individual pool of the given stat name, if that stat is applied to this Character.
-		/// 	If that stat doesn't exist, no new SP will be added and will return false.
+		/// 	Permanently adds SP to the given StatData instance and removes the same amount from the global pool
+		///	 	Warning: Will not check for null parameters!
 		/// </summary>
-		/// <returns><c>true</c>, if the stat given was found in this character, <c>false</c> otherwise.</returns>
-		/// <param name="spToAdd">Amount of SP to add. Will be turned positive if negative</param>
-		/// <param name="statName">The name of the stat (not filename)</param>
-		private bool AddSpToStat(int spToAdd, string statName)
+		/// <param name="spToAdd">Sp to add.</param>
+		/// <param name="stat">Stat.</param>
+		private void PrivAddSpFromUnallocPool(int spToAdd, StatData stat)
 		{
-			StatData foundStat = this.SearchStat(statName);
-			
-			if(foundStat != null)
+			if(spToAdd < 0)
 			{
-				this.AddSpToStatData(spToAdd, foundStat);
-				return true;
+				spToAdd = -spToAdd;
 			}
 			
-			return false;
-		}
-		
-		
-		/// <summary>
-		/// 	Adds SP into the individual pool of the given stat ID, if that stat is applied to this Character.
-		/// 	If that stat doesn't exist, no new SP will be added and will return false.
-		/// </summary>
-		/// <returns><c>true</c>, if the stat given was found in this character, <c>false</c> otherwise.</returns>
-		/// <param name="spToAdd">Amount of SP to add. Will be turned positive if negative</param>
-		/// <param name="statId">The ID of the stat</param>
-		private bool AddSpToStat(int spToAdd, Guid statId)
-		{
-			StatData foundStat = this.SearchStat(statId);
+			int remainingUnallocatedSp = this.UnallocatedSp - spToAdd;
 			
-			if(foundStat != null)
+			if(remainingUnallocatedSp < 0)
 			{
-				this.AddSpToStatData(spToAdd, foundStat);
-				return true;
+				spToAdd = spToAdd + remainingUnallocatedSp;
+				// You can comment out this log if you want
+				Debug.Log("Unallocated Pool has ran out");
 			}
 			
-			return false;
-		}
-		
-		
-		/// <summary>
-		/// 	Adds SP into the individual pool of the given stat definition file, if that stat is applied to this Character.
-		/// 	If that stat doesn't exist, no new SP will be added and will return false.
-		/// </summary>
-		/// <returns><c>true</c>, if the stat given was found in this character, <c>false</c> otherwise.</returns>
-		/// <param name="spToAdd">Amount of SP to add. Will be turned positive if negative</param>
-		/// <param name="statDefinition">The data asset for pertaining to this stat (from the RpgDataRegistry)</param>
-		private bool AddSpToStat(int spToAdd, AbstractStat statDefinition)
-		{
-			StatData foundStat = this.SearchStat(statDefinition);
 			
-			if(foundStat != null)
-			{
-				this.AddSpToStatData(spToAdd, foundStat);
-				return true;
-			}
-			
-			return false;
+			this.PrivAddSpToStatData(spToAdd, stat);
+			this.unallocatedSpPool -= spToAdd;
 		}
 		
 		
 		
+		
 		/// <summary>
-		/// 	Pernamently adds SP to the given StatData instance.
+		/// 	Permanently adds SP to the given StatData instance.
 		/// 	Warning: Will not check for null parameters!
 		/// </summary>
 		/// <param name="spToAdd">SP to add to the given stat instance</param>
 		/// <param name="stat">The stat instance to increment</param>
-		private void AddSpToStatData(int spToAdd, StatData stat)
+		private void PrivAddSpToStatData(int spToAdd, StatData stat)
 		{
 			stat.AddStatPointsToRawPool(spToAdd);
 		}
@@ -833,36 +787,7 @@ namespace SphericalCow
 		/// 	Increases SP in all currently applied stats based off frequency of use (useFactor)
 		/// </summary>
 		private void UpgradeStatPointsByUseAllocation()
-		{
-//			int minFactor = int.MaxValue;
-//			int factorSum = 0;
-//			
-//			// Add up all the useFactors of the stats into factorSum
-//			foreach(StatData stat in this.appliedStats)
-//			{
-//				factorSum += stat.UseFactor;
-//				
-//				if(stat.UseFactor < minFactor)
-//				{
-//					minFactor = stat.UseFactor;
-//				}
-//			}
-//			
-//			
-//			// Find the average of the useFactors
-//			float factorsAverage = (float) this.NumberOfAppliedStats / (float) factorSum;
-//			
-//			
-//			// Use the average to add new SP into each stat. 
-//			// The stats with higher useFactors will be rewarded more SP
-//			foreach(StatData stat in this.appliedStats)
-//			{
-//				float spIncrease = (float) stat.UseFactor * factorsAverage;
-//				int actualSpIncrease = (int) Mathf.Round(spIncrease);
-//				
-//				stat.AddStatPointsToRawPool(actualSpIncrease);
-//			}
-			
+		{	
 			float useFactorRatio = RpgDataRegistry.Instance.UseFactorRatio;
 			int useAllocMultiplier = RpgDataRegistry.Instance.UseAssignedMultiplier;
 			
@@ -879,7 +804,7 @@ namespace SphericalCow
 				int spIncrease = useAllocMultiplier * (int) Mathf.Round(factorMultiplier);
 				
 				// Increment the stat
-				stat.AddStatPointsToRawPool(spIncrease);
+				this.PrivAddSpToStatData(spIncrease, stat);
 			}
 			
 			

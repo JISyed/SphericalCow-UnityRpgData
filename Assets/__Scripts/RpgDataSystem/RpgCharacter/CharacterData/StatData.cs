@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Guid = System.Guid;
+using System.Collections.Generic;
 
 namespace SphericalCow
 {
@@ -16,20 +17,23 @@ namespace SphericalCow
 		[SerializeField] private int useFactor;
 		[System.NonSerialized] private AbstractSpDeriver linkedStatsDerivedPool;
 		[System.NonSerialized] private AbilityAggregator abilityModifications;
+		[System.NonSerialized] private List<StatData> characterAppliedStats;
 		
 		
 		
-		
-		
-		public StatData(AbstractStat newStat)
+		public StatData(AbstractStat newStat, List<StatData> appliedStats)
 		{
+			Debug.Assert(newStat != null, "New StatData being given a null AbstractStat!");
+			Debug.Assert(appliedStats != null, "New StatData being given null list of applied stats!");
+			
 			this.statReference = newStat;
+			this.characterAppliedStats = appliedStats;
 			this.statId = new SaveableGuid(newStat.Id);
 			this.type = newStat.GetStatType();
 			this.rawSpPool = 0;
 			this.useFactor = 1;
 			
-			// TODO: Initialize the SPDeriver
+			
 			switch (this.type) 
 			{
 			case StatType.Base:
@@ -55,7 +59,8 @@ namespace SphericalCow
 		
 		
 		/// <summary>
-		/// 	Increases the SP of this stat's individual (raw) pool. This action cannot be undone!
+		/// 	Increases the SP of this stat's individual (raw) pool. This action cannot be undone! 
+		/// 	Do not call directly! Only RpgCharacterData is allowed to call
 		/// </summary>
 		/// <param name="spToAdd">SP to add to this stat. Will be made positve if negative</param>
 		public void AddStatPointsToRawPool(int spToAdd)
@@ -67,7 +72,7 @@ namespace SphericalCow
 			
 			this.rawSpPool += spToAdd;
 			
-			// TODO: Invoke an SP recalculation on linked stats and abilties
+			this.RecalculateLinkedStatPoints();
 		}
 		
 		
@@ -81,6 +86,15 @@ namespace SphericalCow
 			this.useFactor++;
 		}
 		
+		
+		
+		/// <summary>
+		/// 	Invokes the calculation of the SP derived from this stat's linked stats
+		/// </summary>
+		public void RecalculateLinkedStatPoints()
+		{
+			this.linkedStatsDerivedPool.DeriveSp(this.characterAppliedStats);
+		}
 		
 		
 		
@@ -98,36 +112,9 @@ namespace SphericalCow
 				// Add additional SP from the SpDeriver
 				finalSp += this.linkedStatsDerivedPool.DerivedSpPool;
 				
+				// TODO: Uncomment ability modified SP
 				// Determing additional SP from Abilities (may alter the SP greatly)
-				/*
-				AbilityAggregator.NetModifications statMods = this.abilityModifications.AbilityModifiedSp;
-				if(statMods.netLimit == ModifierLimitType.NoLimit)	// IncreaseBy or DecreaseBy only
-				{
-					finalSp += statMods.netValue;
-				}
-				else
-				{
-					// For Stats that are stuck with IncreaseTo or DecreaseTo
-					if(statMods.netLimit == ModifierLimitType.UpperLimit)	// DecreaseTo
-					{
-						if(finalSp > statMods.netValue)
-						{
-							finalSp = statMods.netValue;
-						}
-					}
-					else if(statMods.netLimit == ModifierLimitType.LowerLimit)	// IncreaseTo
-					{
-						if(finalSp < statMods.netValue)
-						{
-							finalSp = statMods.netValue;
-						}
-					}
-					else
-					{
-						Debug.LogError("Somebody added a new enum entry into ModifierLimitType!");
-					}
-				}
-				//*/
+				//this.CalculateAbilityModifiedSp(ref finalSp);
 				
 				return finalSp;
 			}
@@ -142,6 +129,25 @@ namespace SphericalCow
 			get
 			{
 				return this.rawSpPool;
+			}
+		}
+		
+		
+		/// <summary>
+		/// 	The amount of SP that is modified from abilities but not calculated from linked stats
+		/// </summary>
+		public int ModifiedUnlinkedStatPoints
+		{
+			get
+			{
+				// Start with the SP from the raw pool (the SP that is not modified by anything)
+				int finalSp = this.rawSpPool;
+				
+				// TODO: Uncomment ability modified SP
+				// Determing additional SP from Abilities (may alter the SP greatly)
+				//this.CalculateAbilityModifiedSp(ref finalSp);
+				
+				return finalSp;
 			}
 		}
 		
@@ -207,6 +213,44 @@ namespace SphericalCow
 				return this.type;
 			}
 		}
+		
+		
+		
+		/// <summary>
+		/// 	Calculate the this stat's ability modifications applied onto this stat's SP
+		/// </summary>
+		/// <param name="finalSp">A reference to the accumulation SP calculations from the raw and derived pools</param>
+		private void CalculateAbilityModifiedSp(ref int ref_finalSp)
+		{
+			AbilityAggregator.NetModifications statMods = this.abilityModifications.AbilityModifiedSp;
+			if(statMods.netLimit == ModifierLimitType.NoLimit)	// IncreaseBy or DecreaseBy only
+			{
+				ref_finalSp += statMods.netValue;
+			}
+			else
+			{
+				// For Stats that are stuck with IncreaseTo or DecreaseTo
+				if(statMods.netLimit == ModifierLimitType.UpperLimit)	// DecreaseTo
+				{
+					if(ref_finalSp > statMods.netValue)
+					{
+						ref_finalSp = statMods.netValue;
+					}
+				}
+				else if(statMods.netLimit == ModifierLimitType.LowerLimit)	// IncreaseTo
+				{
+					if(ref_finalSp < statMods.netValue)
+					{
+						ref_finalSp = statMods.netValue;
+					}
+				}
+				else
+				{
+					Debug.LogError("Somebody added a new enum entry into ModifierLimitType!");
+				}
+			}
+		}
+		
 		
 	}
 }
