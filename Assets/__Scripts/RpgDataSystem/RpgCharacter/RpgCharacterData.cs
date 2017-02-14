@@ -757,6 +757,7 @@ namespace SphericalCow
 		private void PrivAddSpToStatData(int spToAdd, StatData stat)
 		{
 			stat.AddStatPointsToRawPool(spToAdd);
+			this.RecalculateAllLinkedStatsPools();
 		}
 		
 		

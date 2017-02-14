@@ -29,7 +29,34 @@ namespace SphericalCow
 		/// </summary>
 		public override void DeriveSp(List<StatData> appliedStats)
 		{
-			// TODO: Implement by refering to SecondaryStat's linked stats
+			// Clear the derived pool before calculating
+			this.DerivedSpPool = 0;
+			
+			// For every linked stat...
+			foreach(BaseStatPercentagePair baseStat in this.stat.LinkedStats)
+			{
+				// Find if the character has the linked stat
+				foreach(StatData linkedStat in appliedStats)
+				{
+					// Does the base stat exist in this character?
+					if(linkedStat.Id.Equals(baseStat.Stat.Id))
+					{
+						int linkedStatSp = linkedStat.ModifiedUnlinkedStatPoints;
+						
+						// Calculate contributions of this linked stat to to this deriver's pool
+						int contributions = (int) Mathf.Round(baseStat.Percentage/100.0f * (float) linkedStatSp);
+						Debug.Log("Contribution: " + contributions.ToString());
+						
+						// Add contributions to this deriver's pool
+						this.DerivedSpPool += contributions;
+						
+						// This base stat was found, so go back to the outer loop
+						break;
+					}
+				}
+			}
+			
+			Debug.Log("FinalDerivedPool: " + this.DerivedSpPool.ToString());
 		}
 		
 		
