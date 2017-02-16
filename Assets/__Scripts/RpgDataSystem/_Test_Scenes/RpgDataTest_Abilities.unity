@@ -5353,11 +5353,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe2e841f0be52423f855c54ada923fd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  givenCharacterName: Adela
+  givenCharacterName: Cristina
   xpProgressor: {fileID: 11400000, guid: 95a68e9c1ba464b1f9006d4c00d161f2, type: 2}
   startingHealthPoints: 150
   startingXp: 0
-  showStatAndAbilityIds: 1
+  showStatAndAbilityIds: 0
   nameLabel: {fileID: 1414853501}
   idLabel: {fileID: 1481991925}
   hpLabel: {fileID: 2058665234}

@@ -141,6 +141,28 @@ namespace SphericalCow.Testing
 			
 			// Print abilities
 			
+			foreach(AbilityData abilityData in this.character.AppliedAbilities)
+			{
+				this.stringBuilder.Append(abilityData.AbilityReference.Name).Append("\n");
+				if(this.showStatAndAbilityIds)
+				{
+					this.stringBuilder.Append("      ID: ").Append(abilityData.Id.ToString()).Append("\n");
+				}
+				
+				this.stringBuilder.Append("      Modifiers: ").Append("\n");
+				
+				var abilityModiferList = abilityData.AbilityReference.StatModifiers;
+				foreach(AbilityModifier modifier in abilityModiferList)
+				{
+					this.stringBuilder.Append("            Modified Stat:      ").Append(modifier.ModifiedStat.Name).Append("\n");
+					this.stringBuilder.Append("            Modification Type:  ").Append(modifier.Type.ToString()).Append("\n");
+					this.stringBuilder.Append("            Modificaiton Value: ").Append(modifier.ModifierValue.ToString()).Append("\n\n");
+				}
+			}
+			this.abilitiesLabel.text = this.stringBuilder.ToString();
+			this.stringBuilder.Length = 0;
+			
+			
 			if(this.character.AppliedAbilities.Count == 0)
 			{
 				this.abilitiesLabel.text = "No abilities applied...";
