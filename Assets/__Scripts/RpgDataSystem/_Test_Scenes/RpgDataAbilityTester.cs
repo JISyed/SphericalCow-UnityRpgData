@@ -356,8 +356,7 @@ namespace SphericalCow.Testing
 			
 			Debug.Assert(newAbility != null, "Trying to add an ability, but couldn't find the ability \"" + abilityName + "\"");
 			
-			// TODO: RpgCharacter needs an AddAbility method
-			//this.character.AddStat(newAbility);
+			this.character.AddAbility(newAbility);
 			
 			this.RefreshUI();
 		}
@@ -368,8 +367,7 @@ namespace SphericalCow.Testing
 		/// </summary>
 		public void RemoveAbility(string abilityName)
 		{
-			// TODO: RpgCharacter needs a RemoveAbility method
-			//this.character.RemoveStat(abilityName);
+			this.character.RemoveAbility(abilityName);
 			
 			this.RefreshUI();
 		}

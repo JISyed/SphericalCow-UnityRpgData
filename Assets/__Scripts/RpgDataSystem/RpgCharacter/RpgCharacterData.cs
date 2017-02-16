@@ -94,6 +94,15 @@ namespace SphericalCow
 		
 		
 		
+		
+		
+		
+		//
+		// Experience Points (XP)
+		// 
+		
+		
+		
 		/// <summary>
 		/// 	Adds a certain amount of XP to this Character. This system was designed only for adding XP, not removing.
 		/// 	Any negative parameter will be turned positive.
@@ -130,28 +139,12 @@ namespace SphericalCow
 		
 		
 		
-		/// <summary>
-		/// 	Set a new increase onto the raw maximum HP that was originally given when this Character was initialized.
-		/// 	This additional value is added to the raw MaxHP to get the Character's final MaxHP.
-		/// 	This is ideally called by stats that alter health points in the Character.
-		/// 	This is not a cumulative increase in MaxHP, but more directly set, for compatibility with stats.
-		/// </summary>
-		/// <param name="newAdditonalMaxHp">
-		/// 	This value is added with the raw MaxHP to get your actual MaxHP,
-		/// 	as in "MaxHP = RawMaxHP + AdditionalMaxHP".
-		/// 	Negative values will be made positive.
-		/// </param>
-		public void SetAdditonalMaxHp(int newAdditonalMaxHp)
-		{
-			// This should remain "=", not "+="; we are not accumulating additionalMaxHp
-			this.additionalMaxHp = newAdditonalMaxHp;
-			
-			if(this.hp > this.MaximumHp)
-			{
-				this.hp = this.MaximumHp;
-			}
-		}
 		
+		
+		
+		//
+		// Health Points (HP)
+		//
 		
 		
 		
@@ -205,6 +198,40 @@ namespace SphericalCow
 			
 			return this.hp == 0;
 		}
+		
+		
+		/// <summary>
+		/// 	Set a new increase onto the raw maximum HP that was originally given when this Character was initialized.
+		/// 	This additional value is added to the raw MaxHP to get the Character's final MaxHP.
+		/// 	This is ideally called by stats that alter health points in the Character.
+		/// 	This is not a cumulative increase in MaxHP, but more directly set, for compatibility with stats.
+		/// </summary>
+		/// <param name="newAdditonalMaxHp">
+		/// 	This value is added with the raw MaxHP to get your actual MaxHP,
+		/// 	as in "MaxHP = RawMaxHP + AdditionalMaxHP".
+		/// 	Negative values will be made positive.
+		/// </param>
+		public void SetAdditonalMaxHp(int newAdditonalMaxHp)
+		{
+			// This should remain "=", not "+="; we are not accumulating additionalMaxHp
+			this.additionalMaxHp = newAdditonalMaxHp;
+			
+			if(this.hp > this.MaximumHp)
+			{
+				this.hp = this.MaximumHp;
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		//
+		// Stats
+		//
 		
 		
 		
@@ -286,19 +313,6 @@ namespace SphericalCow
 			}
 			
 		}
-		
-		
-		
-		private void UnlinkAndRemoveStat(StatData oldStat)
-		{
-			// TODO: Do ability unlinking here before deleting the statData instance
-			
-			this.appliedStats.Remove(oldStat);
-			this.UpdateReadOnlyStatsList();
-			
-			this.RecalculateAllLinkedStatsPools();
-		}
-		
 		
 		
 		
@@ -511,7 +525,6 @@ namespace SphericalCow
 		}
 		
 		
-		
 		/// <summary>
 		/// 	Loops through all applied stats of this Character and recalculates derived SP
 		/// 	for each stat's linked stats
@@ -524,6 +537,180 @@ namespace SphericalCow
 			}
 		}
 		
+		
+		
+		
+		
+		
+		
+		
+		//
+		// Abilities
+		//
+		
+		
+
+		/// <summary>
+		/// 	Adds a new Aiblity to this Character. Also creates an internal record for the ability.
+		/// 	Will not add a particular ability more than once.
+		/// </summary>
+		public void AddAbility(Ability newAbility)
+		{
+			// Check if this stat was already added
+			AbilityData abilityData = this.SearchAbility(newAbility);
+			
+			// Add the stat
+			if(abilityData == null)
+			{
+				abilityData = new AbilityData(newAbility);
+				this.appliedAbilities.Add(abilityData);
+				
+				// Link abilities here?
+				//this.RecalculateAllLinkedStatsPools();
+				this.UpdateReadOnlyAbilitiesList();
+			}
+			else
+			{
+				if(Debug.isDebugBuild)
+				{
+					Debug.LogWarning("The ability " + newAbility.Name + " was already added to " + this.Name);
+				}
+			}
+		}
+		
+		
+		/// <summary>
+		/// 	Remove an ability from this Character by name
+		/// </summary>
+		public void RemoveAbility(string oldAbilityName)
+		{
+			// Check if this ability exists in the Character
+			AbilityData abilityData = this.SearchAbility(oldAbilityName);
+			
+			if(abilityData != null)
+			{
+				this.UnlinkAndRemoveAbility(abilityData);
+			}
+			else
+			{
+				if(Debug.isDebugBuild)
+				{
+					Debug.LogWarning("The ability \"" + oldAbilityName + "\" was already removed from " + this.Name);
+				}
+			}
+		}
+		
+		
+		/// <summary>
+		/// 	Remove an ability from this Character by ID
+		/// </summary>
+		public void RemoveAbility(Guid oldAbilityId)
+		{
+			// Check if this ability exists in the Character
+			AbilityData abilityData = this.SearchAbility(oldAbilityId);
+			
+			if(abilityData != null)
+			{
+				this.UnlinkAndRemoveAbility(abilityData);
+			}
+			else
+			{
+				if(Debug.isDebugBuild)
+				{
+					Debug.LogWarning("The ability of ID \"" + oldAbilityId.ToString() + "\" was already removed from " + this.Name);
+				}
+			}
+		}
+		
+		
+		/// <summary>
+		/// 	Search for an ability in this Character by an Ability data asset. 
+		/// 	Will return null if no such ability is found
+		/// </summary>
+		public AbilityData SearchAbility(Ability abilityDefinition)
+		{
+			if(abilityDefinition == null)
+			{
+				Debug.LogWarning("RpgCharacterData.Ability(Ability) was given a null Ability!");
+				return null;
+			}
+			
+			AbilityData foundAbility = null;
+			
+			foreach(AbilityData ability in this.appliedAbilities)
+			{
+				if(ability.AbilityReference.Id.Equals(abilityDefinition.Id))
+				{
+					foundAbility = ability;
+					break;
+				}
+			}
+			
+			return foundAbility;
+		}
+		
+		
+		/// <summary>
+		/// 	Search for an ability in this Character by the Ability's name. 
+		/// 	Will return null if no such ability is found
+		/// </summary>
+		public AbilityData SearchAbility(string abilityName)
+		{
+			if(string.IsNullOrEmpty(abilityName))
+			{
+				Debug.LogWarning("RpgCharacterData.Ability(string) was given a null or empty string!");
+				return null;
+			}
+			
+			AbilityData foundAbility = null;
+			
+			foreach(AbilityData ability in this.appliedAbilities)
+			{
+				if(ability.AbilityReference.Name.Equals(abilityName))
+				{
+					foundAbility = ability;
+					break;
+				}
+			}
+			
+			return foundAbility;
+		}
+		
+		
+		/// <summary>
+		/// 	Search for an ability in this Character by the Ability's ID. 
+		/// 	Will return null if no such ability is found
+		/// </summary>
+		public AbilityData SearchAbility(Guid abilityId)
+		{
+			if(abilityId.Equals(Guid.Empty))
+			{
+				Debug.LogWarning("RpgCharacterData.Ability(Guid) was given an empty GUID!");
+				return null;
+			}
+			
+			AbilityData foundAbility = null;
+			
+			foreach(AbilityData ability in this.appliedAbilities)
+			{
+				if(ability.Id.Equals(abilityId))
+				{
+					foundAbility = ability;
+					break;
+				}
+			}
+			
+			return foundAbility;
+		}
+		
+		
+		
+		
+		
+		
+		//
+		// Properties
+		//
 		
 		
 		
@@ -718,6 +905,13 @@ namespace SphericalCow
 		
 		
 		
+		
+		//
+		// Private Methods
+		//
+		
+		
+		
 		/// <summary>
 		/// 	Permanently adds SP to the given StatData instance and removes the same amount from the global pool
 		///	 	Warning: Will not check for null parameters!
@@ -833,6 +1027,37 @@ namespace SphericalCow
 			this.numOfAbilities = this.appliedAbilities.Count;
 		}
 		 
+		
+		
+		
+		/// <summary>
+		/// 	Unlinks ability modifiers in the stats and removes the relevant ability
+		/// </summary>
+		private void UnlinkAndRemoveAbility(AbilityData oldAbility)
+		{
+			// TODO: Do ability unlinking here before deleting the abilityData instance
+			
+			this.appliedAbilities.Remove(oldAbility);
+			this.UpdateReadOnlyAbilitiesList();
+			
+			//this.RecalculateAllLinkedStatsPools();
+		}
+		
+		
+		
+		/// <summary>
+		/// 	Unlinks stats in the SP derivers and removes the relevant stat
+		/// </summary>
+		private void UnlinkAndRemoveStat(StatData oldStat)
+		{
+			// TODO: Do ability unlinking here before deleting the statData instance
+			
+			this.appliedStats.Remove(oldStat);
+			this.UpdateReadOnlyStatsList();
+			
+			this.RecalculateAllLinkedStatsPools();
+		}
+		
 		
 	}
 }
