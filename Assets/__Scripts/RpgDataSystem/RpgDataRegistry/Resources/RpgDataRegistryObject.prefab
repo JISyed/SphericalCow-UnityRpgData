@@ -43,7 +43,7 @@ MonoBehaviour:
   pointToStatRatio: 1
   useAssignedMultiplier: 1
   useFactorRatio: .5
-  defaultSpAssignment: 1
+  defaultSpAssignment: 0
   xpProgressors:
   - {fileID: 11400000, guid: 95a68e9c1ba464b1f9006d4c00d161f2, type: 2}
   baseStats:
@@ -211,7 +211,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: defaultSpAssignment
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

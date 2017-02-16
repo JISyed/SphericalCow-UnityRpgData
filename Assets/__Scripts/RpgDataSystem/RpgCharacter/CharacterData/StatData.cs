@@ -34,6 +34,7 @@ namespace SphericalCow
 			this.useFactor = 1;
 			
 			
+			// Initialize the SpDeriver
 			switch (this.type) 
 			{
 			case StatType.Base:
@@ -50,8 +51,9 @@ namespace SphericalCow
 				break;
 			}
 			
-			// TODO: Initialize the AbilityAggregator
 			
+			// Initialize the AbilityAggregator
+			this.abilityModifications = new AbilityAggregator(this.statId.GuidData);
 			
 		}
 		
@@ -98,6 +100,27 @@ namespace SphericalCow
 		
 		
 		/// <summary>
+		/// 	Apply an ability onto this stat
+		/// </summary>
+		public void ApplyOneAbility(AbilityData newAbility)
+		{
+			this.abilityModifications.ApplyAbility(newAbility.AbilityReference);
+		}
+		
+		
+		/// <summary>
+		/// 	Remove an ability from this stat
+		/// </summary>
+		public void RemoveOneAbility(AbilityData oldAbility)
+		{
+			this.abilityModifications.RemoveAbility(oldAbility.AbilityReference);
+		}
+		
+		
+		
+		
+		
+		/// <summary>
 		/// 	The total SP (stat points) of this stat. This value will be influenced by other stats and abilties
 		/// </summary>
 		public int StatPoints
@@ -110,9 +133,8 @@ namespace SphericalCow
 				// Add additional SP from the SpDeriver
 				finalSp += this.linkedStatsDerivedPool.DerivedSpPool;
 				
-				// TODO: Uncomment ability modified SP
 				// Determing additional SP from Abilities (may alter the SP greatly)
-				//this.CalculateAbilityModifiedSp(ref finalSp);
+				this.CalculateAbilityModifiedSp(ref finalSp);
 				
 				return finalSp;
 			}
@@ -141,9 +163,8 @@ namespace SphericalCow
 				// Start with the SP from the raw pool (the SP that is not modified by anything)
 				int finalSp = this.rawSpPool;
 				
-				// TODO: Uncomment ability modified SP
 				// Determing additional SP from Abilities (may alter the SP greatly)
-				//this.CalculateAbilityModifiedSp(ref finalSp);
+				this.CalculateAbilityModifiedSp(ref finalSp);
 				
 				return finalSp;
 			}
@@ -224,6 +245,12 @@ namespace SphericalCow
 			if(statMods.netLimit == ModifierLimitType.NoLimit)	// IncreaseBy or DecreaseBy only
 			{
 				ref_finalSp += statMods.netValue;
+				
+				// SP shouldn't drop below 0
+				if(ref_finalSp < 0)
+				{
+					ref_finalSp = 0;
+				}
 			}
 			else
 			{

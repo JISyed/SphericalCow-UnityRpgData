@@ -250,7 +250,11 @@ namespace SphericalCow
 				statData = new StatData(newStat, this.appliedStats);
 				this.appliedStats.Add(statData);
 				
-				// TODO: Link abilities here
+				// Apply all abilities that this new stat takes
+				foreach(AbilityData ability in this.appliedAbilities)
+				{
+					statData.ApplyOneAbility(ability);
+				}
 				
 				
 				this.RecalculateAllLinkedStatsPools();
@@ -565,8 +569,13 @@ namespace SphericalCow
 				abilityData = new AbilityData(newAbility);
 				this.appliedAbilities.Add(abilityData);
 				
-				// Link abilities here?
-				//this.RecalculateAllLinkedStatsPools();
+				// Apply this ability on all stats that take this ability
+				foreach(StatData stat in this.appliedStats)
+				{
+					stat.ApplyOneAbility(abilityData);
+					stat.RecalculateLinkedStatPoints();
+				}
+				
 				this.UpdateReadOnlyAbilitiesList();
 			}
 			else
@@ -930,8 +939,9 @@ namespace SphericalCow
 			if(remainingUnallocatedSp < 0)
 			{
 				spToAdd = spToAdd + remainingUnallocatedSp;
-				// You can comment out this log if you want
-				Debug.Log("Unallocated Pool has ran out");
+				
+				// You can uncomment out this log if you want
+				//Debug.Log("Unallocated Pool has ran out");
 			}
 			
 			
@@ -1035,12 +1045,17 @@ namespace SphericalCow
 		/// </summary>
 		private void UnlinkAndRemoveAbility(AbilityData oldAbility)
 		{
-			// TODO: Do ability unlinking here before deleting the abilityData instance
+			// Unlink this ability from all stats that take this ability
+			foreach(StatData stat in this.appliedStats)
+			{
+				stat.RemoveOneAbility(oldAbility);
+				stat.RecalculateLinkedStatPoints();
+			}
 			
 			this.appliedAbilities.Remove(oldAbility);
 			this.UpdateReadOnlyAbilitiesList();
 			
-			//this.RecalculateAllLinkedStatsPools();
+			this.RecalculateAllLinkedStatsPools();
 		}
 		
 		
@@ -1050,7 +1065,11 @@ namespace SphericalCow
 		/// </summary>
 		private void UnlinkAndRemoveStat(StatData oldStat)
 		{
-			// TODO: Do ability unlinking here before deleting the statData instance
+			// Unapply all abilities that this old stat took
+			foreach(AbilityData ability in this.appliedAbilities)
+			{
+				oldStat.RemoveOneAbility(ability);
+			}
 			
 			this.appliedStats.Remove(oldStat);
 			this.UpdateReadOnlyStatsList();

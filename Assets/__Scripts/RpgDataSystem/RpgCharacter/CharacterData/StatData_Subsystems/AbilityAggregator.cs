@@ -55,7 +55,46 @@ namespace SphericalCow
 		/// </summary>
 		public void AggregateAppliedModifications()
 		{
-			// TODO: Implement by iterating appliedModifiers
+			// Reset certian values
+			this.limitValue = 0;
+			this.relativeModificationValue = 0;
+			this.imposedLimit = ModifierLimitType.NoLimit;
+			
+			// Add up all of the modifications on this stat
+			foreach(AbilityModifierData modifier in this.appliedModifiers)
+			{
+				// Check if a modifier is imposing a limit on the SP
+				AbilityModifierType modType = modifier.AbilityModifierReference.Type;
+				if(modType == AbilityModifierType.DecreaseTo ||
+				   modType == AbilityModifierType.IncreaseTo)
+				{
+					// Only the latest applied limit will be appliciable on a stat
+					this.limitValue = modifier.AbilityModifierReference.ModifierValue;
+					
+					if(modType == AbilityModifierType.IncreaseTo)
+					{
+						this.imposedLimit = ModifierLimitType.LowerLimit;
+					}
+					else if(modType == AbilityModifierType.DecreaseTo)
+					{
+						this.imposedLimit = ModifierLimitType.UpperLimit;
+					}
+				}
+				// The modifier either increases by or decreases by
+				else
+				{
+					if(modType == AbilityModifierType.IncreaseBy)
+					{
+						// Add to the relative modification of the SP
+						this.relativeModificationValue += modifier.AbilityModifierReference.ModifierValue;
+					}
+					else if(modType == AbilityModifierType.DecreaseBy)
+					{
+						// Remove from the relative modification of the SP
+						this.relativeModificationValue -= modifier.AbilityModifierReference.ModifierValue;
+					}
+				}
+			}
 		}
 		
 		
@@ -65,7 +104,20 @@ namespace SphericalCow
 		/// </summary>
 		public void ApplyAbility(Ability abilityToAdd)
 		{
-			// TODO: Implement by iterating the AbilityModifiers with the given Ability
+			// Look over every modifier in the new ability
+			var abilityModifiers = abilityToAdd.StatModifiers;
+			foreach(AbilityModifier modifier in abilityModifiers)
+			{
+				// Only add the modifier if it modifies this stat, not some other stat
+				if(this.statId.GuidData.Equals(modifier.ModifiedStat.Id))
+				{
+					AbilityModifierData modData = new AbilityModifierData(modifier, abilityToAdd);
+					this.appliedModifiers.Add(modData);
+				}
+			}
+			
+			// Calculate total modifications applied from all abilities on this stat
+			this.AggregateAppliedModifications();
 		}
 		
 		
@@ -75,7 +127,30 @@ namespace SphericalCow
 		/// </summary>
 		public void RemoveAbility(Ability abilityToRemove)
 		{
-			// TODO: Implement by iterating the AbilityModifiers with the given Ability
+			// Make a list to remove old modifiers without messing with the actual list for iteration
+			List<AbilityModifierData> removalList = new List<AbilityModifierData>();
+			
+			// Look over every modifierData instance in the aggregator
+			foreach(AbilityModifierData modifier in this.appliedModifiers)
+			{
+				// Only remove modifiers that originate from the ability to be removed
+				if(modifier.AbilityId.Equals(abilityToRemove.Id))
+				{
+					removalList.Add(modifier);
+				}
+			}
+			
+			// Remove the old modifiers from the actual modifier list
+			foreach(AbilityModifierData oldModifier in removalList)
+			{
+				this.appliedModifiers.Remove(oldModifier);
+			}
+			
+			// Clear the removal list
+			removalList.Clear();
+			
+			// Calculate total modifications applied from all abilities on this stat
+			this.AggregateAppliedModifications();
 		}
 		
 		
