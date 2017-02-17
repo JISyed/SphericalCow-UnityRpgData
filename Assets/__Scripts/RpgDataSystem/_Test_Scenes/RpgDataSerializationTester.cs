@@ -2,6 +2,7 @@
 using UI = UnityEngine.UI;
 using Guid = System.Guid;
 using System.Text;	// For StringBuilder
+using System.Collections.Generic;
 
 namespace SphericalCow.Testing
 {
@@ -45,6 +46,8 @@ namespace SphericalCow.Testing
 		public GameObject testUseAllocSpPanel;
 		public GameObject testAbilityPanel;
 		
+		
+		public List<string> randomNames;
 		
 		
 		
