@@ -5,6 +5,9 @@ using System.IO;
 
 namespace SphericalCow
 {
+	/// <summary>
+	/// 	A singleton script that holds all the SaveSlots of the game.
+	/// </summary>
 	public class SaveSlotRegistry : MonoBehaviour 
 	{
 		[Range(1, 15)][SerializeField] private int numberOfSaveSlots = 3;

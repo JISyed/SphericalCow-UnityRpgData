@@ -2,6 +2,10 @@
 
 namespace SphericalCow
 {
+	/// <summary>
+	/// 	A set of relevant data used to save the game's progress. 
+	/// 	Put whatever is needed to "save the game" on disk
+	/// </summary>
 	public class SaveSlot
 	{
 		//
@@ -10,14 +14,20 @@ namespace SphericalCow
 		//
 		
 		/// <summary>
-		/// 	If false, the slot is empty
+		/// 	If false, the slot is empty. You must mark this as true if you are going to use it
 		/// </summary>
 		[XmlAttribute("occupied")]
 		public bool isSlotOccupied = false;
 		
+		/// <summary>
+		/// 	The name of the player of the game. Used to test RpgCharacterData serialization
+		/// </summary>
 		[XmlElement("PlayerName")]
 		public string playerName = "";
 		
+		/// <summary>
+		/// 	The ID of the player of the game. Used to test RpgCharacterData serialization
+		/// </summary>
 		[XmlElement("PlayerId")]
 		public string playerId = "";
 		
