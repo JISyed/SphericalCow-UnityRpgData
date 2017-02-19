@@ -48,7 +48,7 @@ namespace SphericalCow.Testing
 		public GameObject testSerializationPanel;
 		
 		
-		public List<string> randomNames;
+		public string[] randomNames;
 		
 		
 		
@@ -405,7 +405,19 @@ namespace SphericalCow.Testing
 		/// </summary>
 		public void SaveCharacterToFile(int slotNumber)
 		{
+			SaveSlot slot = SaveSlotRegistry.Instance.GetSlotAt(slotNumber);
+			Debug.Assert(slot != null, "Invalid SaveSlot");
 			
+			slot.isSlotOccupied = true;
+			slot.playerName = this.character.Name;
+			slot.playerId = this.character.Id.ToString();
+			SaveSlotRegistry.Instance.SaveTheSlots();
+			
+			RpgCharacterSerializer.SaveCharacter(this.character);
+			
+			Debug.Log("The character \"" + this.character.Name + "\" was saved to Slot " + slotNumber.ToString());
+			
+			this.RefreshUI();
 		}
 		
 		
@@ -415,7 +427,22 @@ namespace SphericalCow.Testing
 		/// <param name="slotNumber">Slot number.</param>
 		public void LoadCharacterFromFile(int slotNumber)
 		{
+			SaveSlot slot = SaveSlotRegistry.Instance.GetSlotAt(slotNumber);
+			Debug.Assert(slot != null, "Invalid SaveSlot");
 			
+			if(slot.isSlotOccupied == false)
+			{
+				Debug.LogWarning("Save Slot " + slotNumber.ToString() + " is empty. No character was loaded.");
+				return;
+			}
+			
+			this.character = RpgCharacterSerializer.LoadCharacter(slot.playerName, slot.playerId);
+			
+			Debug.Assert(this.character != null, "Unknown Error when loading character from file! " + slot.playerName + " " + slot.playerId);
+			
+			Debug.Log("The character \"" + this.character.Name + "\" was loaded from Slot " + slotNumber.ToString());
+			
+			this.RefreshUI();
 		}
 		
 		
@@ -425,7 +452,32 @@ namespace SphericalCow.Testing
 		/// </summary>
 		public void RandomizeCharacter()
 		{
+			RpgCharacterPacket newPacket = new RpgCharacterPacket();
 			
+			newPacket.name = this.randomNames[Random.Range(0, this.randomNames.Length)];
+			newPacket.id = Guid.NewGuid().ToString();
+			newPacket.hp = Random.Range(5, 150);
+			newPacket.maxHp = 150;
+			newPacket.additionalMaxHp = 0;
+			newPacket.unallocatedSpPool = Random.Range(0,33);
+			newPacket.assignmentType = RpgDataRegistry.Instance.DefaultStatPointAssignment;
+			
+			XpPacket xpPacket = new XpPacket();
+			xpPacket.xpProgessorId = this.xpProgressor.Id.ToString();
+			xpPacket.level = Random.Range(1, 10);
+			xpPacket.xp = Random.Range(0, 301);
+			xpPacket.xpToNextLevel = 300;
+			xpPacket.currentLevelMultiplier = this.xpProgressor.LevelMultiplier;
+			xpPacket.currentOldValueMultiplier = this.xpProgressor.OldXtnlMultiplier;
+			
+			newPacket.xpDataPacket = xpPacket;
+			
+			
+			this.character = new RpgCharacterData(newPacket);
+			
+			Debug.Log("Current character was randomized. Note that nothing was saved to disk.");
+			
+			this.RefreshUI();
 		}
 		
 		
