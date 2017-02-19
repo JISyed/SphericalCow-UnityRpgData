@@ -25,6 +25,9 @@ namespace SphericalCow
 		[XmlElement("AdditionsToMaximumHP")]
 		public int additionalMaxHp;
 		
+		[XmlElement("UnallocatedStatPoints")]
+		public int unallocatedSpPool;
+		
 		[XmlElement("StatPointAssignmentMethod")]
 		public GlobalSpAssignmentType assignmentType;
 		

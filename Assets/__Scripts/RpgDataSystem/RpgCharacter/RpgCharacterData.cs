@@ -79,19 +79,71 @@ namespace SphericalCow
 			this.hp = newHP;
 			this.maxHp = newMaxHp;
 			this.additionalMaxHp = 0;
-			this.xpData = new XpData(newXpProgressor);
 			this.unallocatedSpPool = 0;
+			this.assignmentType = typeOfSpAssignment;
+			
+			this.xpData = new XpData(newXpProgressor);
 			this.appliedAbilities = new List<AbilityData>();
 			this.appliedStats = new List<StatData>();
+			
 			this.numOfStats = 0;
 			this.numOfAbilities = 0;
-			this.assignmentType = typeOfSpAssignment;
+			
 			
 			this.UpdateReadOnlyStatsList();
 			this.UpdateReadOnlyAbilitiesList();
 		}
 		
 		
+		
+		/// <summary>
+		/// 	Deserialization Constructor
+		/// </summary>
+		public RpgCharacterData(RpgCharacterPacket rpgCharacterPacket)
+		{
+			Debug.Assert(rpgCharacterPacket != null, "RpgCharacterData could not be deserialized because the packet was null!");
+			
+			this.id = new SaveableGuid(rpgCharacterPacket.id);
+			this.name = rpgCharacterPacket.name;
+			this.hp = rpgCharacterPacket.hp;
+			this.maxHp = rpgCharacterPacket.maxHp;
+			this.additionalMaxHp = rpgCharacterPacket.additionalMaxHp;
+			this.unallocatedSpPool = rpgCharacterPacket.unallocatedSpPool;
+			this.assignmentType = rpgCharacterPacket.assignmentType;
+			
+			this.xpData = new XpData(rpgCharacterPacket.xpDataPacket);
+			this.appliedStats = new List<StatData>();
+			this.appliedAbilities = new List<AbilityData>();
+			
+			this.numOfStats = rpgCharacterPacket.appliedStats.Count;
+			this.numOfAbilities = rpgCharacterPacket.appliedAbilities.Count;
+			
+			
+			// Deserialize abilties first, so we can just loop through stats later to apply abilities
+			foreach(AbilityPacket abilityPacket in rpgCharacterPacket.appliedAbilities)
+			{
+				AbilityData newAbility = new AbilityData(abilityPacket);
+				this.appliedAbilities.Add(newAbility);
+			}
+			
+			foreach(StatPacket statPacket in rpgCharacterPacket.appliedStats)
+			{
+				StatData newStat = new StatData(statPacket, this.appliedStats);
+				this.appliedStats.Add(newStat);
+				
+				// Apply all abilities that this new stat takes
+				foreach(AbilityData ability in this.appliedAbilities)
+				{
+					newStat.ApplyOneAbility(ability);
+				}
+				
+			}
+			
+			this.RecalculateAllLinkedStatsPools();
+			
+			this.UpdateReadOnlyStatsList();
+			this.UpdateReadOnlyAbilitiesList();
+		}
 		
 		
 		
@@ -710,6 +762,25 @@ namespace SphericalCow
 			}
 			
 			return foundAbility;
+		}
+		
+		
+		
+		
+		
+		
+		//
+		// Serilaization
+		//
+		
+		
+		/// <summary>
+		/// 	Only to be called by the RpgCharacterSerializer
+		/// </summary>
+		public RpgCharacterPacket ExportSerializationPacket()
+		{
+			// TODO: Implement!
+			return null;
 		}
 		
 		
