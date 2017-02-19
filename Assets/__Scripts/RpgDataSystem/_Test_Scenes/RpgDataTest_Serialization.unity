@@ -6125,7 +6125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6952575d55da4a89a615b07931860b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadSlot1OnStart: 0
+  loadSlot1OnStart: 1
   givenCharacterName: Sophia
   givenGuid: 3689031f-ff51-4c67-bb59-b32cf0257952
   xpProgressor: {fileID: 11400000, guid: 95a68e9c1ba464b1f9006d4c00d161f2, type: 2}
