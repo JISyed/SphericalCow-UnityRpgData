@@ -104,8 +104,16 @@ namespace SphericalCow
 		/// </summary>
 		public XpPacket ExportSerializationPacket()
 		{
-			// TODO: Implement!
-			return null;
+			XpPacket newPacket = new XpPacket();
+			
+			newPacket.xpProgessorId = this.xpProgressorId.GuidString;
+			newPacket.level = this.level;
+			newPacket.xp = this.xp;
+			newPacket.xpToNextLevel = this.xpToNextLevel;
+			newPacket.currentLevelMultiplier = this.currentLevelMultiplier;
+			newPacket.currentOldValueMultiplier = this.currentOldValueMultiplier;
+			
+			return newPacket;
 		}
 		
 		

@@ -54,8 +54,10 @@ namespace SphericalCow
 		/// </summary>
 		public AbilityPacket ExportSerializationPacket()
 		{
-			// TODO: Implement!
-			return null;
+			AbilityPacket newPacket = new AbilityPacket();
+			newPacket.abilityId = this.id.GuidString;
+			
+			return newPacket;
 		}
 		
 		

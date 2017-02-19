@@ -168,8 +168,13 @@ namespace SphericalCow
 		/// </summary>
 		public StatPacket ExportSerializationPacket()
 		{
-			// TODO: Implement!
-			return null;
+			StatPacket newPacket = new StatPacket();
+			
+			newPacket.statId = this.statId.GuidString;
+			newPacket.rawSpPool = this.RawStatPoints;
+			newPacket.useFactor = this.UseFactor;
+			
+			return newPacket;
 		}
 		
 		
