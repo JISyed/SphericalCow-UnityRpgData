@@ -779,8 +779,31 @@ namespace SphericalCow
 		/// </summary>
 		public RpgCharacterPacket ExportSerializationPacket()
 		{
-			// TODO: Implement!
-			return null;
+			RpgCharacterPacket newPacket = new RpgCharacterPacket();
+			
+			newPacket.id = this.id.GuidString;
+			newPacket.name = this.name;
+			newPacket.hp = this.hp;
+			newPacket.maxHp = this.maxHp;
+			newPacket.additionalMaxHp = this.additionalMaxHp;
+			newPacket.unallocatedSpPool = this.unallocatedSpPool;
+			newPacket.assignmentType = this.assignmentType;
+			
+			newPacket.xpDataPacket = this.xpData.ExportSerializationPacket();
+			
+			foreach(StatData stat in this.appliedStats)
+			{
+				StatPacket newStatPacket = stat.ExportSerializationPacket();
+				newPacket.appliedStats.Add(newStatPacket);
+			}
+			
+			foreach(AbilityData ability in this.appliedAbilities)
+			{
+				AbilityPacket newAbilityPacket = ability.ExportSerializationPacket();
+				newPacket.appliedAbilities.Add(newAbilityPacket);
+			}
+			
+			return newPacket;
 		}
 		
 		
