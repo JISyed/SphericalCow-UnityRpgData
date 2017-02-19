@@ -20,7 +20,9 @@ namespace SphericalCow
 		[System.NonSerialized] private List<StatData> characterAppliedStats;
 		
 		
-		
+		/// <summary>
+		/// 	StatData Constructor needs the stat definition file and the RpgCharacter's list of stats
+		/// </summary>
 		public StatData(AbstractStat newStat, List<StatData> appliedStats)
 		{
 			Debug.Assert(newStat != null, "New StatData being given a null AbstractStat!");
@@ -56,6 +58,49 @@ namespace SphericalCow
 			this.abilityModifications = new AbilityAggregator(this.statId.GuidData);
 			
 		}
+		
+		
+		/// <summary>
+		/// 	Deserialization Constructor
+		/// </summary>
+		public StatData(StatPacket statPacket, List<StatData> appliedStats)
+		{
+			Debug.Assert(statPacket != null, "New StatData being given a null StatPacket!");
+			Debug.Assert(appliedStats != null, "New StatData being given null list of applied stats!");
+			
+			this.statId = new SaveableGuid(statPacket.statId);
+			this.statReference = RpgDataRegistry.Instance.SearchAnyStat(this.statId.GuidData);
+			
+			Debug.Assert(this.statReference != null, "Could not deserialize a stat because its definition cannot be found. ID: " + statPacket.statId);
+			
+			this.type = this.statReference.GetStatType();
+			this.rawSpPool = statPacket.rawSpPool;
+			this.useFactor = statPacket.useFactor;
+			this.characterAppliedStats = appliedStats;
+			
+			// Initialize the SpDeriver
+			switch (this.type) 
+			{
+			case StatType.Base:
+				this.linkedStatsDerivedPool = new BaseSpDeriver(this.statReference as BaseStat);
+				break;
+			case StatType.Secondary:
+				this.linkedStatsDerivedPool = new SecondarySpDeriver(this.statReference as SecondaryStat);
+				break;
+			case StatType.Skill:
+				this.linkedStatsDerivedPool = new SkillSpDeriver(this.statReference as SkillStat);
+				break;
+			default:
+				Debug.LogError("Somebody added a new entry into the enum StatType");
+				break;
+			}
+			
+			
+			// Initialize the AbilityAggregator
+			this.abilityModifications = new AbilityAggregator(this.statId.GuidData);
+			
+		}
+		
 		
 		
 		
@@ -115,6 +160,20 @@ namespace SphericalCow
 		{
 			this.abilityModifications.RemoveAbility(oldAbility.AbilityReference);
 		}
+		
+		
+		
+		/// <summary>
+		/// 	Only to be called by the RpgCharacterSerializer
+		/// </summary>
+		public StatPacket ExportSerializationPacket()
+		{
+			// TODO: Implement!
+			return null;
+		}
+		
+		
+		
 		
 		
 		

@@ -36,16 +36,36 @@ namespace SphericalCow
 			this.xpToNextLevel = this.CalculateXpProgression(this.level, this.xpToNextLevel);
 		}
 		
+		/// <summary>
+		/// 	Deserialization constructor
+		/// </summary>
+		public XpData(XpPacket xpDataPacket)
+		{
+			Debug.Assert(xpDataPacket != null, "XpData's constructor is being given a null XpPacket!");
+			
+			this.xpProgressorId = new SaveableGuid(xpDataPacket.xpProgessorId);
+			this.xpProgressor = RpgDataRegistry.Instance.SearchXpProgressor(this.xpProgressorId.GuidData);
+			
+			Debug.Assert(this.xpProgressor != null, "Deserializaing XpData failed because the XpProgressor was not found! ID: " + xpDataPacket.xpProgessorId);
+			
+			this.level = xpDataPacket.level;
+			this.xp = xpDataPacket.xp;
+			this.xpToNextLevel = xpDataPacket.xpToNextLevel;
+			this.currentLevelMultiplier = xpDataPacket.currentLevelMultiplier;
+			this.currentOldValueMultiplier = xpDataPacket.currentOldValueMultiplier;
+		}
+		
+		
 		
 		/// <summary>
 		/// 	Find the correct XpProgressor instance given its GUID. Used for deserialzation.
 		/// </summary>
-		public void LoadXpProgressor()
-		{
-			this.xpProgressorId.LoadInternalData();
-			this.xpProgressor = RpgDataRegistry.Instance.SearchXpProgressor(this.xpProgressorId.GuidData);
-			Debug.Assert(this.xpProgressor != null, "XpData failed to find the XpProgressor of ID " + this.xpProgressorId.GuidString);
-		}
+		//public void LoadXpProgressor()
+		//{
+		//	this.xpProgressorId.LoadInternalData();
+		//	this.xpProgressor = RpgDataRegistry.Instance.SearchXpProgressor(this.xpProgressorId.GuidData);
+		//	Debug.Assert(this.xpProgressor != null, "XpData failed to find the XpProgressor of ID " + this.xpProgressorId.GuidString);
+		//}
 		
 		
 		
@@ -79,43 +99,14 @@ namespace SphericalCow
 		
 		
 		
-		
 		/// <summary>
-		/// 	Levels up the Character, updating the current Level in this record.
+		/// 	Only to be called by the RpgCharacterSerializer
 		/// </summary>
-		private void LevelUp()
+		public XpPacket ExportSerializationPacket()
 		{
-			this.level++;
-			this.xpToNextLevel = this.CalculateXpProgression(this.level, this.xpToNextLevel);
+			// TODO: Implement!
+			return null;
 		}
-		
-		
-		
-		
-		/// <summary>
-		/// 	Calculates the new XTNL (XP to the next level) given the old XTNL and new Level.
-		/// 	If the associated XpProgressor increments internal multipliers, those will be incremented here.
-		/// </summary>
-		/// <param name="newLevel">The new level.</param>
-		/// <param name="oldXtnl">Old value for XpToNextLevel.</param>
-		private int CalculateXpProgression(int newLevel, int oldXtnl)
-		{
-			int newXtnl = this.currentLevelMultiplier * newLevel
-						+ this.currentOldValueMultiplier * oldXtnl;
-			
-			if(this.xpProgressor.DoesLevelMultiplerIncrement)
-			{
-				this.currentLevelMultiplier++;
-			}
-			
-			if(this.xpProgressor.DoesOldXntlMultiplierIncrement)
-			{
-				this.currentOldValueMultiplier++;
-			}
-			
-			return newXtnl;
-		}
-		
 		
 		
 		
@@ -178,6 +169,47 @@ namespace SphericalCow
 			{
 				return this.xpProgressor;
 			}
+		}
+		
+		
+		
+		
+		
+		
+		/// <summary>
+		/// 	Levels up the Character, updating the current Level in this record.
+		/// </summary>
+		private void LevelUp()
+		{
+			this.level++;
+			this.xpToNextLevel = this.CalculateXpProgression(this.level, this.xpToNextLevel);
+		}
+		
+		
+		
+		
+		/// <summary>
+		/// 	Calculates the new XTNL (XP to the next level) given the old XTNL and new Level.
+		/// 	If the associated XpProgressor increments internal multipliers, those will be incremented here.
+		/// </summary>
+		/// <param name="newLevel">The new level.</param>
+		/// <param name="oldXtnl">Old value for XpToNextLevel.</param>
+		private int CalculateXpProgression(int newLevel, int oldXtnl)
+		{
+			int newXtnl = this.currentLevelMultiplier * newLevel
+				+ this.currentOldValueMultiplier * oldXtnl;
+			
+			if(this.xpProgressor.DoesLevelMultiplerIncrement)
+			{
+				this.currentLevelMultiplier++;
+			}
+			
+			if(this.xpProgressor.DoesOldXntlMultiplierIncrement)
+			{
+				this.currentOldValueMultiplier++;
+			}
+			
+			return newXtnl;
 		}
 		
 		
