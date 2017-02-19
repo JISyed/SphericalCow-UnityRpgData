@@ -6125,7 +6125,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6952575d55da4a89a615b07931860b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadSlot1OnStart: 0
   givenCharacterName: Sophia
+  givenGuid: 3689031f-ff51-4c67-bb59-b32cf0257952
   xpProgressor: {fileID: 11400000, guid: 95a68e9c1ba464b1f9006d4c00d161f2, type: 2}
   startingHealthPoints: 150
   startingXp: 0
@@ -6171,6 +6173,27 @@ MonoBehaviour:
   - Mario
   - Yale
   - Lilly
+  randomGuids:
+  - bb3db4d4-4b28-4d93-8670-9eb7d708b7b9
+  - 303cf6ba-09c9-4522-890e-af79096e83b3
+  - 6e940f2e-2e8b-4d62-a65e-85cebd9bb8ce
+  - 44d9ea45-3373-46b7-bedd-a32d160942f1
+  - d525f7b2-3d65-4e87-9730-66cb10b476f7
+  - 032fe696-d829-4788-a5f7-1ff61a7dd705
+  - 1b9ecd9f-48f1-4e78-a852-d39eaa569a46
+  - 3f164410-663e-4a6c-b6f7-8411e9ec12a7
+  - c07de0af-b603-4362-941a-8abb6068f433
+  - 2638f57a-a5af-4d61-9fc1-3efd6e39381e
+  - 35524a24-3178-4a54-914c-4f1f934d46c2
+  - ceb282d3-bb6e-459c-82a2-885dd33a052b
+  - f97e575a-b968-4195-bf61-07071260acf8
+  - a8916b7a-1533-4c9c-8e23-62de7eed91a7
+  - 1db90f41-affe-4186-b047-d93cfcf51e64
+  - 387fd117-6709-412b-9280-0817cbb642f3
+  - ba91e730-9068-437b-9ab6-a29f6850c5ad
+  - 27410f24-1dd1-4132-9028-fbba5cbe7a2d
+  - e3fc027b-a470-4ef6-b489-59070c375139
+  - 2b6b7593-93e4-432b-ad5c-964e40dd3ef0
 --- !u!1 &1049290406
 GameObject:
   m_ObjectHideFlags: 0

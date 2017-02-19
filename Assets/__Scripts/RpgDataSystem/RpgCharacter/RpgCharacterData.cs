@@ -34,7 +34,8 @@ namespace SphericalCow
 		/// <summary>
 		/// 	Constructor requires an XpProgressor, starting HP, maximum HP, and optionally, a name
 		/// </summary>
-		public RpgCharacterData(XpProgressor newXpProgressor, 
+		public RpgCharacterData(Guid newId,
+		                        XpProgressor newXpProgressor, 
 		                        int newHP, 
 		                        int newMaxHp, 
 		                        GlobalSpAssignmentType typeOfSpAssignment, 
@@ -74,7 +75,7 @@ namespace SphericalCow
 				}
 			}
 			
-			this.id = new SaveableGuid(true);
+			this.id = new SaveableGuid(newId);
 			this.name = newName;
 			this.hp = newHP;
 			this.maxHp = newMaxHp;

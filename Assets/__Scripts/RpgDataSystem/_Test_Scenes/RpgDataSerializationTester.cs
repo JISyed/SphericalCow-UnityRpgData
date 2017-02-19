@@ -15,7 +15,9 @@ namespace SphericalCow.Testing
 		// Data
 		//
 		
+		[SerializeField] private bool loadSlot1OnStart;
 		[SerializeField] private string givenCharacterName;
+		[SerializeField] private string givenGuid;
 		[SerializeField] private XpProgressor xpProgressor;
 		[SerializeField] private int startingHealthPoints;
 		[SerializeField] private int startingXp;
@@ -49,6 +51,7 @@ namespace SphericalCow.Testing
 		
 		
 		public string[] randomNames;
+		public string[] randomGuids;
 		
 		
 		
@@ -64,14 +67,32 @@ namespace SphericalCow.Testing
 			
 			Debug.Assert(this.xpProgressor != null, "Could not assign a null XpProgressor");
 			
-			this.character = new RpgCharacterData(this.xpProgressor, 
-			                                      this.startingHealthPoints, 
-			                                      this.startingHealthPoints,
-			                                      RpgDataRegistry.Instance.DefaultStatPointAssignment, 
-			                                      this.givenCharacterName);
-			
-			
-			this.AddXp(this.startingXp);
+			if(this.loadSlot1OnStart)
+			{
+				bool slot1Loaded = this.LoadCharacterFromFileWithCheck(1);
+				
+				if(!slot1Loaded)
+				{
+					Debug.Log("Since Slot 1 was empty, a new character will be made instead");
+					this.character = new RpgCharacterData(new Guid(this.givenGuid),
+					                                      this.xpProgressor, 
+					                                      this.startingHealthPoints, 
+					                                      this.startingHealthPoints,
+					                                      RpgDataRegistry.Instance.DefaultStatPointAssignment, 
+					                                      this.givenCharacterName);
+					this.AddXp(this.startingXp);
+				}
+			}
+			else
+			{
+				this.character = new RpgCharacterData(new Guid(this.givenGuid),
+				                                      this.xpProgressor, 
+				                                      this.startingHealthPoints, 
+				                                      this.startingHealthPoints,
+				                                      RpgDataRegistry.Instance.DefaultStatPointAssignment, 
+				                                      this.givenCharacterName);
+				this.AddXp(this.startingXp);
+			}
 			
 			this.RefreshUI();
 		}
@@ -422,7 +443,8 @@ namespace SphericalCow.Testing
 		
 		
 		/// <summary>
-		/// 	Loads a player from file using the name and id of the player saved in the given slot
+		/// 	Loads a player from file using the name and id of the player saved in the given slot.
+		/// 	Returns true if the slot is not empty and the character was loaded
 		/// </summary>
 		/// <param name="slotNumber">Slot number.</param>
 		public void LoadCharacterFromFile(int slotNumber)
@@ -443,6 +465,29 @@ namespace SphericalCow.Testing
 			Debug.Log("The character \"" + this.character.Name + "\" was loaded from Slot " + slotNumber.ToString());
 			
 			this.RefreshUI();
+			
+		}
+		
+		private bool LoadCharacterFromFileWithCheck(int slotNumber)
+		{
+			SaveSlot slot = SaveSlotRegistry.Instance.GetSlotAt(slotNumber);
+			Debug.Assert(slot != null, "Invalid SaveSlot");
+			
+			if(slot.isSlotOccupied == false)
+			{
+				Debug.LogWarning("Save Slot " + slotNumber.ToString() + " is empty. No character was loaded.");
+				return false;
+			}
+			
+			this.character = RpgCharacterSerializer.LoadCharacter(slot.playerName, slot.playerId);
+			
+			Debug.Assert(this.character != null, "Unknown Error when loading character from file! " + slot.playerName + " " + slot.playerId);
+			
+			Debug.Log("The character \"" + this.character.Name + "\" was loaded from Slot " + slotNumber.ToString());
+			
+			this.RefreshUI();
+			
+			return true;
 		}
 		
 		
@@ -454,8 +499,9 @@ namespace SphericalCow.Testing
 		{
 			RpgCharacterPacket newPacket = new RpgCharacterPacket();
 			
-			newPacket.name = this.randomNames[Random.Range(0, this.randomNames.Length)];
-			newPacket.id = Guid.NewGuid().ToString();
+			int randomIndex = Random.Range(0, this.randomNames.Length);
+			newPacket.name = this.randomNames[randomIndex];
+			newPacket.id = this.randomGuids[randomIndex];
 			newPacket.hp = Random.Range(5, 150);
 			newPacket.maxHp = 150;
 			newPacket.additionalMaxHp = 0;

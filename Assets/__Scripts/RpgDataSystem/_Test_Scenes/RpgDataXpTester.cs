@@ -44,7 +44,8 @@ namespace SphericalCow.Testing
 			Debug.Assert(this.xpProgressor != null, 
 			             "Could not find an XpProgressor by the name " + this.xpProgressorName);
 			
-			this.character = new RpgCharacterData(this.xpProgressor, 
+			this.character = new RpgCharacterData(Guid.NewGuid(),
+			                                      this.xpProgressor, 
 			                                      this.startingHealthPoints, 
 			                                      this.startingHealthPoints,
 			                                      RpgDataRegistry.Instance.DefaultStatPointAssignment, 
