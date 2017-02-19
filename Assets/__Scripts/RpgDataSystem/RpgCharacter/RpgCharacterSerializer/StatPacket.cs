@@ -11,9 +11,6 @@ namespace SphericalCow
 		[XmlElement("ID")]
 		public string statId;
 		
-		[XmlElement("Type")]
-		public StatType statType;
-		
 		[XmlElement("RawStatPoints")]
 		public int rawSpPool;
 		

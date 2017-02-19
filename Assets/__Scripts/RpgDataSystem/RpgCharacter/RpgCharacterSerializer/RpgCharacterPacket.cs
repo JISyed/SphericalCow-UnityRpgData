@@ -7,6 +7,7 @@ namespace SphericalCow
 	/// <summary>
 	/// 	A serialization packet to save an entire RpgCharacterData instance to file, including its subsystems
 	/// </summary>
+	[XmlRoot("RpgCharacter")]
 	public class RpgCharacterPacket
 	{
 		[XmlAttribute("id")]
@@ -27,15 +28,15 @@ namespace SphericalCow
 		[XmlElement("StatPointAssignmentMethod")]
 		public GlobalSpAssignmentType assignmentType;
 		
-		// TODO: Serialize XpPacket
+		[XmlElement("XpData")]
+		public XpPacket xpDataPacket;
 		
+		[XmlArray("AppliedStats")]
+		[XmlArrayItem("Stat")]
+		public List<StatPacket> appliedStats = new List<StatPacket>();
 		
-		// TODO: Serialize a list of StatPackets
-		
-		
-		// TODO: Serialize a list of AbilityPackets
-		
-		
-		
+		[XmlArray("AppliedAbilities")]
+		[XmlArrayItem("Ability")]
+		public List<AbilityPacket> appliedAbilities = new List<AbilityPacket>();
 	}
 }
