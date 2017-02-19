@@ -45,6 +45,7 @@ namespace SphericalCow.Testing
 		public GameObject testPointAllocSpPanel;
 		public GameObject testUseAllocSpPanel;
 		public GameObject testAbilityPanel;
+		public GameObject testSerializationPanel;
 		
 		
 		public List<string> randomNames;
@@ -399,6 +400,34 @@ namespace SphericalCow.Testing
 		
 		
 		
+		/// <summary>
+		/// 	Records the player's name and id to the chosen slot then saves the character to file
+		/// </summary>
+		public void SaveCharacterToFile(int slotNumber)
+		{
+			
+		}
+		
+		
+		/// <summary>
+		/// 	Loads a player from file using the name and id of the player saved in the given slot
+		/// </summary>
+		/// <param name="slotNumber">Slot number.</param>
+		public void LoadCharacterFromFile(int slotNumber)
+		{
+			
+		}
+		
+		
+		
+		/// <summary>
+		/// 	Randomizes the data of the current character. Does not save changes to file
+		/// </summary>
+		public void RandomizeCharacter()
+		{
+			
+		}
+		
 		
 		
 		
@@ -455,6 +484,14 @@ namespace SphericalCow.Testing
 			this.testAbilityPanel.SetActive(!this.testAbilityPanel.activeSelf);
 		}
 		
+		
+		/// <summary>
+		/// 	Toggles the Serialization test panel.
+		/// </summary>
+		public void ToggleSerializationButtonPanel()
+		{
+			this.testSerializationPanel.SetActive(!this.testSerializationPanel.activeSelf);
+		}
 		
 	}
 }
