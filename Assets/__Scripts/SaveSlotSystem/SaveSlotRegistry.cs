@@ -142,11 +142,24 @@ namespace SphericalCow
 		
 		private SaveSlotsContainer LoadTheSlots()
 		{
-			var serializer = new XmlSerializer(typeof(SaveSlotsContainer));
-			using(var stream = new FileStream(this.GetSavePath(), FileMode.Open))
+			try
 			{
-				return serializer.Deserialize(stream) as SaveSlotsContainer;
+				var serializer = new XmlSerializer(typeof(SaveSlotsContainer));
+				using(var stream = new FileStream(this.GetSavePath(), FileMode.Open))
+				{
+					return serializer.Deserialize(stream) as SaveSlotsContainer;
+				}
 			}
+			catch(FileNotFoundException e)
+			{
+				if(Debug.isDebugBuild)
+				{
+					Debug.Log(e.Message);
+				}
+				
+				return null;
+			}
+			
 		}
 		
 		

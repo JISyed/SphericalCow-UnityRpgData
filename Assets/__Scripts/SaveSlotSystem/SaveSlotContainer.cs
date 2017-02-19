@@ -21,6 +21,17 @@ namespace SphericalCow
 		public SaveSlotsContainer(int numberOfSlots)
 		{
 			this.saveSlots = new SaveSlot[numberOfSlots];
+			for(int i = 0; i < numberOfSlots; i++)
+			{
+				this.saveSlots[i] = new SaveSlot();
+			}
+		}
+		
+		/// <summary>
+		/// 	C# XML library needs this
+		/// </summary>
+		public SaveSlotsContainer()
+		{
 		}
 	}
 }
