@@ -4,18 +4,17 @@ using Guid = System.Guid;
 namespace SphericalCow
 {
 	/// <summary>
-	/// 	Stores data related to experience points (XP) for RpgCharacterData
+	/// 	Stores data related to experience points (XP) and experience level for RpgCharacterData
 	/// </summary>
-	[System.Serializable]
 	public class XpData 
 	{
-		[System.NonSerialized] private XpProgressor xpProgressor = null;
-		[SerializeField] private SaveableGuid xpProgressorId;
-		[SerializeField] private int level;
-		[SerializeField] private int xp;
-		[SerializeField] private int xpToNextLevel;
-		[SerializeField] private int currentLevelMultiplier;
-		[SerializeField] private int currentOldValueMultiplier;
+		private XpProgressor xpProgressor = null;
+		private SaveableGuid xpProgressorId;
+		private int level;
+		private int xp;
+		private int xpToNextLevel;
+		private int currentLevelMultiplier;
+		private int currentOldValueMultiplier;
 		
 		
 		/// <summary>
@@ -54,19 +53,6 @@ namespace SphericalCow
 			this.currentLevelMultiplier = xpDataPacket.currentLevelMultiplier;
 			this.currentOldValueMultiplier = xpDataPacket.currentOldValueMultiplier;
 		}
-		
-		
-		
-		/// <summary>
-		/// 	Find the correct XpProgressor instance given its GUID. Used for deserialzation.
-		/// </summary>
-		//public void LoadXpProgressor()
-		//{
-		//	this.xpProgressorId.LoadInternalData();
-		//	this.xpProgressor = RpgDataRegistry.Instance.SearchXpProgressor(this.xpProgressorId.GuidData);
-		//	Debug.Assert(this.xpProgressor != null, "XpData failed to find the XpProgressor of ID " + this.xpProgressorId.GuidString);
-		//}
-		
 		
 		
 		

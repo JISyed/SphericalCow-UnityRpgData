@@ -7,7 +7,6 @@ namespace SphericalCow
 	/// <summary>
 	/// 	A Stat Point Deriver for BaseStats. Doesn't do anything because BaseStats don't derive SP from other stats
 	/// </summary>
-	[System.Serializable]
 	public class BaseSpDeriver : AbstractSpDeriver 
 	{
 		/// <summary>

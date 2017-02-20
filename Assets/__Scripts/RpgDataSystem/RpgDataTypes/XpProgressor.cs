@@ -5,7 +5,8 @@ namespace SphericalCow
 {
 	/// <summary>
 	/// 	A special object that holds data to help calculate 
-	/// 	the next XP thresholds (xpToNextLevel, aka XTNL)
+	/// 	the next XP thresholds (xpToNextLevel, aka XTNL).
+	/// 	Actual level formula is found in XpData
 	/// </summary>
 	public class XpProgressor : AbstractRpgDataType 
 	{

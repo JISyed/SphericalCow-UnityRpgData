@@ -8,27 +8,26 @@ namespace SphericalCow
 	/// <summary>
 	/// 	Data that represents a role-playing character in the RPG system (can be player or NPC)
 	/// </summary>
-	[System.Serializable]
 	public class RpgCharacterData
 	{
 		private const string DefaultName = "Unnamed One";
 		private const int DefaultHealthPoints = 100;
 		
-		[SerializeField] private SaveableGuid id;	// This is the ID of the character itself
-		[SerializeField] private string name;
-		[SerializeField] private int hp;
-		[SerializeField] private int maxHp;
-		[SerializeField] private int additionalMaxHp;
-		[SerializeField] private int unallocatedSpPool;		// Global SP pool used with Use-Assigned system
-		[SerializeField] private XpData xpData;
-		[SerializeField] private List<StatData> appliedStats;
-		[SerializeField] private List<AbilityData> appliedAbilities;
-		[SerializeField] private int numOfStats;
-		[SerializeField] private int numOfAbilities;
-		[SerializeField] private GlobalSpAssignmentType assignmentType;
+		private SaveableGuid id;	// This is the ID of the character itself
+		private string name;
+		private int hp;
+		private int maxHp;
+		private int additionalMaxHp;
+		private int unallocatedSpPool;		// Global SP pool used with Use-Assigned system
+		private XpData xpData;
+		private List<StatData> appliedStats;
+		private List<AbilityData> appliedAbilities;
+		private int numOfStats;
+		private int numOfAbilities;
+		private GlobalSpAssignmentType assignmentType;
 		
-		[System.NonSerialized] private ReadOnlyCollection<StatData> readOnlyStatsList;
-		[System.NonSerialized] private ReadOnlyCollection<AbilityData> readOnlyAbilitiesList;
+		private ReadOnlyCollection<StatData> readOnlyStatsList;
+		private ReadOnlyCollection<AbilityData> readOnlyAbilitiesList;
 		
 		
 		/// <summary>
@@ -309,11 +308,7 @@ namespace SphericalCow
 					statData.ApplyOneAbility(ability);
 				}
 				
-				
 				this.RecalculateAllLinkedStatsPools();
-				
-				
-				
 				this.UpdateReadOnlyStatsList();
 			}
 			else
@@ -1008,6 +1003,59 @@ namespace SphericalCow
 		
 		
 		
+		//
+		// SP Allocation Methods
+		//
+		
+		
+		/// <summary>
+		/// 	Increases SP in a global pool that the player can later use to allocate into certain stats
+		/// </summary>
+		private void UpgradeStatPointsByPointAllocation()
+		{
+			// Constant used to modulate the relationship between number of stats and amount of new SP on levelup
+			float k = RpgDataRegistry.Instance.PointToStatRatio;
+			int m = RpgDataRegistry.Instance.PointAssignedMultiplier;
+			
+			
+			// In point assigned, the number of stats you currently have becomes the basis for how many
+			// SP you gain when you level up. This is multiplied by a constant k.
+			// For example, if k==1 and you have 4 applied stats, you should get 4 SP added into the global pool on levelup.
+			// Players can them manually allocate those 4 SP into each stat evenly, or all into one stat if they wanted to.
+			
+			this.unallocatedSpPool += ((int) Mathf.Round(k * (float) this.NumberOfAppliedStats)) * m;
+		}
+		
+		
+		/// <summary>
+		/// 	Increases SP in all currently applied stats based off frequency of use (useFactor)
+		/// </summary>
+		private void UpgradeStatPointsByUseAllocation()
+		{	
+			float useFactorRatio = RpgDataRegistry.Instance.UseFactorRatio;
+			int useAllocMultiplier = RpgDataRegistry.Instance.UseAssignedMultiplier;
+			
+			foreach(StatData stat in this.appliedStats)
+			{
+				// Calculate a multiplier to impose onto a UseFactor based off a square root function
+				// Where: UseFactor = f, useFactorRatio = r, and factorMultiplier = m :
+				//        m = sqrt(f*r)
+				// Where r is a constant and f is always different
+				// Test this function on Demos online calculator
+				float factorMultiplier = Mathf.Sqrt(useFactorRatio * (float) stat.UseFactor);
+				
+				// Use the factorMultiplier and a developer-defined multiplier to calculate the newly added SP
+				int spIncrease = useAllocMultiplier * (int) Mathf.Round(factorMultiplier);
+				
+				// Increment the stat
+				this.PrivAddSpToStatData(spIncrease, stat);
+			}
+		}
+		
+		
+		
+		
+		
 		
 		
 		//
@@ -1058,58 +1106,6 @@ namespace SphericalCow
 			stat.AddStatPointsToRawPool(spToAdd);
 			this.RecalculateAllLinkedStatsPools();
 		}
-		
-		
-		
-		
-		
-		
-		/// <summary>
-		/// 	Increases SP in a global pool that the player can later use to allocate into certain stats
-		/// </summary>
-		private void UpgradeStatPointsByPointAllocation()
-		{
-			// Constant used to modulate the relationship between number of stats and amount of new SP on levelup
-			float k = RpgDataRegistry.Instance.PointToStatRatio;
-			int m = RpgDataRegistry.Instance.PointAssignedMultiplier;
-			
-			
-			// In point assigned, the number of stats you currently have becomes the basis for how many
-			// SP you gain when you level up. This is multiplied by a constant k.
-			// For example, if k==1 and you have 4 applied stats, you should get 4 SP added into the global pool on levelup.
-			// Players can them manually allocate those 4 SP into each stat evenly, or all into one stat if they wanted to.
-			
-			this.unallocatedSpPool += ((int) Mathf.Round(k * (float) this.NumberOfAppliedStats)) * m;
-		}
-		
-		
-		/// <summary>
-		/// 	Increases SP in all currently applied stats based off frequency of use (useFactor)
-		/// </summary>
-		private void UpgradeStatPointsByUseAllocation()
-		{	
-			float useFactorRatio = RpgDataRegistry.Instance.UseFactorRatio;
-			int useAllocMultiplier = RpgDataRegistry.Instance.UseAssignedMultiplier;
-			
-			foreach(StatData stat in this.appliedStats)
-			{
-				// Calculate a multiplier to impose onto a UseFactor based off a square root function
-				// Where: UseFactor = f, useFactorRatio = r, and factorMultiplier = m :
-				//        m = sqrt(f*r)
-				// Where r is a constant and f is always different
-				// Test this function on Demos online calculator
-				float factorMultiplier = Mathf.Sqrt(useFactorRatio * (float) stat.UseFactor);
-				
-				// Use the factorMultiplier and a developer-defined multiplier to calculate the newly added SP
-				int spIncrease = useAllocMultiplier * (int) Mathf.Round(factorMultiplier);
-				
-				// Increment the stat
-				this.PrivAddSpToStatData(spIncrease, stat);
-			}
-			
-			
-		}
-		
 		
 		
 		

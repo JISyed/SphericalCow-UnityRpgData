@@ -7,10 +7,9 @@ namespace SphericalCow
 	/// <summary>
 	/// 	A Stat Point Deriver for SecondaryStats
 	/// </summary>
-	[System.Serializable]
 	public class SecondarySpDeriver : AbstractSpDeriver 
 	{
-		[System.NonSerialized] private SecondaryStat stat;
+		private SecondaryStat stat;
 		
 		
 		

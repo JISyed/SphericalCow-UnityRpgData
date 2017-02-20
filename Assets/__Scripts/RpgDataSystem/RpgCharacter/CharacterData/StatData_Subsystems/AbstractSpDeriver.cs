@@ -7,11 +7,10 @@ namespace SphericalCow
 	/// <summary>
 	/// 	Represents a collection of linked stats that contribute to the SP of the StatData holding this object
 	/// </summary>
-	[System.Serializable]
 	public abstract class AbstractSpDeriver
 	{
-		[SerializeField] private int derivedSpPool = 0;
-		[SerializeField] private SaveableGuid statId;
+		private int derivedSpPool = 0;
+		private SaveableGuid statId;
 		
 		
 		/// <summary>

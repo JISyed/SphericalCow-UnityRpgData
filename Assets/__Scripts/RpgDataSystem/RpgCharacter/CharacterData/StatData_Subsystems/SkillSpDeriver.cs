@@ -7,10 +7,9 @@ namespace SphericalCow
 	/// <summary>
 	/// 	A Stat Point Deriver for SkillStats
 	/// </summary>
-	[System.Serializable]
 	public class SkillSpDeriver : AbstractSpDeriver 
 	{
-		[System.NonSerialized] private SkillStat stat;
+		private SkillStat stat;
 		
 		
 		/// <summary>

@@ -6,11 +6,10 @@ namespace SphericalCow
 	/// <summary>
 	/// 	Stores a reference to a single Ability for RpgCharacterData
 	/// </summary>
-	[System.Serializable]
 	public class AbilityData 
 	{
-		[SerializeField] private SaveableGuid id;
-		[System.NonSerialized] private Ability ability;
+		private SaveableGuid id;
+		private Ability ability;
 		
 		
 		/// <summary>
@@ -33,18 +32,6 @@ namespace SphericalCow
 			
 			Debug.Assert(this.ability != null, "An AbilityData instance could not be serialized because the definition file was not found! ID: " + abilityPacket.abilityId);
 		}
-		
-		
-		
-		/// <summary>
-		/// 	Find the correct Ability instance given its GUID. Used for deserialzation.
-		/// </summary>
-		//public void LoadAbility()
-		//{
-		//	this.id.LoadInternalData();
-		//	this.ability = RpgDataRegistry.Instance.SearchAbility(this.id.GuidData);
-		//	Debug.Assert(this.ability != null, "AbilityData failed to find the Ability of ID " + this.id.GuidString);
-		//}
 		
 		
 		

@@ -7,17 +7,16 @@ namespace SphericalCow
 	/// <summary>
 	/// 	Data pertaining to any single Stat that includes Stat-Points (SP) for an RpgCharacter
 	/// </summary>
-	[System.Serializable]
 	public class StatData 
 	{
-		[System.NonSerialized] private AbstractStat statReference;
-		[SerializeField] private SaveableGuid statId;
-		[SerializeField] private StatType type;
-		[SerializeField] private int rawSpPool;
-		[SerializeField] private int useFactor;
-		[System.NonSerialized] private AbstractSpDeriver linkedStatsDerivedPool;
-		[System.NonSerialized] private AbilityAggregator abilityModifications;
-		[System.NonSerialized] private List<StatData> characterAppliedStats;
+		private AbstractStat statReference;
+		private SaveableGuid statId;
+		private StatType type;
+		private int rawSpPool;
+		private int useFactor;
+		private AbstractSpDeriver linkedStatsDerivedPool;
+		private AbilityAggregator abilityModifications;
+		private List<StatData> characterAppliedStats;
 		
 		
 		/// <summary>
@@ -107,7 +106,7 @@ namespace SphericalCow
 		
 		/// <summary>
 		/// 	Increases the SP of this stat's individual (raw) pool. This action cannot be undone! 
-		/// 	Do not call directly! Only RpgCharacterData is allowed to call
+		/// 	Do NOT call directly! Only RpgCharacterData is allowed to call
 		/// </summary>
 		/// <param name="spToAdd">SP to add to this stat. Will be made positve if negative</param>
 		public void AddStatPointsToRawPool(int spToAdd)
@@ -145,7 +144,7 @@ namespace SphericalCow
 		
 		
 		/// <summary>
-		/// 	Apply an ability onto this stat
+		/// 	Apply an ability onto this stat. Don't call directly; call from RpgCharacterData
 		/// </summary>
 		public void ApplyOneAbility(AbilityData newAbility)
 		{
@@ -154,7 +153,7 @@ namespace SphericalCow
 		
 		
 		/// <summary>
-		/// 	Remove an ability from this stat
+		/// 	Remove an ability from this stat. Don't call directly; call from RpgCharacterData
 		/// </summary>
 		public void RemoveOneAbility(AbilityData oldAbility)
 		{

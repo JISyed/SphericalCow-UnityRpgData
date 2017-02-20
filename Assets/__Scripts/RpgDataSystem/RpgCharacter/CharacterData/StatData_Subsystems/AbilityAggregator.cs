@@ -8,7 +8,6 @@ namespace SphericalCow
 	/// <summary>
 	/// 	A system that tracks modifications applied from Abilities onto Stats
 	/// </summary>
-	[System.Serializable]
 	public class AbilityAggregator 
 	{
 		/// <summary>
@@ -32,11 +31,11 @@ namespace SphericalCow
 		}
 		
 		
-		[SerializeField] private ModifierLimitType imposedLimit = ModifierLimitType.NoLimit;
-		[SerializeField] private int limitValue = 0;
-		[SerializeField] private SaveableGuid statId;
-		[SerializeField] private List<AbilityModifierData> appliedModifiers = new List<AbilityModifierData>();
-		[SerializeField] private int relativeModificationValue = 0;
+		private ModifierLimitType imposedLimit = ModifierLimitType.NoLimit;
+		private int limitValue = 0;
+		private SaveableGuid statId;
+		private List<AbilityModifierData> appliedModifiers = new List<AbilityModifierData>();
+		private int relativeModificationValue = 0;
 		
 		
 		
